@@ -67,7 +67,7 @@
 /* ---- base ---- */
 * {
   outline: 0 solid transparent;
-  outline-offset: 2px;
+  outline-offset: 0;
   -gtk-icon-style: symbolic;
 }
 
@@ -101,10 +101,11 @@ label.dim-label, .dim-label, .dimmed { color: {{fg_secondary}}; }
 label:disabled, *:disabled { color: {{fg_disabled}}; }
 .caption { font-size: {{font_size_small}}; }
 .heading { font-weight: 600; }
-.title-1 { font-size: 24px; font-weight: 700; }
-.title-2 { font-size: 18px; font-weight: 700; }
-.title-3 { font-size: 15px; font-weight: 600; }
-.title-4 { font-size: 13px; font-weight: 600; }
+.large-title { font-size: {{font_size_large_title}}; font-weight: 700; }
+.title-1 { font-size: {{font_size_title1}}; font-weight: 700; }
+.title-2 { font-size: {{font_size_title2}}; font-weight: 700; }
+.title-3 { font-size: {{font_size_title3}}; font-weight: 600; }
+.title-4 { font-size: {{font_size}}; font-weight: 600; }
 .accent { color: @accent_color; }
 .success { color: @success_color; }
 .warning { color: @warning_color; }
@@ -121,7 +122,7 @@ separator {
   min-height: 1px;
 }
 
-:focus-visible { outline: 2px solid {{focus_ring}}; outline-offset: 1px; }
+:focus-visible { outline: {{focus_ring_width}} solid {{focus_ring}}; outline-offset: 0; }
 
 /* ---- header bar ---- */
 headerbar, .titlebar {
@@ -141,7 +142,7 @@ headerbar .title, headerbar .subtitle, window-title {
   font-weight: 600;
 }
 headerbar .subtitle { font-weight: 400; color: {{fg_secondary}}; font-size: {{font_size_small}}; }
-headerbar box.start, headerbar box.end { margin: 0; }
+headerbar box.start, headerbar box.end { margin: 0; border-spacing: {{spacing_m}}; }
 headerbar > box, headerbar > windowhandle > box { min-height: {{headerbar_height}}; }
 headerbar.flat, toolbarview > .top-bar headerbar.flat { box-shadow: none; }
 toolbarview > .top-bar, toolbarview > .bottom-bar, toolbarview > .top-bar > *, toolbarview > .bottom-bar > * {
@@ -151,14 +152,19 @@ toolbarview > .top-bar, toolbarview > .bottom-bar, toolbarview > .top-bar > *, t
 toolbarview > .top-bar:backdrop, toolbarview > .bottom-bar:backdrop { background-color: @headerbar_backdrop_color; }
 toolbarview > .bottom-bar { box-shadow: inset 0 1px {{separator}}; }
 toolbarview > .top-bar.raised, toolbarview > .bottom-bar.raised { box-shadow: 0 1px {{separator}}; }
-actionbar > revealer > box { background-color: @headerbar_bg_color; box-shadow: inset 0 1px {{separator}}; padding: {{spacing_s}}; border-radius: 0; }
-.toolbar { padding: {{spacing_s}}; }
+actionbar > revealer > box { background-color: @headerbar_bg_color; box-shadow: inset 0 1px {{separator}}; padding: {{spacing_xs}} {{spacing_m}}; border-radius: 0; }
+.toolbar { padding: {{spacing_xs}} {{spacing_m}}; }
+
+/* header bar children are control_height tall and centered: margin = (headerbar - control) / 2 */
+headerbar button, headerbar menubutton, headerbar entry, headerbar searchentry { margin: calc(({{headerbar_height|px}}px - {{control_height|px}}px) / 2) 0; }
+headerbar menubutton > button, headerbar .linked > button, headerbar stackswitcher > button, headerbar splitbutton > button { margin: 0; }
 
 /* ---- traffic lights ---- */
-windowcontrols { margin: 0 {{traffic_margin}}; }
+/* left inset = headerbar padding {{spacing_m}} + half gap {{traffic_gap}}/2 = {{traffic_margin}} */
+windowcontrols { margin: 0; }
 windowcontrols > button, windowcontrols > button.image-button, windowcontrols > button.circular {
-  min-width: {{traffic_size}};
-  min-height: {{traffic_size}};
+  min-width: calc({{traffic_size|px}}px - 2px);
+  min-height: calc({{traffic_size|px}}px - 2px);
   padding: 0;
   margin: calc(({{headerbar_height|px}}px - {{traffic_size|px}}px) / 2) calc({{traffic_gap|px}}px / 2);
   border-radius: 50%;
@@ -170,9 +176,9 @@ windowcontrols > button, windowcontrols > button.image-button, windowcontrols > 
 }
 windowcontrols > button > image {
   opacity: 0;
-  min-width: 8px;
-  min-height: 8px;
-  -gtk-icon-size: 8px;
+  min-width: {{traffic_glyph_size}};
+  min-height: {{traffic_glyph_size}};
+  -gtk-icon-size: {{traffic_glyph_size}};
   color: {{traffic_glyph}};
   transition: opacity {{duration_fast}} {{ease_standard}};
 }
@@ -197,8 +203,8 @@ windowcontrols:backdrop:hover > button > image { opacity: 1; }
 /* ---- buttons ---- */
 button {
   min-height: {{control_height}};
-  min-width: 16px;
-  padding: 0 {{spacing_m}};
+  min-width: {{icon_size}};
+  padding: 0 {{spacing_l}};
   border: none;
   border-radius: {{radius_control}};
   background-color: {{button_bg}};
@@ -211,7 +217,7 @@ button:hover { background-color: {{button_bg_hover}}; }
 button:active, button:checked { background-color: {{button_bg_active}}; }
 button:disabled { color: {{fg_disabled}}; box-shadow: 0 0 0 0.5px {{separator}}; }
 button:backdrop { color: {{fg_backdrop}}; }
-button:focus-visible { outline: 3px solid {{focus_ring}}; outline-offset: 0; }
+button:focus-visible { outline: {{focus_ring_width}} solid {{focus_ring}}; outline-offset: 0; }
 
 button.flat, headerbar button, .toolbar button, actionbar button, button.image-button.flat, button.text-button.flat {
   background-color: transparent;
@@ -238,9 +244,9 @@ button.destructive-action:hover { background-color: {{destructive}}; background-
 button.destructive-action:active { background-image: linear-gradient(rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.14)); }
 button.destructive-action:disabled { background-color: {{button_bg_active}}; color: {{fg_disabled}}; box-shadow: none; }
 
-button.pill { border-radius: {{radius_pill}}; padding: 0 {{spacing_xl}}; min-height: 32px; }
+button.pill { border-radius: {{radius_pill}}; padding: 0 {{spacing_xl}}; min-height: {{control_height_lg}}; }
+button.image-button { min-width: {{icon_size}}; padding: 0 {{spacing_xs}}; }
 button.circular, button.image-button.circular { border-radius: 50%; min-width: {{control_height}}; padding: 0; }
-button.image-button, button.circular { min-width: {{control_height}}; padding: 0 {{spacing_s}}; }
 button.opaque { background-color: {{button_bg}}; }
 button.card { border-radius: {{radius_popover}}; background-color: {{view_bg}}; padding: {{spacing_l}}; }
 button.link, button.link:hover { background: none; box-shadow: none; color: {{accent}}; }
@@ -249,11 +255,11 @@ button.osd { background-color: rgba(0, 0, 0, 0.6); color: #FFFFFF; box-shadow: n
 /* linked groups render as a segmented control */
 .linked:not(.vertical) > button, .linked:not(.vertical) > menubutton > button, .linked:not(.vertical) > dropdown > button {
   border-radius: 0;
-  margin-right: 1px;
+  margin-right: 0;
 }
 .linked:not(.vertical) > button:first-child, .linked:not(.vertical) > menubutton:first-child > button { border-top-left-radius: {{radius_control}}; border-bottom-left-radius: {{radius_control}}; }
 .linked:not(.vertical) > button:last-child, .linked:not(.vertical) > menubutton:last-child > button { border-top-right-radius: {{radius_control}}; border-bottom-right-radius: {{radius_control}}; margin-right: 0; }
-.linked.vertical > button { border-radius: 0; margin-bottom: 1px; }
+.linked.vertical > button { border-radius: 0; margin-bottom: 0; }
 .linked.vertical > button:first-child { border-top-left-radius: {{radius_control}}; border-top-right-radius: {{radius_control}}; }
 .linked.vertical > button:last-child { border-bottom-left-radius: {{radius_control}}; border-bottom-right-radius: {{radius_control}}; margin-bottom: 0; }
 .linked > button:checked { background-color: {{button_bg_active}}; color: {{fg}}; }
@@ -272,25 +278,26 @@ entry, spinbutton, searchbar > revealer > box {
 }
 entry > text, spinbutton > text { min-height: {{control_height}}; background: none; box-shadow: none; padding: 0; }
 entry:focus-within, spinbutton:focus-within {
-  box-shadow: inset 0 0 0 1px {{accent}}, 0 0 0 3px {{focus_ring}};
+  box-shadow: inset 0 0 0 1px {{accent}}, 0 0 0 {{focus_ring_width}} {{focus_ring}};
 }
 entry:disabled, spinbutton:disabled { color: {{fg_disabled}}; background-color: {{separator}}; }
 entry > image, entry > text > placeholder { color: {{fg_secondary}}; }
 entry > text > placeholder { opacity: 0.8; }
 entry.error { box-shadow: inset 0 0 0 1px {{destructive}}; }
 entry.warning { box-shadow: inset 0 0 0 1px {{warning}}; }
-entry progress > trough > progress { background-color: {{accent}}; border-radius: 1px; min-height: 2px; }
+entry progress > trough > progress { background-color: {{accent}}; border-radius: {{spacing_2xs}}; min-height: {{spacing_2xs}}; }
 searchentry { border-radius: {{radius_pill}}; padding: 0 {{spacing_m}}; }
 searchentry > image { color: {{fg_secondary}}; }
-entry > image.left { margin-right: {{spacing_s}}; }
-entry > image.right { margin-left: {{spacing_s}}; }
+entry > image { -gtk-icon-size: {{icon_size}}; }
+entry > image.left { margin-right: {{spacing_xs}}; }
+entry > image.right { margin-left: {{spacing_xs}}; }
 searchbar > revealer > box { border-radius: 0; box-shadow: inset 0 -1px {{separator}}; background-color: @headerbar_bg_color; }
 searchbar entry { background-color: {{flat_hover}}; box-shadow: none; }
 
 spinbutton { padding: 0; }
 spinbutton > text { padding: 0 {{spacing_m}}; }
 spinbutton > button {
-  min-width: 20px; min-height: {{control_height}}; padding: 0;
+  min-width: {{control_height_sm}}; min-height: {{control_height}}; padding: 0;
   background-color: transparent; box-shadow: none; border-radius: 0;
   color: {{fg_secondary}};
 }
@@ -300,9 +307,9 @@ spinbutton > button.up { border-radius: 0 {{radius_control}} {{radius_control}} 
 spinbutton > button.down { border-radius: {{radius_control}} 0 0 {{radius_control}}; }
 
 /* ---- dropdown / combobox / menu button ---- */
-dropdown > button, combobox > box > button, combobox button.combo, menubutton.combo > button { padding: 0 {{spacing_s}} 0 {{spacing_m}}; }
+dropdown > button, combobox > box > button, combobox button.combo, menubutton.combo > button { padding: 0 {{spacing_xs}} 0 {{spacing_m}}; }
 dropdown arrow, combobox arrow, menubutton arrow, button.combo arrow {
-  min-width: 12px; min-height: 12px;
+  min-width: {{spacing_l}}; min-height: {{spacing_l}};
   -gtk-icon-source: url("assets/arrow-down.svg");
   background: none; border: none;
 }
@@ -310,17 +317,17 @@ dropdown popover.background > contents, combobox popover.background > contents {
 dropdown popover listview > row, dropdown popover list > row {
   min-height: {{menu_item_height}};
   padding: 0 {{spacing_m}};
-  margin: 1px 0;
-  border-radius: {{radius_menu_item}};
+  margin: 0;
+  border-radius: {{radius_control}};
 }
 dropdown popover listview > row:hover, dropdown popover listview > row:selected { background-color: {{accent}}; color: {{accent_fg}}; }
 dropdown popover entry, dropdown popover searchentry { margin: {{spacing_xs}}; }
 
 /* ---- check / radio ---- */
 check, radio {
-  min-width: 16px;
-  min-height: 16px;
-  margin: 0 2px;
+  min-width: {{check_size}};
+  min-height: {{check_size}};
+  margin: 0 {{spacing_xs}} 0 0;
   padding: 0;
   border: none;
   background-color: {{button_bg}};
@@ -346,16 +353,16 @@ radio:checked { -gtk-icon-source: url("assets/radio.svg"); }
 radio:indeterminate { -gtk-icon-source: url("assets/dash.svg"); }
 check:disabled, radio:disabled { background-color: {{separator}}; box-shadow: inset 0 0 0 1px {{separator}}; }
 check:checked:disabled, check:indeterminate:disabled, radio:checked:disabled { background-color: {{accent_soft}}; }
-checkbutton, radiobutton { padding: 2px 0; }
-checkbutton:focus-visible > check, checkbutton:focus-visible > radio { outline: 3px solid {{focus_ring}}; outline-offset: 0; }
+checkbutton, radiobutton { padding: {{spacing_xs}} 0; }
+checkbutton:focus-visible > check, checkbutton:focus-visible > radio { outline: {{focus_ring_width}} solid {{focus_ring}}; outline-offset: 0; }
 checkbutton.selection-mode check, .selection-mode check { border-radius: 50%; }
 
 /* ---- switch ---- */
 switch {
-  min-width: calc(2 * {{switch_knob|px}}px + 4px);
+  min-width: {{switch_width}};
   min-height: {{switch_height}};
   padding: 0;
-  margin: 2px 0;
+  margin: calc(({{control_height|px}}px - {{switch_height|px}}px) / 2) 0;
   border: none;
   border-radius: {{radius_pill}};
   background-color: {{switch_off}};
@@ -366,11 +373,12 @@ switch {
 }
 switch:checked { background-color: {{accent}}; box-shadow: none; }
 switch:disabled { opacity: 0.5; }
-switch:focus-visible { outline: 3px solid {{focus_ring}}; outline-offset: 0; }
+switch:focus-visible { outline: {{focus_ring_width}} solid {{focus_ring}}; outline-offset: 0; }
 switch > slider {
   min-width: {{switch_knob}};
   min-height: {{switch_knob}};
-  margin: 1px;
+  /* GTK gives the knob half the switch width: 18 - 2 x 1 = {{switch_knob}} round. Vertical inset is {{switch_inset}}. */
+  margin: {{switch_inset}} calc({{switch_inset|px}}px / 2);
   padding: 0;
   border: none;
   border-radius: {{radius_pill}};
@@ -385,16 +393,18 @@ switch > image { color: transparent; opacity: 0; }
 scale trough, scale.horizontal trough, scale.vertical trough {
   background-color: {{switch_off}};
   border-radius: {{radius_pill}};
-  min-height: 4px;
-  min-width: 4px;
+  min-height: {{slider_track}};
+  min-width: {{slider_track}};
   border: none;
   box-shadow: inset 0 0 0 0.5px {{border}};
 }
-scale highlight { background-color: {{accent}}; border-radius: {{radius_pill}}; border: none; min-height: 4px; min-width: 4px; }
+scale.horizontal { min-height: {{control_height}}; }
+scale.vertical { min-width: {{control_height}}; }
+scale highlight { background-color: {{accent}}; border-radius: {{radius_pill}}; border: none; min-height: {{slider_track}}; min-width: {{slider_track}}; }
 scale slider {
-  min-width: 16px;
-  min-height: 16px;
-  margin: -8px;
+  min-width: {{slider_knob}};
+  min-height: {{slider_knob}};
+  margin: calc(-1 * ({{slider_knob|px}}px - {{slider_track|px}}px) / 2);
   border: none;
   border-radius: 50%;
   background-color: {{switch_knob_color}};
@@ -404,19 +414,19 @@ scale slider {
 }
 scale:hover slider, scale slider:active { box-shadow: 0 1px 4px rgba(0, 0, 0, 0.38), 0 0 0 0.5px rgba(0, 0, 0, 0.18); }
 scale:disabled { opacity: 0.5; }
-scale marks, scale mark indicator { color: {{fg_secondary}}; min-width: 1px; min-height: 4px; background-color: {{separator}}; }
+scale marks, scale mark indicator { color: {{fg_secondary}}; min-width: 1px; min-height: {{slider_track}}; background-color: {{separator}}; }
 scale value { color: {{fg_secondary}}; font-size: {{font_size_small}}; }
-scale slider:focus-visible { outline: 3px solid {{focus_ring}}; outline-offset: 0; }
+scale slider:focus-visible { outline: {{focus_ring_width}} solid {{focus_ring}}; outline-offset: 0; }
 
-progressbar trough { background-color: {{switch_off}}; border-radius: {{radius_pill}}; min-height: 4px; min-width: 4px; border: none; box-shadow: inset 0 0 0 0.5px {{border}}; }
-progressbar progress { background-color: {{accent}}; border-radius: {{radius_pill}}; border: none; min-height: 4px; min-width: 4px; transition: min-width {{duration_normal}} {{ease_standard}}; }
+progressbar trough { background-color: {{switch_off}}; border-radius: {{radius_pill}}; min-height: {{progress_height}}; min-width: {{progress_height}}; border: none; box-shadow: inset 0 0 0 0.5px {{border}}; }
+progressbar progress { background-color: {{accent}}; border-radius: {{radius_pill}}; border: none; min-height: {{progress_height}}; min-width: {{progress_height}}; transition: min-width {{duration_normal}} {{ease_standard}}; }
 progressbar.osd trough { background-color: rgba(255, 255, 255, 0.2); }
 progressbar > text, progressbar > trough > progress ~ text { font-size: {{font_size_small}}; color: {{fg_secondary}}; }
-progressbar.vertical trough { min-width: 4px; }
+progressbar.vertical trough { min-width: {{progress_height}}; }
 progressbar:disabled { opacity: 0.5; }
 
-levelbar trough { background-color: {{switch_off}}; border-radius: {{radius_pill}}; border: none; min-height: 6px; }
-levelbar block { border-radius: {{radius_pill}}; min-height: 6px; min-width: 6px; border: none; }
+levelbar trough { background-color: {{switch_off}}; border-radius: {{radius_pill}}; border: none; min-height: {{progress_height}}; border-spacing: {{spacing_2xs}}; }
+levelbar block { border-radius: {{radius_pill}}; min-height: {{progress_height}}; min-width: {{progress_height}}; border: none; }
 levelbar block.empty { background-color: transparent; }
 levelbar block.low { background-color: {{warning}}; }
 levelbar block.high, levelbar block.full { background-color: {{success}}; }
@@ -427,20 +437,24 @@ levelbar block.filled.high, levelbar block.filled.full { background-color: {{suc
 /* ---- scrollbar (thin overlay) ---- */
 scrollbar { background: none; border: none; transition: background-color {{duration_normal}} {{ease_standard}}; }
 scrollbar slider {
-  min-width: 6px;
-  min-height: 6px;
-  margin: 2px;
+  min-width: {{scrollbar_thumb_hover}};
+  min-height: {{scrollbar_thumb_hover}};
+  margin: {{scrollbar_margin}};
   border: none;
   border-radius: {{radius_pill}};
   background-color: {{scrollbar}};
   transition: min-width {{duration_normal}} {{ease_emphasized}}, min-height {{duration_normal}} {{ease_emphasized}}, background-color {{duration_fast}} {{ease_standard}}, opacity {{duration_normal}} {{ease_standard}};
 }
-scrollbar.vertical slider { min-height: 32px; }
-scrollbar.horizontal slider { min-width: 32px; }
+scrollbar.vertical slider { min-height: {{scrollbar_min_length}}; }
+scrollbar.horizontal slider { min-width: {{scrollbar_min_length}}; }
 scrollbar slider:hover, scrollbar slider:active { background-color: {{fg_secondary}}; }
-scrollbar.overlay-indicator:not(.dragging):not(.hovering) slider { min-width: 3px; min-height: 3px; margin: 2px; }
+scrollbar.overlay-indicator:not(.dragging):not(.hovering) slider { min-width: {{scrollbar_thumb}}; min-height: {{scrollbar_thumb}}; margin: {{scrollbar_margin}}; }
+scrollbar.overlay-indicator.vertical:not(.dragging):not(.hovering) slider { min-height: {{scrollbar_min_length}}; }
+scrollbar.overlay-indicator.horizontal:not(.dragging):not(.hovering) slider { min-width: {{scrollbar_min_length}}; }
 scrollbar.overlay-indicator.hovering, scrollbar.overlay-indicator.dragging { background-color: {{flat_hover}}; border-radius: {{radius_pill}}; }
-scrollbar.overlay-indicator.hovering slider, scrollbar.overlay-indicator.dragging slider { min-width: 8px; min-height: 8px; }
+scrollbar.overlay-indicator.hovering slider, scrollbar.overlay-indicator.dragging slider { min-width: {{scrollbar_thumb_hover}}; min-height: {{scrollbar_thumb_hover}}; }
+scrollbar.overlay-indicator.vertical.hovering slider, scrollbar.overlay-indicator.vertical.dragging slider { min-height: {{scrollbar_min_length}}; }
+scrollbar.overlay-indicator.horizontal.hovering slider, scrollbar.overlay-indicator.horizontal.dragging slider { min-width: {{scrollbar_min_length}}; }
 scrollbar trough { background: none; border: none; }
 scrollbar button { min-width: 0; min-height: 0; padding: 0; opacity: 0; }
 scrolledwindow > undershoot, scrolledwindow > overshoot { background: none; }
@@ -451,24 +465,24 @@ scrolledwindow.frame > viewport, scrolledwindow.frame > listview, scrolledwindow
 notebook > header {
   background-color: {{window_bg}};
   box-shadow: inset 0 -1px {{separator}};
-  padding: {{spacing_xs}} {{spacing_s}};
+  padding: {{spacing_m}};
 }
 notebook > header.bottom { box-shadow: inset 0 1px {{separator}}; }
 notebook > header.left { box-shadow: inset -1px 0 {{separator}}; }
 notebook > header.right { box-shadow: inset 1px 0 {{separator}}; }
 notebook > header > tabs > tab {
-  min-width: 24px;
+  min-width: {{control_height}};
   border: none;
   transition: background-color {{duration_fast}} {{ease_standard}}, color {{duration_fast}} {{ease_standard}};
 }
-notebook > header > tabs > tab > box > button.flat { min-height: 16px; min-width: 16px; padding: 0; border-radius: 50%; }
+notebook > header > tabs > tab > box > button.flat { min-height: {{icon_size}}; min-width: {{icon_size}}; padding: 0; border-radius: 50%; }
 notebook > stack:not(:only-child) { background-color: {{view_bg}}; }
 notebook > header > tabs > arrow { color: {{fg_secondary}}; }
 
-tabbar .box, tabbar > revealer > box { background-color: @headerbar_bg_color; box-shadow: inset 0 -1px {{separator}}; padding: 0 {{spacing_s}}; min-height: {{headerbar_height}}; }
+tabbar .box, tabbar > revealer > box { background-color: @headerbar_bg_color; box-shadow: inset 0 -1px {{separator}}; padding: 0 {{spacing_m}}; min-height: {{headerbar_height}}; }
 tabbar tab, tabbar tabbox > tab {
   min-height: {{control_height}};
-  margin: 7px 1px;
+  margin: calc(({{headerbar_height|px}}px - {{control_height|px}}px) / 2) {{spacing_2xs}};
   padding: 0 {{spacing_m}};
   border-radius: {{radius_control}};
   background-color: transparent;
@@ -478,24 +492,24 @@ tabbar tab, tabbar tabbox > tab {
 }
 tabbar tab:hover { background-color: {{flat_hover}}; }
 tabbar tab:selected { background-color: {{button_bg}}; color: {{fg}}; box-shadow: {{button_shadow}}, 0 0 0 0.5px {{border}}; }
-tabbar tab button.tab-close-button, tabbar tab .tab-close-button { min-height: 16px; min-width: 16px; padding: 0; border-radius: 50%; box-shadow: none; background: none; }
+tabbar tab button.tab-close-button, tabbar tab .tab-close-button { min-height: {{icon_size}}; min-width: {{icon_size}}; padding: 0; border-radius: 50%; box-shadow: none; background: none; }
 tabbar tab indicator { background-color: {{accent}}; }
 
 /* ---- segmented control: stack switcher / view switcher ---- */
 stackswitcher, viewswitcher, headerbar .linked:not(.vertical), notebook > header > tabs {
-  padding: 2px;
+  padding: {{spacing_2xs}};
   border-radius: {{radius_control}};
   background-color: {{flat_hover}};
   box-shadow: none;
 }
-headerbar stackswitcher, headerbar .linked:not(.vertical) { margin: 0 {{spacing_xs}}; }
-stackswitcher.linked:not(.vertical) > button,stackswitcher.linked:not(.vertical) > button:first-child, stackswitcher.linked:not(.vertical) > button:last-child,
+headerbar stackswitcher, headerbar viewswitcher, headerbar .linked:not(.vertical) { margin: calc(({{headerbar_height|px}}px - {{control_height|px}}px) / 2) 0; }
+stackswitcher.linked:not(.vertical) > button, stackswitcher.linked:not(.vertical) > button:first-child, stackswitcher.linked:not(.vertical) > button:last-child,
 headerbar .linked:not(.vertical) > button, headerbar .linked:not(.vertical) > button:first-child, headerbar .linked:not(.vertical) > button:last-child,
 viewswitcher button.toggle, notebook > header > tabs > tab {
-  min-height: calc({{control_height|px}}px - 4px);
+  min-height: {{control_height_sm}};
   padding: 0 {{spacing_l}};
   margin: 0;
-  border-radius: {{radius_menu_item}};
+  border-radius: {{radius_inner}};
   background-color: transparent;
   box-shadow: none;
   color: {{fg}};
@@ -507,7 +521,7 @@ stackswitcher.linked:not(.vertical) > button:checked, headerbar .linked:not(.ver
   box-shadow: {{button_shadow}};
 }
 viewswitcherbar > actionbar > revealer > box, viewswitcherbar actionbar > revealer > box { background-color: @headerbar_bg_color; }
-viewswitchertitle viewswitcher { margin: 7px 0; }
+viewswitchertitle viewswitcher { margin: calc(({{headerbar_height|px}}px - {{control_height|px}}px) / 2) 0; }
 
 /* ---- lists ---- */
 list, listview, columnview, columnview > listview, .view, iconview, textview, textview > text, treeview.view, viewport {
@@ -515,7 +529,7 @@ list, listview, columnview, columnview > listview, .view, iconview, textview, te
   color: {{fg}};
 }
 .view, iconview, textview > text, treeview.view, columnview, listview, list { background-color: {{view_bg}}; }
-list.navigation-sidebar, listview.navigation-sidebar, placessidebar list, .sidebar-pane list, .sidebar-pane listview, .navigation-sidebar { background-color: transparent; padding: {{spacing_xs}} {{spacing_s}}; }
+list.navigation-sidebar, listview.navigation-sidebar, placessidebar list, .sidebar-pane list, .sidebar-pane listview, .navigation-sidebar { background-color: transparent; padding: {{spacing_xs}} 0; }
 list.transparent, list.background, listview.background, row.background, list.rich-list { background-color: transparent; }
 
 row, listview > row, list > row, columnview > listview > row, gridview > child {
@@ -539,14 +553,15 @@ row:selected:backdrop, listview > row:selected:backdrop, list > row:selected:bac
 row:selected:backdrop label, row:selected:backdrop image { color: {{fg}}; }
 row:disabled { color: {{fg_disabled}}; }
 row.activatable:active { background-color: {{flat_active}}; }
-list > row + row, listview > row + row { margin-top: 1px; }
-columnview > listview > row > cell { padding: 0 {{spacing_s}}; }
+columnview > listview > row { padding: 0 {{spacing_xs}}; }
+columnview > listview > row > cell { padding: 0 {{spacing_xs}}; }
 columnview > header > button, columnview > header.top > button, treeview.view header button {
   min-height: {{control_height}};
   border-radius: 0;
-  background-color: {{window_bg}};
+  background-color: {{view_bg}};
   box-shadow: inset 0 -1px {{separator}}, inset -1px 0 {{separator}};
   color: {{fg_secondary}};
+  font-size: {{font_size_small}};
   font-weight: 600;
   padding: 0 {{spacing_m}};
 }
@@ -558,15 +573,15 @@ list.boxed-list, list.content, .boxed-list {
   box-shadow: inset 0 0 0 1px {{border}};
   padding: {{spacing_xs}};
 }
-list.boxed-list > row, list.content > row { border-radius: {{radius_control}}; margin: 0; padding: 0 {{spacing_l}}; min-height: 32px; }
-list.boxed-list > row + row, list.content > row + row { margin-top: 1px; }
+list.boxed-list > row, list.content > row { border-radius: {{radius_control}}; margin: 0; padding: 0 {{spacing_l}}; min-height: {{rich_row_height}}; }
 list.navigation-sidebar > row, listview.navigation-sidebar > row, .sidebar-pane list > row, placessidebar row {
-  margin: 1px 0;
+  margin: 0 {{spacing_m}};
   padding: 0 {{spacing_m}};
   border-radius: {{radius_control}};
-  min-height: {{row_height}};
+  min-height: {{sidebar_row_height}};
 }
-placessidebar row.sidebar-row { min-height: {{row_height}}; }
+placessidebar row.sidebar-row { min-height: {{sidebar_row_height}}; }
+list.navigation-sidebar > row image, .sidebar-pane list > row image, placessidebar row image { margin-right: {{spacing_m}}; -gtk-icon-size: {{icon_size}}; }
 placessidebar row.sidebar-row.sidebar-new-bookmark-row { color: {{accent}}; }
 .navigation-sidebar > row:selected, .navigation-sidebar > row:selected:focus { background-color: {{selection_bg}}; color: {{selection_fg}}; }
 
@@ -581,10 +596,10 @@ placessidebar row.sidebar-row.sidebar-new-bookmark-row { color: {{accent}}; }
 .content-pane { background-color: {{view_bg}}; }
 .sidebar-pane + separator, .sidebar + separator, navigation-split-view > separator, overlay-split-view > separator, paned > separator { background-color: {{separator}}; min-width: 1px; min-height: 1px; }
 paned > separator { background-image: none; }
-paned > separator.wide { min-width: 6px; min-height: 6px; background-color: transparent; }
+paned > separator.wide { min-width: {{spacing_xs}}; min-height: {{spacing_xs}}; background-color: transparent; }
 .sidebar-pane .title-4, .sidebar-pane .heading { color: {{fg_secondary}}; font-size: {{font_size_small}}; }
 stacksidebar list { background-color: {{sidebar_bg}}; }
-stacksidebar row { margin: 1px 6px; }
+stacksidebar row { margin: 0 {{spacing_m}}; min-height: {{sidebar_row_height}}; }
 
 /* ---- popovers / menus ---- */
 popover { background: none; border: none; box-shadow: none; }
@@ -597,15 +612,15 @@ popover > contents, popover.background > contents {
   box-shadow: {{popover_shadow}};
   animation: slate-popover-in {{duration_fast}} {{ease_emphasized}} both;
 }
-popover > arrow { background-color: {{popover_bg}}; border: none; box-shadow: none; min-width: 10px; min-height: 10px; }
+popover > arrow { background-color: {{popover_bg}}; border: none; box-shadow: none; min-width: {{spacing_l}}; min-height: {{spacing_l}}; }
 popover.menu > contents { padding: {{spacing_xs}}; }
-popover.menu box.inline-buttons button.image-button.model { min-width: 28px; min-height: 28px; padding: 0; }
+popover.menu box.inline-buttons button.image-button.model { min-width: {{control_height}}; min-height: {{control_height}}; padding: 0; }
 popover modelbutton, popover.menu modelbutton, popover button.model {
   min-height: {{menu_item_height}};
-  min-width: 40px;
+  min-width: 80px;
   padding: 0 {{spacing_m}};
   margin: 0;
-  border-radius: {{radius_menu_item}};
+  border-radius: {{radius_control}};
   background-color: transparent;
   box-shadow: none;
   color: {{fg}};
@@ -633,7 +648,7 @@ popover.touch-selection, popover.magnifier { background: none; }
 }
 
 menubar { background-color: @headerbar_bg_color; }
-menubar > item { padding: 0 {{spacing_m}}; border-radius: {{radius_menu_item}}; min-height: {{control_height}}; }
+menubar > item { padding: 0 {{spacing_m}}; border-radius: {{radius_control}}; min-height: {{control_height}}; }
 menubar > item:hover { background-color: {{flat_hover}}; }
 
 tooltip, tooltip.background {
@@ -643,7 +658,7 @@ tooltip, tooltip.background {
   box-shadow: {{popover_shadow}};
   border: none;
 }
-tooltip > box { padding: {{spacing_xs}} {{spacing_m}}; }
+tooltip > box { padding: {{spacing_xs}} {{spacing_m}}; min-height: {{icon_size}}; }
 tooltip label { font-size: {{font_size_small}}; color: {{tooltip_fg}}; }
 
 /* ---- dialogs / alert dialogs ---- */
@@ -652,12 +667,12 @@ window.dialog, window.messagedialog, window.alert, window.dialog.message, dialog
   color: @dialog_fg_color;
   border-radius: {{radius_window}};
 }
-window.dialog.message .dialog-action-area, window.messagedialog .dialog-action-area { padding: {{spacing_l}}; }
+window.dialog.message .dialog-action-area, window.messagedialog .dialog-action-area { padding: {{spacing_xl}}; border-spacing: {{spacing_m}}; }
 window.dialog .dialog-action-area button, window.messagedialog .dialog-action-area button { min-height: {{control_height}}; }
 window.messagedialog .titlebar, window.dialog.message .titlebar, window.alert .titlebar { box-shadow: none; background-color: transparent; min-height: 0; }
-window.messagedialog .message-area > .title, window.alert .message-area .title, .alert .heading { font-weight: 700; font-size: 15px; }
+window.messagedialog .message-area > .title, window.alert .message-area .title, .alert .heading { font-weight: 700; font-size: {{font_size_title3}}; }
 window.alert .response-area > button, window.alert .response-area button, dialog.alert .response-area button { min-height: {{control_height}}; border-radius: {{radius_control}}; margin: 0; }
-window.alert .response-area, dialog.alert .response-area { padding: {{spacing_l}}; }
+window.alert .response-area, dialog.alert .response-area { padding: {{spacing_xl}}; border-spacing: {{spacing_m}}; }
 dialog-host > dialog.floating sheet, dialog-host > dialog.bottom-sheet sheet { box-shadow: {{popover_shadow}}; }
 dialog-host > dialog > dimming, dialog-host > dialog > scrim { background-color: rgba(0, 0, 0, 0.32); }
 window.aboutdialog image.large-icons { -gtk-icon-size: 64px; }
@@ -665,7 +680,8 @@ window.aboutdialog image.large-icons { -gtk-icon-size: 64px; }
 /* ---- toast / banner / infobar ---- */
 toast {
   margin: {{spacing_l}};
-  padding: {{spacing_xs}} {{spacing_xs}} {{spacing_xs}} {{spacing_l}};
+  padding: 0 {{spacing_xs}} 0 {{spacing_l}};
+  min-height: {{control_height_lg}};
   border-radius: {{radius_pill}};
   background-color: rgba(30, 30, 31, 0.92);
   color: #FFFFFF;
@@ -675,10 +691,10 @@ toast {
 toast button { color: #FFFFFF; background-color: transparent; box-shadow: none; }
 toast button:hover { background-color: rgba(255, 255, 255, 0.14); }
 toast label { color: #FFFFFF; }
-banner > revealer > widget, banner > revealer > box { background-color: {{accent}}; color: {{accent_fg}}; min-height: 32px; }
+banner > revealer > widget, banner > revealer > box { background-color: {{accent}}; color: {{accent_fg}}; min-height: {{control_height_lg}}; }
 banner button { background-color: rgba(255, 255, 255, 0.2); color: {{accent_fg}}; box-shadow: none; }
 banner button:hover { background-color: rgba(255, 255, 255, 0.3); }
-infobar > revealer > box { background-color: {{accent_soft}}; border-radius: 0; padding: {{spacing_s}} {{spacing_l}}; }
+infobar > revealer > box { background-color: {{accent_soft}}; border-radius: 0; padding: {{spacing_m}} {{spacing_l}}; }
 infobar.warning > revealer > box { background-color: {{warning}}; color: #FFFFFF; }
 infobar.error > revealer > box { background-color: {{destructive}}; color: #FFFFFF; }
 
@@ -687,33 +703,34 @@ row.activatable:hover, row.expander > box > list > row.activatable:hover { backg
 row.property > box.header .title, row.property > box.header .subtitle { color: inherit; }
 row .title, row.property > box.header > box.title > .title { font-weight: 500; }
 row .subtitle, row .subtitle label, row > box.header > box.title > .subtitle { color: {{fg_secondary}}; font-size: {{font_size_small}}; }
-row > box.header { min-height: 36px; padding: 0; }
+row > box.header { min-height: {{rich_row_height}}; padding: 0; }
 row.expander > box > list { background-color: transparent; box-shadow: none; border-radius: 0; }
 row.expander > box > list > row { border-radius: 0; box-shadow: inset 0 1px {{separator}}; }
 row.expander image.expander-row-arrow { color: {{fg_secondary}}; -gtk-icon-source: -gtk-icontheme("pan-down-symbolic"); }
 row.expander:checked image.expander-row-arrow { color: {{fg}}; }
-row.entry { padding: 0 {{spacing_l}}; min-height: 36px; }
+row.entry { padding: 0 {{spacing_l}}; min-height: {{rich_row_height}}; }
 row.entry text, row.entry > box > box > text { background: none; box-shadow: none; }
 row.entry entry, row.entry text { box-shadow: none; background: none; }
 row.entry:focus-within { box-shadow: inset 0 0 0 1px {{accent}}; background-color: {{accent_soft}}; }
 row.entry .edit-icon { color: {{fg_secondary}}; }
-row.combo > box.header, row.switch > box.header { min-height: 36px; }
+row.combo > box.header, row.switch > box.header { min-height: {{rich_row_height}}; }
 row.combo popover.background > contents > scrolledwindow > listview > row:selected, row.combo popover listview > row:selected { background-color: {{accent}}; color: {{accent_fg}}; }
 preferencespage > scrolledwindow > viewport > clamp > box { padding: {{spacing_xl}}; }
 preferencesgroup > box > box.header > box > label.title { font-weight: 600; font-size: {{font_size_small}}; color: {{fg_secondary}}; }
 preferencesgroup > box > box.header > box > label.description { color: {{fg_secondary}}; font-size: {{font_size_small}}; }
-statuspage > scrolledwindow > viewport > box > clamp > box > .title { font-size: 20px; font-weight: 700; }
+statuspage > scrolledwindow > viewport > box > clamp > box > .title { font-size: {{font_size_title1}}; font-weight: 700; }
 statuspage .icon { color: {{fg_disabled}}; }
 .card { background-color: {{view_bg}}; color: {{fg}}; border-radius: {{radius_popover}}; box-shadow: inset 0 0 0 1px {{border}}; }
 .card.activatable:hover { background-color: {{button_bg_hover}}; }
 .osd { background-color: rgba(30, 30, 31, 0.85); color: #FFFFFF; border-radius: {{radius_popover}}; }
 
 /* ---- misc ---- */
-expander > title > arrow { color: {{fg_secondary}}; min-width: 16px; min-height: 16px; -gtk-icon-source: -gtk-icontheme("pan-end-symbolic"); }
+expander > title > arrow { color: {{fg_secondary}}; min-width: {{icon_size}}; min-height: {{icon_size}}; -gtk-icon-source: -gtk-icontheme("pan-end-symbolic"); }
 expander > title > arrow:checked { -gtk-icon-source: -gtk-icontheme("pan-down-symbolic"); }
 spinner { color: {{fg_secondary}}; }
 treeview.view { border-radius: 0; }
 treeview.view:selected:focus, treeview.view:selected { background-color: {{selection_bg}}; color: {{selection_fg}}; }
-calendar { padding: {{spacing_s}}; color: {{fg}}; }
-calendar:selected { background-color: {{accent}}; color: {{accent_fg}}; border-radius: {{radius_control}}; }
+calendar { padding: {{spacing_xs}}; color: {{fg}}; }
+calendar > grid > label.day-number { min-width: {{control_height}}; min-height: {{control_height}}; }
+calendar:selected, calendar > grid > label.day-number:selected { background-color: {{accent}}; color: {{accent_fg}}; border-radius: {{radius_control}}; }
 colorswatch, colorswatch overlay { border-radius: {{radius_control}}; }
