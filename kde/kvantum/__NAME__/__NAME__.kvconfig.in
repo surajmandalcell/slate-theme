@@ -64,10 +64,10 @@ window.color={{window_bg}}
 base.color={{view_bg}}
 alt.base.color={{sidebar_bg}}
 button.color={{button_bg}}
-light.color={{button_bg_hover}}
+light.color=#00000000
 mid.light.color={{button_bg}}
 dark.color={{border_hex}}
-mid.color={{separator_hex}}
+mid.color=#00000000
 highlight.color={{selection_bg}}
 inactive.highlight.color={{selection_bg_backdrop}}
 inactive.highlight.text.color={{fg}}
@@ -209,6 +209,12 @@ indicator.size=9
 
 [ToolboxTab]
 inherits=PanelButtonCommand
+text.normal.color={{fg}}
+text.focus.color={{fg}}
+text.press.color={{fg}}
+text.toggle.color={{fg}}
+text.bold=true
+text.margin.left=2
 
 [Tab]
 inherits=PanelButtonCommand
