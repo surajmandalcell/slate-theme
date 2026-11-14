@@ -17,10 +17,10 @@ BorderBottomMaximized=0
 BorderTopMaximized={{headerbar_height|px}}
 
 # Shadow area drawn by decoration.svg (see the comment there). Left/right/top/bottom.
-PaddingLeft=32
-PaddingRight=32
+PaddingLeft=36
+PaddingRight=36
 PaddingTop=24
-PaddingBottom=40
+PaddingBottom=48
 
 TitleHeight={{headerbar_height|px}}
 TitleEdgeTop=0
