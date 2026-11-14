@@ -154,7 +154,7 @@ headerbar, .titlebar {
   padding: 0 {{spacing_s}};
   border: none;
   border-width: 0;
-  box-shadow: inset 0 1px {{window_highlight}};
+  box-shadow: inset 0 1px {{window_highlight}}, inset 0 -1px {{separator}};
   border-radius: {{radius_window}} {{radius_window}} 0 0;
   transition: all {{duration_normal}} {{ease_emphasized}};
 }
@@ -256,16 +256,39 @@ headerbar button:backdrop { color: {{fg_backdrop}}; }
 .linked:not(.vertical) > entry:not(:last-child) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
 .linked:not(.vertical) > entry:not(:first-child) { border-top-left-radius: 0; border-bottom-left-radius: 0; }
 .linked > button:checked, .linked > button:active { background-color: {{button_bg_active}}; }
-/* segmented controls in toolbars keep the raised look */
-headerbar .linked > button, toolbar .linked > button, .inline-toolbar .linked > button {
-  background-color: {{button_bg}};
-  box-shadow: {{button_shadow}}, 0 0 0 0.5px {{border}};
+/* segmented control: stack switcher, headerbar linked toggles, notebook tabs (same as GTK4) */
+stackswitcher, stackswitcher.linked, headerbar .linked:not(.vertical), notebook > header > tabs {
+  padding: 2px;
+  border-radius: {{radius_control}};
+  background-color: {{flat_hover}};
+  box-shadow: none;
 }
-headerbar .linked > button:hover, toolbar .linked > button:hover { background-color: {{button_bg_hover}}; }
-headerbar .linked > button:checked, headerbar .linked > button:active,
-toolbar .linked > button:checked, toolbar .linked > button:active {
-  background-color: {{button_bg_active}};
-  box-shadow: 0 0 0 0.5px {{border}};
+headerbar stackswitcher, headerbar .linked:not(.vertical) { margin: 0 {{spacing_xs}}; }
+stackswitcher.linked:not(.vertical) > button, stackswitcher.linked:not(.vertical) > button:first-child,
+stackswitcher.linked:not(.vertical) > button:last-child, stackswitcher.linked:not(.vertical) > button:not(:first-child):not(:last-child),
+stackswitcher.linked:not(.vertical) > button:first-child:not(:last-child), stackswitcher.linked:not(.vertical) > button:last-child:not(:first-child),
+headerbar .linked:not(.vertical) > button, headerbar .linked:not(.vertical) > button:first-child,
+headerbar .linked:not(.vertical) > button:last-child, headerbar .linked:not(.vertical) > button:not(:first-child):not(:last-child),
+headerbar .linked:not(.vertical) > button:first-child:not(:last-child), headerbar .linked:not(.vertical) > button:last-child:not(:first-child),
+notebook > header > tabs > tab {
+  min-height: 20px; /* control_height minus the 2px track padding; GTK3 has no calc() */
+  padding: 0 {{spacing_l}};
+  margin: 0;
+  border: none;
+  border-radius: {{radius_menu_item}};
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+  color: {{fg}};
+}
+stackswitcher.linked:not(.vertical) > button:hover, headerbar .linked:not(.vertical) > button:hover,
+notebook > header > tabs > tab:hover { background-color: {{flat_hover}}; }
+stackswitcher.linked:not(.vertical) > button:checked, stackswitcher.linked:not(.vertical) > button:active,
+headerbar .linked:not(.vertical) > button:checked, headerbar .linked:not(.vertical) > button:active,
+notebook > header > tabs > tab:checked {
+  background-color: {{button_bg}};
+  color: {{fg}};
+  box-shadow: {{button_shadow}};
 }
 
 /* suggested / destructive */
@@ -651,31 +674,11 @@ notebook > header {
 }
 notebook > header.top, notebook > header.bottom { padding: {{spacing_s}} {{spacing_m}}; }
 notebook > header > tabs { margin: 0; }
-notebook > header > tabs > tab {
-  min-height: {{control_height}};
-  min-width: 24px;
-  padding: 0 {{spacing_l}};
-  margin: 0 1px;
-  border: none;
-  border-radius: {{radius_control}};
-  background-color: transparent;
-  color: {{fg_secondary}};
-  box-shadow: none;
-  outline-style: none;
-  transition: all {{duration_fast}} {{ease_standard}};
-}
-notebook > header > tabs > tab:hover { background-color: {{flat_hover}}; color: {{fg}}; }
-notebook > header > tabs > tab:checked {
-  background-color: {{button_bg}};
-  color: {{fg}};
-  box-shadow: {{button_shadow}}, 0 0 0 0.5px {{border}};
-}
+notebook > header > tabs > tab { min-width: 24px; outline-style: none; transition: all {{duration_fast}} {{ease_standard}}; }
 notebook > header > tabs > tab:checked:backdrop { color: {{fg_backdrop}}; }
 notebook > header > tabs > tab:disabled { color: {{fg_disabled}}; }
 notebook > header > tabs > tab button.flat { min-width: 16px; min-height: 16px; padding: 0; margin-left: {{spacing_xs}}; border-radius: 50%; }
 notebook > header > tabs > tab label { padding: 0; }
-notebook > header.top > tabs > tab, notebook > header.bottom > tabs > tab { margin: 0 1px; }
-notebook > header.left > tabs > tab, notebook > header.right > tabs > tab { margin: 1px 0; }
 notebook > stack:not(:only-child) { background-color: {{view_bg}}; border-radius: {{radius_control}}; box-shadow: inset 0 0 0 0.5px {{border}}; }
 notebook.frame { border: none; }
 notebook > header > tabs > arrow { color: {{fg_secondary}}; min-width: 16px; }
@@ -733,10 +736,13 @@ treeview.sidebar, treeview.view.sidebar { background-color: {{sidebar_bg}}; }
 
 list, listbox, .list { background-color: {{view_bg}}; color: {{fg}}; border: none; }
 list.frame, listbox.frame { border-radius: {{radius_control}}; box-shadow: inset 0 0 0 0.5px {{border}}; }
+list, listbox { padding: {{spacing_xs}}; }
 row {
   min-height: {{row_height}};
   padding: 0 {{spacing_m}};
+  margin: 0;
   border: none;
+  border-radius: {{radius_control}};
   background-color: transparent;
   color: inherit;
   transition: all {{duration_fast}} {{ease_standard}};
@@ -755,10 +761,7 @@ row.activatable:active { background-color: {{flat_active}}; }
 list.separators row:not(:last-child), listbox.separators row:not(:last-child) { box-shadow: inset 0 -1px {{separator}}; }
 list.rich-list > row, listbox.rich-list > row { min-height: 32px; padding: {{spacing_xs}} {{spacing_m}}; }
 list.boxed-list { border-radius: {{radius_popover}}; box-shadow: inset 0 0 0 0.5px {{border}}; }
-list.boxed-list > row:first-child { border-radius: {{radius_popover}} {{radius_popover}} 0 0; }
-list.boxed-list > row:last-child { border-radius: 0 0 {{radius_popover}} {{radius_popover}}; }
-list.boxed-list > row:only-child { border-radius: {{radius_popover}}; }
-list.boxed-list > row:not(:last-child) { box-shadow: inset 0 -1px {{separator}}; }
+row + row { margin-top: 1px; }
 row.expander, row.expander:selected { padding: 0; }
 list.sidebar, listbox.sidebar { background-color: {{sidebar_bg}}; }
 
@@ -1040,11 +1043,6 @@ scrolledwindow.frame > viewport { background: none; }
 
 /* ---- misc widgets ---- */
 stack { background: none; }
-stackswitcher button { padding: 0 {{spacing_l}}; }
-stackswitcher.linked > button:checked { background-color: {{button_bg}}; box-shadow: {{button_shadow}}, 0 0 0 0.5px {{border}}; color: {{fg}}; }
-stackswitcher.linked { background-color: {{flat_hover}}; border-radius: {{radius_control}}; padding: 2px; }
-stackswitcher.linked > button { background-color: transparent; box-shadow: none; border-radius: {{radius_control}}; min-height: 20px; }
-stackswitcher.linked > button:hover:not(:checked) { background-color: {{flat_hover}}; }
 viewport, flowbox, flowboxchild { background: none; }
 flowboxchild { padding: {{spacing_xs}}; border-radius: {{radius_control}}; }
 flowboxchild:selected { background-color: {{selection_bg}}; color: {{selection_fg}}; }

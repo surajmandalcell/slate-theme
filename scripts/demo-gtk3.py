@@ -62,19 +62,31 @@ def controls():
 
 
 def main():
-    win = Gtk.Window(default_width=1280, default_height=800)
+    win = Gtk.Window(default_width=900, default_height=620)
     win.move(0, 0)
     header = Gtk.HeaderBar(title="Slate", subtitle="GTK3 demo", show_close_button=True)
     header.pack_start(Gtk.Button.new_from_icon_name("go-previous-symbolic", Gtk.IconSize.BUTTON))
+    seg = Gtk.Box()
+    seg.get_style_context().add_class("linked")
+    first = Gtk.ToggleButton(label="Grid", active=True)
+    second = Gtk.ToggleButton(label="List")
+    seg.pack_start(first, False, False, 0)
+    seg.pack_start(second, False, False, 0)
+    header.pack_start(seg)
     header.pack_end(Gtk.Button.new_from_icon_name("open-menu-symbolic", Gtk.IconSize.BUTTON))
     win.set_titlebar(header)
 
     paned = Gtk.Box()
-    sidebar = Gtk.StackSidebar()
-    stack = Gtk.Stack()
-    for name in ("Library", "Recent", "Starred"):
-        stack.add_titled(Gtk.Label(label=name), name.lower(), name)
-    sidebar.set_stack(stack)
+    sidebar = Gtk.ListBox()
+    sidebar.get_style_context().add_class("sidebar")
+    for name in ("Library", "Recent", "Starred", "Documents", "Downloads", "Trash"):
+        row = Gtk.ListBoxRow()
+        box = Gtk.Box(spacing=8)
+        box.pack_start(Gtk.Image.new_from_icon_name("folder-symbolic", Gtk.IconSize.MENU), False, False, 0)
+        box.pack_start(Gtk.Label(label=name, xalign=0), True, True, 0)
+        row.add(box)
+        sidebar.add(row)
+    sidebar.select_row(sidebar.get_row_at_index(1))
     sidebar.set_size_request(180, -1)
     paned.pack_start(sidebar, False, False, 0)
     paned.pack_start(Gtk.Separator(orientation=Gtk.Orientation.VERTICAL), False, False, 0)
