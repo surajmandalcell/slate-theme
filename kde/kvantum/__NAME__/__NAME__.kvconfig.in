@@ -7,10 +7,10 @@ left_tabs=false
 attach_active_tab=false
 mirror_doc_tabs=true
 group_toolbar_buttons=false
-toolbar_item_spacing=2
-toolbar_interior_spacing=2
+toolbar_item_spacing={{spacing_xs|px}}
+toolbar_interior_spacing={{spacing_xs|px}}
 spread_progressbar=true
-progressbar_thickness=5
+progressbar_thickness={{progress_height|px}}
 textless_progressbar=false
 composite=true
 translucent_windows=false
@@ -24,9 +24,10 @@ spread_menuitems=true
 submenu_overlap=0
 submenu_delay=250
 tooltip_delay=500
-splitter_width=7
-scroll_width=8
-scroll_min_extent=36
+splitter_width={{spacing_xs|px}}
+; scroll_width = scrollbar_thumb_hover 8 + 2 x scrollbar_margin 2 (no arithmetic in templates)
+scroll_width=12
+scroll_min_extent={{scrollbar_min_length|px}}
 scroll_arrows=false
 transient_scrollbar=true
 transient_groove=true
@@ -35,16 +36,16 @@ combo_menu=true
 combo_focus_rect=false
 inline_spin_indicators=true
 vertical_spin_indicators=false
-slider_width=4
-slider_handle_width=16
-slider_handle_length=16
-check_size=14
-small_icon_size=16
-large_icon_size=32
-button_icon_size=16
-toolbar_icon_size=16
-layout_spacing=6
-layout_margin=8
+slider_width={{slider_track|px}}
+slider_handle_width={{slider_knob|px}}
+slider_handle_length={{slider_knob|px}}
+check_size={{check_size|px}}
+small_icon_size={{icon_size|px}}
+large_icon_size={{icon_size_large|px}}
+button_icon_size={{icon_size|px}}
+toolbar_icon_size={{icon_size|px}}
+layout_spacing={{spacing_m|px}}
+layout_margin={{spacing_l|px}}
 button_contents_shift=false
 tree_branch_line=false
 respect_DE=true
@@ -56,7 +57,8 @@ scrollable_menu=true
 dialog_button_layout=0
 click_behavior=0
 iconless_menu=false
-menu_separator_height=5
+; Kvantum adds 5 px to this value: total separator 9 = 1 + 4 + 4
+menu_separator_height=4
 center_doc_tabs=true
 
 [GeneralColors]
@@ -101,39 +103,44 @@ no_selection_tint=true
 tint_on_mouseover=0
 disabled_icon_opacity=70
 centered_forms=false
-lxqtmainmenu_iconsize=16
+lxqtmainmenu_iconsize={{icon_size|px}}
 
+; Padding = frame + text.margin. Text button: frame 6 + margin 6 = 12 (spacing_l).
 [PanelButtonCommand]
 frame=true
 frame.element=button
-frame.top={{radius_control|px}}
-frame.bottom=7
+frame.top={{spacing_2xs|px}}
+frame.bottom={{spacing_2xs|px}}
 frame.left={{radius_control|px}}
 frame.right={{radius_control|px}}
+frame.expansion=12
 interior=true
 interior.element=button
-indicator.size=9
+indicator.size=12
 indicator.element=arrow
 text.normal.color={{fg}}
 text.focus.color={{fg}}
 text.press.color={{fg}}
 text.toggle.color={{fg}}
 text.shadow=0
-text.margin=1
-text.iconspacing=4
-text.margin.top=2
-text.margin.bottom=2
+text.margin=0
+text.iconspacing={{spacing_xs|px}}
 text.margin.left=6
 text.margin.right=6
 min_height={{control_height|px}}
 
+; Icon button 24 x 24: frame 4 + icon 16 + frame 4. Corners stay 6 through frame.expansion (expand-tbutton-normal marker).
 [PanelButtonTool]
 inherits=PanelButtonCommand
 interior.element=tbutton
 frame.element=tbutton
-frame.bottom={{radius_control|px}}
-text.margin.left=3
-text.margin.right=3
+frame.top={{spacing_xs|px}}
+frame.bottom={{spacing_xs|px}}
+frame.left={{spacing_xs|px}}
+frame.right={{spacing_xs|px}}
+frame.expansion=12
+text.margin.left=0
+text.margin.right=0
 min_height=0
 
 [Dock]
@@ -142,7 +149,9 @@ frame=true
 interior=true
 frame.element=dock
 interior.element=dock
+frame.top={{radius_control|px}}
 frame.bottom={{radius_control|px}}
+frame.expansion=0
 min_height=0
 
 [DockTitle]
@@ -158,7 +167,7 @@ inherits=PanelButtonCommand
 frame=false
 interior=false
 indicator.element=arrow
-indicator.size=9
+indicator.size=12
 text.margin.left=0
 text.margin.right=0
 min_height=0
@@ -168,14 +177,16 @@ inherits=PanelButtonCommand
 frame=false
 interior.element=radio
 text.margin=0
-min_height=0
+text.margin.left={{spacing_xs|px}}
+min_height={{control_height|px}}
 
 [CheckBox]
 inherits=PanelButtonCommand
 frame=false
 interior.element=checkbox
 text.margin=0
-min_height=0
+text.margin.left={{spacing_xs|px}}
+min_height={{control_height|px}}
 
 [GenericFrame]
 inherits=PanelButtonCommand
@@ -183,17 +194,16 @@ frame=true
 interior=false
 frame.element=common
 interior.element=common
-frame.top=4
-frame.bottom=4
-frame.left=4
-frame.right=4
+frame.top={{radius_control|px}}
+frame.bottom={{radius_control|px}}
+frame.expansion=0
 min_height=0
 
+; Entry padding 8 = frame 6 + margin 2.
 [LineEdit]
 inherits=PanelButtonCommand
 frame.element=lineedit
 interior.element=lineedit
-frame.bottom={{radius_control|px}}
 text.margin.left=2
 text.margin.right=2
 text.press.color={{fg}}
@@ -205,7 +215,7 @@ indicator.element=arrow
 
 [IndicatorArrow]
 indicator.element=arrow
-indicator.size=9
+indicator.size=12
 
 [ToolboxTab]
 inherits=PanelButtonCommand
@@ -216,19 +226,22 @@ text.toggle.color={{fg}}
 text.bold=true
 text.margin.left=2
 
+; Segment 20 high, radius_inner 4, padding 12 = frame 4 + margin 8, inside a 2 px track (TabBarFrame).
 [Tab]
 inherits=PanelButtonCommand
 interior.element=tab
 frame.element=tab
 indicator.element=tab
-frame.bottom={{radius_control|px}}
-text.margin.left=10
-text.margin.right=10
-text.margin.top=2
-text.margin.bottom=2
+frame.top={{spacing_2xs|px}}
+frame.bottom={{spacing_2xs|px}}
+frame.left={{radius_inner|px}}
+frame.right={{radius_inner|px}}
+frame.expansion=8
+text.margin.left=8
+text.margin.right=8
 text.press.color={{accent_fg}}
 text.toggle.color={{accent_fg}}
-min_height={{control_height|px}}
+min_height={{control_height_sm|px}}
 
 [TabFrame]
 inherits=PanelButtonCommand
@@ -236,13 +249,22 @@ frame=true
 interior=true
 frame.element=tabframe
 interior.element=tabframe
+frame.top={{radius_control|px}}
 frame.bottom={{radius_control|px}}
+frame.expansion=0
 min_height=0
 
 [TabBarFrame]
 inherits=GenericFrame
-frame=false
-interior=false
+frame=true
+interior=true
+frame.element=tabbar
+interior.element=tabbar
+frame.top={{spacing_2xs|px}}
+frame.bottom={{spacing_2xs|px}}
+frame.left={{spacing_2xs|px}}
+frame.right={{spacing_2xs|px}}
+frame.expansion=12
 text.shadow=0
 
 [TreeExpander]
@@ -257,11 +279,11 @@ inherits=PanelButtonCommand
 frame=false
 interior=true
 interior.element=header
-text.margin.top=2
-text.margin.bottom=2
-text.margin.left=6
-text.margin.right=6
-min_height=0
+text.margin.top=0
+text.margin.bottom=0
+text.margin.left={{spacing_m|px}}
+text.margin.right={{spacing_m|px}}
+min_height={{row_height|px}}
 
 [SizeGrip]
 inherits=PanelButtonCommand
@@ -282,14 +304,16 @@ indicator.size=5
 text.margin=0
 min_height=0
 
+; Track 4 = frame 2 + 2.
 [Slider]
 inherits=PanelButtonCommand
 frame.element=slider
 interior.element=slider
-frame.top=3
-frame.bottom=3
-frame.left=3
-frame.right=3
+frame.top=2
+frame.bottom=2
+frame.left=2
+frame.right=2
+frame.expansion=0
 min_height=0
 
 [SliderCursor]
@@ -298,6 +322,7 @@ frame=false
 interior.element=slidercursor
 min_height=0
 
+; Bar 6 = frame 3 + 3.
 [Progressbar]
 inherits=PanelButtonCommand
 frame.element=progress
@@ -306,6 +331,7 @@ frame.top=3
 frame.bottom=3
 frame.left=3
 frame.right=3
+frame.expansion=0
 text.margin=0
 text.focus.color={{fg}}
 text.press.color={{fg}}
@@ -321,23 +347,25 @@ frame.top=3
 frame.bottom=3
 frame.left=3
 frame.right=3
+frame.expansion=0
 min_height=0
 
+; Row padding 8 = frame 6 + margin 2; row height 24 comes from frame.expansion keeping the vertical frame at 2.
 [ItemView]
 inherits=PanelButtonCommand
 frame=true
 interior=true
 frame.element=itemview
 interior.element=itemview
-frame.top={{radius_menu_item|px}}
-frame.bottom={{radius_menu_item|px}}
-frame.left={{radius_menu_item|px}}
-frame.right={{radius_menu_item|px}}
+frame.top=2
+frame.bottom=2
+frame.left={{radius_control|px}}
+frame.right={{radius_control|px}}
+frame.expansion=12
 text.margin=0
-text.margin.top=0
-text.margin.bottom=0
-text.margin.left=1
-text.margin.right=1
+text.margin.left=2
+text.margin.right=2
+min_height={{row_height|px}}
 text.normal.color={{fg}}
 text.focus.color={{fg}}
 text.press.color={{selection_fg}}
@@ -346,7 +374,6 @@ text.normal.inactive.color={{fg}}
 text.focus.inactive.color={{fg}}
 text.press.inactive.color={{fg}}
 text.toggle.inactive.color={{fg}}
-min_height=0
 
 [Splitter]
 inherits=PanelButtonCommand
@@ -365,14 +392,16 @@ inherits=PanelButtonCommand
 indicator.size=9
 min_height=0
 
+; Thumb tile 6 with a 2 px transparent inset: 8 px pill, 12 px total.
 [ScrollbarSlider]
 inherits=PanelButtonCommand
 frame.element=scrollbarslider
 interior.element=scrollbarslider
-frame.top=4
-frame.bottom=4
-frame.left=4
-frame.right=4
+frame.top=6
+frame.bottom=6
+frame.left=6
+frame.right=6
+frame.expansion=0
 indicator.element=grip
 indicator.size=0
 min_height=0
@@ -381,10 +410,10 @@ min_height=0
 frame=true
 frame.element=ss
 interior=false
-frame.top=4
-frame.bottom=4
-frame.left=4
-frame.right=4
+frame.top=6
+frame.bottom=6
+frame.left=6
+frame.right=6
 
 [ScrollbarGroove]
 inherits=PanelButtonCommand
@@ -396,6 +425,7 @@ frame.left=0
 frame.right=0
 min_height=0
 
+; Item 24 high, padding 8 = frame 6 + margin 2, radius 6 (radius_menu_item).
 [MenuItem]
 inherits=PanelButtonCommand
 frame=true
@@ -407,14 +437,14 @@ text.normal.color={{fg}}
 text.focus.color={{accent_fg}}
 text.press.color={{accent_fg}}
 text.toggle.color={{accent_fg}}
-text.margin.top=1
-text.margin.bottom=1
-text.margin.left=6
-text.margin.right=6
-frame.top={{radius_menu_item|px}}
-frame.bottom={{radius_menu_item|px}}
+text.margin=0
+text.margin.left=2
+text.margin.right=2
+frame.top=0
+frame.bottom=0
 frame.left={{radius_menu_item|px}}
 frame.right={{radius_menu_item|px}}
+frame.expansion=12
 min_height={{menu_item_height|px}}
 
 [MenuBar]
@@ -429,16 +459,18 @@ min_height=0
 inherits=PanelButtonCommand
 interior.element=menubaritem
 frame.element=menubaritem
-frame.top={{radius_menu_item|px}}
-frame.bottom={{radius_menu_item|px}}
-frame.left={{radius_menu_item|px}}
-frame.right={{radius_menu_item|px}}
-text.margin.left=4
-text.margin.right=4
+frame.top=2
+frame.bottom=2
+frame.left={{radius_control|px}}
+frame.right={{radius_control|px}}
+frame.expansion=12
+text.margin=0
+text.margin.left=2
+text.margin.right=2
 text.focus.color={{accent_fg}}
 text.press.color={{accent_fg}}
 text.toggle.color={{accent_fg}}
-min_height=0
+min_height={{control_height|px}}
 
 [TitleBar]
 inherits=PanelButtonCommand
@@ -451,20 +483,25 @@ text.focus.color={{fg}}
 text.bold=true
 min_height=0
 
+; Padding left 8 = frame 6 + 2, right 6; arrow 12.
 [ComboBox]
 inherits=PanelButtonCommand
 indicator.element=combo-arrow
-indicator.size=9
-text.margin.right=2
+indicator.size=12
+text.margin.left=2
+text.margin.right=0
 
+; Menu padding = corner radius = 6. Kvantum forces frame.expansion to 0 for menus (Kvantum.cpp PE_PanelMenu), so
+; radius 10 with padding 4 is not reachable; the corner tile is scaled into the frame size.
 [Menu]
 inherits=PanelButtonCommand
 frame=true
 interior=true
-frame.top={{radius_menu_item|px}}
-frame.bottom={{radius_menu_item|px}}
-frame.left={{radius_menu_item|px}}
-frame.right={{radius_menu_item|px}}
+frame.top={{radius_control|px}}
+frame.bottom={{radius_control|px}}
+frame.left={{radius_control|px}}
+frame.right={{radius_control|px}}
+frame.expansion=0
 frame.element=menu
 interior.element=menu
 text.normal.color={{fg}}
@@ -476,23 +513,25 @@ frame=true
 interior=true
 frame.element=group
 interior.element=group
-text.shadow=0
-text.margin=0
 frame.top={{radius_control|px}}
 frame.bottom={{radius_control|px}}
-frame.left={{radius_control|px}}
-frame.right={{radius_control|px}}
+text.shadow=0
+text.margin=0
 
+; Tooltip padding 4 x 8 = frame 4 + margin 4 horizontally; radius 6 through frame.expansion.
 [ToolTip]
 inherits=GenericFrame
 frame=true
 interior=true
-frame.top={{radius_control|px}}
-frame.bottom={{radius_control|px}}
-frame.left={{radius_control|px}}
-frame.right={{radius_control|px}}
+frame.top={{spacing_xs|px}}
+frame.bottom={{spacing_xs|px}}
+frame.left={{spacing_xs|px}}
+frame.right={{spacing_xs|px}}
+frame.expansion=12
 text.shadow=0
 text.margin=0
+text.margin.left={{spacing_xs|px}}
+text.margin.right={{spacing_xs|px}}
 text.normal.color={{tooltip_fg}}
 interior.element=tooltip
 frame.element=tooltip
