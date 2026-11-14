@@ -1,0 +1,16 @@
+{
+    "KPackageStructure": "Plasma/LookAndFeel",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Slate"
+            }
+        ],
+        "Category": "",
+        "Description": "Compact macOS-style global theme ({{mode}})",
+        "Id": "org.slate.{{name}}.desktop",
+        "License": "GPL-3.0-or-later",
+        "Name": "{{name}}",
+        "Version": "0.1.0"
+    }
+}

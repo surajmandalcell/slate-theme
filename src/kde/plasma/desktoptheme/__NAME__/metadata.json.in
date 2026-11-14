@@ -1,0 +1,17 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Slate"
+            }
+        ],
+        "Category": "",
+        "Description": "Compact macOS-style Plasma theme ({{mode}})",
+        "EnabledByDefault": true,
+        "Id": "{{name}}",
+        "License": "GPL-3.0-or-later",
+        "Name": "{{name}}",
+        "Version": "0.1.0"
+    },
+    "X-Plasma-API": "5.0"
+}

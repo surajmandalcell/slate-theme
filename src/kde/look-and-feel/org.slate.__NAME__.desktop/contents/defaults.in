@@ -1,0 +1,16 @@
+[kdeglobals][General]
+ColorScheme={{name}}
+
+[kdeglobals][KDE]
+widgetStyle=kvantum
+AnimationDurationFactor={{kwin_animation_factor}}
+
+[plasmarc][Theme]
+name={{name}}
+
+[kwinrc][org.kde.kdecoration2]
+library=org.kde.kwin.aurorae.v2
+theme=__aurorae__svg__{{name}}
+ButtonsOnLeft=XIA
+ButtonsOnRight=
+BorderSize=None

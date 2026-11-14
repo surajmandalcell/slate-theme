@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Slate list item: rounded accent hover and selection. One row of tiles per prefix (hover y=0, selected y=30, selected+hover y=60, normal y=90); hints at x=30. -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="110" viewBox="0 0 100 110">
+  <defs>
+    <path id="s" d="M 0,{{radius_menu_item|px}} A {{radius_menu_item|px}},{{radius_menu_item|px}} 0 0 1 {{radius_menu_item|px}},0 H 8 V 8 H 0 Z"/>
+  </defs>
+
+  <g id="hover-topleft" fill="{{accent}}" fill-opacity=".18"><use xlink:href="#s"/></g>
+  <g id="hover-topright" fill="{{accent}}" fill-opacity=".18" transform="matrix(-1 0 0 1 20 0)"><use xlink:href="#s"/></g>
+  <g id="hover-bottomleft" fill="{{accent}}" fill-opacity=".18" transform="matrix(1 0 0 -1 0 20)"><use xlink:href="#s"/></g>
+  <g id="hover-bottomright" fill="{{accent}}" fill-opacity=".18" transform="matrix(-1 0 0 -1 20 20)"><use xlink:href="#s"/></g>
+  <rect id="hover-top" x="10" y="0" width="1" height="8" fill="{{accent}}" fill-opacity=".18"/>
+  <rect id="hover-bottom" x="10" y="12" width="1" height="8" fill="{{accent}}" fill-opacity=".18"/>
+  <rect id="hover-left" x="0" y="10" width="8" height="1" fill="{{accent}}" fill-opacity=".18"/>
+  <rect id="hover-right" x="12" y="10" width="8" height="1" fill="{{accent}}" fill-opacity=".18"/>
+  <rect id="hover-center" x="10" y="10" width="1" height="1" fill="{{accent}}" fill-opacity=".18"/>
+
+  <g id="selected-topleft" fill="{{accent}}" fill-opacity=".3" transform="translate(0 30)"><use xlink:href="#s"/></g>
+  <g id="selected-topright" fill="{{accent}}" fill-opacity=".3" transform="matrix(-1 0 0 1 20 30)"><use xlink:href="#s"/></g>
+  <g id="selected-bottomleft" fill="{{accent}}" fill-opacity=".3" transform="matrix(1 0 0 -1 0 50)"><use xlink:href="#s"/></g>
+  <g id="selected-bottomright" fill="{{accent}}" fill-opacity=".3" transform="matrix(-1 0 0 -1 20 50)"><use xlink:href="#s"/></g>
+  <rect id="selected-top" x="10" y="30" width="1" height="8" fill="{{accent}}" fill-opacity=".3"/>
+  <rect id="selected-bottom" x="10" y="42" width="1" height="8" fill="{{accent}}" fill-opacity=".3"/>
+  <rect id="selected-left" x="0" y="40" width="8" height="1" fill="{{accent}}" fill-opacity=".3"/>
+  <rect id="selected-right" x="12" y="40" width="8" height="1" fill="{{accent}}" fill-opacity=".3"/>
+  <rect id="selected-center" x="10" y="40" width="1" height="1" fill="{{accent}}" fill-opacity=".3"/>
+
+  <g id="selected+hover-topleft" fill="{{accent}}" fill-opacity=".4" transform="translate(0 60)"><use xlink:href="#s"/></g>
+  <g id="selected+hover-topright" fill="{{accent}}" fill-opacity=".4" transform="matrix(-1 0 0 1 20 60)"><use xlink:href="#s"/></g>
+  <g id="selected+hover-bottomleft" fill="{{accent}}" fill-opacity=".4" transform="matrix(1 0 0 -1 0 80)"><use xlink:href="#s"/></g>
+  <g id="selected+hover-bottomright" fill="{{accent}}" fill-opacity=".4" transform="matrix(-1 0 0 -1 20 80)"><use xlink:href="#s"/></g>
+  <rect id="selected+hover-top" x="10" y="60" width="1" height="8" fill="{{accent}}" fill-opacity=".4"/>
+  <rect id="selected+hover-bottom" x="10" y="72" width="1" height="8" fill="{{accent}}" fill-opacity=".4"/>
+  <rect id="selected+hover-left" x="0" y="70" width="8" height="1" fill="{{accent}}" fill-opacity=".4"/>
+  <rect id="selected+hover-right" x="12" y="70" width="8" height="1" fill="{{accent}}" fill-opacity=".4"/>
+  <rect id="selected+hover-center" x="10" y="70" width="1" height="1" fill="{{accent}}" fill-opacity=".4"/>
+
+  <rect id="normal-center" x="10" y="100" width="1" height="1" fill-opacity="0"/>
+
+  <rect id="hover-hint-top-margin" x="30" y="0" width="4" height="{{spacing_xs|px}}" fill-opacity="0"/>
+  <rect id="hover-hint-bottom-margin" x="40" y="0" width="4" height="{{spacing_xs|px}}" fill-opacity="0"/>
+  <rect id="hover-hint-left-margin" x="50" y="0" width="{{spacing_m|px}}" height="4" fill-opacity="0"/>
+  <rect id="hover-hint-right-margin" x="70" y="0" width="{{spacing_m|px}}" height="4" fill-opacity="0"/>
+  <rect id="selected-hint-top-margin" x="30" y="30" width="4" height="{{spacing_xs|px}}" fill-opacity="0"/>
+  <rect id="selected-hint-bottom-margin" x="40" y="30" width="4" height="{{spacing_xs|px}}" fill-opacity="0"/>
+  <rect id="selected-hint-left-margin" x="50" y="30" width="{{spacing_m|px}}" height="4" fill-opacity="0"/>
+  <rect id="selected-hint-right-margin" x="70" y="30" width="{{spacing_m|px}}" height="4" fill-opacity="0"/>
+  <rect id="selected+hover-hint-top-margin" x="30" y="60" width="4" height="{{spacing_xs|px}}" fill-opacity="0"/>
+  <rect id="selected+hover-hint-bottom-margin" x="40" y="60" width="4" height="{{spacing_xs|px}}" fill-opacity="0"/>
+  <rect id="selected+hover-hint-left-margin" x="50" y="60" width="{{spacing_m|px}}" height="4" fill-opacity="0"/>
+  <rect id="selected+hover-hint-right-margin" x="70" y="60" width="{{spacing_m|px}}" height="4" fill-opacity="0"/>
+  <rect id="normal-hint-top-margin" x="30" y="90" width="4" height="{{spacing_xs|px}}" fill-opacity="0"/>
+  <rect id="normal-hint-bottom-margin" x="40" y="90" width="4" height="{{spacing_xs|px}}" fill-opacity="0"/>
+  <rect id="normal-hint-left-margin" x="50" y="90" width="{{spacing_m|px}}" height="4" fill-opacity="0"/>
+  <rect id="normal-hint-right-margin" x="70" y="90" width="{{spacing_m|px}}" height="4" fill-opacity="0"/>
+</svg>
