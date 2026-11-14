@@ -2,7 +2,8 @@
 """Render src/ into dist/Slate-Light and dist/Slate-Dark from tokens.json.
 
 Files ending in `.in` are templates: `{{key}}` becomes the token value, and
-`{{key|rgb}}` becomes "r,g,b" (for KDE .colors files). `__NAME__` in a path
+`{{key|rgb}}` becomes "r,g,b" (for KDE .colors files), `{{key|alpha}}` the
+alpha of an rgba() value (1 for hex), `{{key|px}}` the number without px. `__NAME__` in a path
 becomes the theme name. Other files are copied as they are.
 """
 import json, re, shutil, sys
@@ -21,7 +22,12 @@ def rgb(value):
     raise ValueError(f"cannot convert {value!r} to rgb")
 
 
-FILTERS = {"rgb": rgb, "px": lambda v: v.removesuffix("px")}
+def alpha(value):
+    m = re.match(r"rgba\(([^)]*)\)", value)
+    return m.group(1).split(",")[3].strip() if m else "1"
+
+
+FILTERS = {"rgb": rgb, "alpha": alpha, "px": lambda v: v.removesuffix("px")}
 
 
 def render(text, tokens, where):
@@ -56,4 +62,5 @@ def build():
 
 if __name__ == "__main__":
     assert rgb("#007AFF") == "0,122,255" and rgb("rgba(1, 2, 3, 0.5)") == "1,2,3"
+    assert alpha("rgba(1, 2, 3, 0.5)") == "0.5" and alpha("#007AFF") == "1"
     build()
