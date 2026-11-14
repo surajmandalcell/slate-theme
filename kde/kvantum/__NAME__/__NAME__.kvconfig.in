@@ -70,6 +70,9 @@ dark.color={{border_hex}}
 mid.color={{separator_hex}}
 highlight.color={{selection_bg}}
 inactive.highlight.color={{selection_bg_backdrop}}
+inactive.highlight.text.color={{fg}}
+inactive.text.color={{fg}}
+inactive.window.text.color={{fg}}
 text.color={{fg}}
 window.text.color={{fg}}
 button.text.color={{fg}}
@@ -333,6 +336,10 @@ text.normal.color={{fg}}
 text.focus.color={{fg}}
 text.press.color={{selection_fg}}
 text.toggle.color={{selection_fg}}
+text.normal.inactive.color={{fg}}
+text.focus.inactive.color={{fg}}
+text.press.inactive.color={{fg}}
+text.toggle.inactive.color={{fg}}
 min_height=0
 
 [Splitter]
