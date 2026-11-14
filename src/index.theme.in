@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name={{name}}
+Comment=Slate: compact modern macOS look for GTK and KDE
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme={{name}}
+MetacityTheme={{name}}
+ButtonLayout=close,minimize,maximize:
