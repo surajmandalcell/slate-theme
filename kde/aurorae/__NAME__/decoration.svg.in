@@ -26,109 +26,109 @@
     <linearGradient id="aL" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="36" y2="0" xlink:href="#aSide"/>
     <linearGradient id="aR" gradientUnits="userSpaceOnUse" x1="112" y1="0" x2="76" y2="0" xlink:href="#aSide"/>
     <linearGradient id="aT" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="24" xlink:href="#aTop"/>
-    <linearGradient id="aB" gradientUnits="userSpaceOnUse" x1="0" y1="126" x2="0" y2="78" xlink:href="#aBot"/>
+    <linearGradient id="aB" gradientUnits="userSpaceOnUse" x1="0" y1="128" x2="0" y2="80" xlink:href="#aBot"/>
     <linearGradient id="iL" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="36" y2="0" xlink:href="#iSide"/>
     <linearGradient id="iR" gradientUnits="userSpaceOnUse" x1="112" y1="0" x2="76" y2="0" xlink:href="#iSide"/>
     <linearGradient id="iT" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="24" xlink:href="#iTop"/>
-    <linearGradient id="iB" gradientUnits="userSpaceOnUse" x1="0" y1="126" x2="0" y2="78" xlink:href="#iBot"/>
+    <linearGradient id="iB" gradientUnits="userSpaceOnUse" x1="0" y1="128" x2="0" y2="80" xlink:href="#iBot"/>
     <!-- corners: centre = arc centre of the shadow rect (window corner + 12, shifted by the y offset) -->
     <radialGradient id="aTL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(48 48) scale(48)" xlink:href="#aRad"/>
     <radialGradient id="aTR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(64 48) scale(48)" xlink:href="#aRad"/>
-    <radialGradient id="aBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(48 78) scale(48)" xlink:href="#aRad"/>
-    <radialGradient id="aBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(64 78) scale(48)" xlink:href="#aRad"/>
+    <radialGradient id="aBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(48 80) scale(48)" xlink:href="#aRad"/>
+    <radialGradient id="aBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(64 80) scale(48)" xlink:href="#aRad"/>
     <radialGradient id="iTL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(48 42) scale(48)" xlink:href="#iRad"/>
     <radialGradient id="iTR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(64 42) scale(48)" xlink:href="#iRad"/>
-    <radialGradient id="iBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(48 72) scale(48)" xlink:href="#iRad"/>
-    <radialGradient id="iBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(64 72) scale(48)" xlink:href="#iRad"/>
+    <radialGradient id="iBL" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(48 74) scale(48)" xlink:href="#iRad"/>
+    <radialGradient id="iBR" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="1" gradientTransform="translate(64 74) scale(48)" xlink:href="#iRad"/>
   </defs>
 
   <!-- ===== ACTIVE ===== -->
   <g id="decoration-topleft">
     <rect x="0" y="0" width="48" height="48" fill="url(#aTL)"/>
-    <rect x="0" y="48" width="36" height="14" fill="url(#aL)"/>
-    <path d="M36 62V36A12 12 0 0 1 48 24V62Z" fill="{{headerbar_bg}}"/>
-    <path d="M35 62V36A13 13 0 0 1 48 23V24A12 12 0 0 0 36 36V62Z" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+    <rect x="0" y="48" width="36" height="16" fill="url(#aL)"/>
+    <path d="M36 62V36A12 12 0 0 1 48 24V64Z" fill="{{headerbar_bg}}"/>
+    <path d="M35 62V36A13 13 0 0 1 48 23V24A12 12 0 0 0 36 36V64Z" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
   </g>
   <g id="decoration-top">
     <rect x="48" y="0" width="16" height="24" fill="url(#aT)"/>
-    <rect x="48" y="24" width="16" height="38" fill="{{headerbar_bg}}"/>
+    <rect x="48" y="24" width="16" height="{{headerbar_height|px}}" fill="{{headerbar_bg}}"/>
     <rect x="48" y="23" width="16" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
   </g>
   <g id="decoration-topright">
     <rect x="64" y="0" width="48" height="48" fill="url(#aTR)"/>
-    <rect x="76" y="48" width="36" height="14" fill="url(#aR)"/>
-    <path d="M64 24A12 12 0 0 1 76 36V62H64Z" fill="{{headerbar_bg}}"/>
-    <path d="M64 23V24A12 12 0 0 1 76 36V62H77V36A13 13 0 0 0 64 23Z" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+    <rect x="76" y="48" width="36" height="16" fill="url(#aR)"/>
+    <path d="M64 24A12 12 0 0 1 76 36V64H64Z" fill="{{headerbar_bg}}"/>
+    <path d="M64 23V24A12 12 0 0 1 76 36V64H77V36A13 13 0 0 0 64 23Z" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
   </g>
   <g id="decoration-left">
-    <rect x="0" y="62" width="36" height="16" fill="url(#aL)"/>
-    <rect x="36" y="62" width="12" height="16" fill="{{window_bg}}"/>
-    <rect x="35" y="62" width="1" height="16" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+    <rect x="0" y="64" width="36" height="16" fill="url(#aL)"/>
+    <rect x="36" y="64" width="12" height="16" fill="{{window_bg}}"/>
+    <rect x="35" y="64" width="1" height="16" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
   </g>
-  <rect id="decoration-center" x="48" y="62" width="16" height="16" fill="{{window_bg}}"/>
+  <rect id="decoration-center" x="48" y="64" width="16" height="16" fill="{{window_bg}}"/>
   <g id="decoration-right">
-    <rect x="64" y="62" width="12" height="16" fill="{{window_bg}}"/>
-    <rect x="76" y="62" width="36" height="16" fill="url(#aR)"/>
-    <rect x="76" y="62" width="1" height="16" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+    <rect x="64" y="64" width="12" height="16" fill="{{window_bg}}"/>
+    <rect x="76" y="64" width="36" height="16" fill="url(#aR)"/>
+    <rect x="76" y="64" width="1" height="16" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
   </g>
   <g id="decoration-bottomleft">
-    <rect x="0" y="78" width="48" height="48" fill="url(#aBL)"/>
-    <rect x="35" y="78" width="13" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+    <rect x="0" y="80" width="48" height="48" fill="url(#aBL)"/>
+    <rect x="35" y="80" width="13" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
   </g>
   <g id="decoration-bottom">
-    <rect x="48" y="78" width="16" height="48" fill="url(#aB)"/>
-    <rect x="48" y="78" width="16" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+    <rect x="48" y="80" width="16" height="48" fill="url(#aB)"/>
+    <rect x="48" y="80" width="16" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
   </g>
   <g id="decoration-bottomright">
-    <rect x="64" y="78" width="48" height="48" fill="url(#aBR)"/>
-    <rect x="64" y="78" width="13" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+    <rect x="64" y="80" width="48" height="48" fill="url(#aBR)"/>
+    <rect x="64" y="80" width="13" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
   </g>
-  <rect id="decoration-maximized-center" x="0" y="140" width="16" height="38" fill="{{headerbar_bg}}"/>
+  <rect id="decoration-maximized-center" x="0" y="140" width="16" height="{{headerbar_height|px}}" fill="{{headerbar_bg}}"/>
 
   <!-- ===== INACTIVE (shifted 120 px right) ===== -->
   <g transform="translate(120 0)">
     <g id="decoration-inactive-topleft">
       <rect x="0" y="0" width="48" height="42" fill="url(#iTL)"/>
-      <rect x="0" y="42" width="36" height="20" fill="url(#iL)"/>
-      <path d="M36 62V36A12 12 0 0 1 48 24V62Z" fill="{{headerbar_bg_backdrop}}"/>
-      <path d="M35 62V36A13 13 0 0 1 48 23V24A12 12 0 0 0 36 36V62Z" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+      <rect x="0" y="42" width="36" height="22" fill="url(#iL)"/>
+      <path d="M36 62V36A12 12 0 0 1 48 24V64Z" fill="{{headerbar_bg_backdrop}}"/>
+      <path d="M35 62V36A13 13 0 0 1 48 23V24A12 12 0 0 0 36 36V64Z" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
     </g>
     <g id="decoration-inactive-top">
       <rect x="48" y="0" width="16" height="24" fill="url(#iT)"/>
-      <rect x="48" y="24" width="16" height="38" fill="{{headerbar_bg_backdrop}}"/>
+      <rect x="48" y="24" width="16" height="{{headerbar_height|px}}" fill="{{headerbar_bg_backdrop}}"/>
       <rect x="48" y="23" width="16" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
     </g>
     <g id="decoration-inactive-topright">
       <rect x="64" y="0" width="48" height="42" fill="url(#iTR)"/>
-      <rect x="76" y="42" width="36" height="20" fill="url(#iR)"/>
-      <path d="M64 24A12 12 0 0 1 76 36V62H64Z" fill="{{headerbar_bg_backdrop}}"/>
-      <path d="M64 23V24A12 12 0 0 1 76 36V62H77V36A13 13 0 0 0 64 23Z" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+      <rect x="76" y="42" width="36" height="22" fill="url(#iR)"/>
+      <path d="M64 24A12 12 0 0 1 76 36V64H64Z" fill="{{headerbar_bg_backdrop}}"/>
+      <path d="M64 23V24A12 12 0 0 1 76 36V64H77V36A13 13 0 0 0 64 23Z" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
     </g>
     <g id="decoration-inactive-left">
-      <rect x="0" y="62" width="36" height="10" fill="url(#iL)"/>
-      <rect x="0" y="72" width="48" height="6" fill="url(#iBL)"/>
-      <rect x="36" y="62" width="12" height="16" fill="{{window_bg}}"/>
-      <rect x="35" y="62" width="1" height="16" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+      <rect x="0" y="64" width="36" height="10" fill="url(#iL)"/>
+      <rect x="0" y="74" width="48" height="6" fill="url(#iBL)"/>
+      <rect x="36" y="64" width="12" height="16" fill="{{window_bg}}"/>
+      <rect x="35" y="64" width="1" height="16" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
     </g>
-    <rect id="decoration-inactive-center" x="48" y="62" width="16" height="16" fill="{{window_bg}}"/>
+    <rect id="decoration-inactive-center" x="48" y="64" width="16" height="16" fill="{{window_bg}}"/>
     <g id="decoration-inactive-right">
-      <rect x="76" y="62" width="36" height="10" fill="url(#iR)"/>
-      <rect x="64" y="72" width="48" height="6" fill="url(#iBR)"/>
-      <rect x="64" y="62" width="12" height="16" fill="{{window_bg}}"/>
-      <rect x="76" y="62" width="1" height="16" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+      <rect x="76" y="64" width="36" height="10" fill="url(#iR)"/>
+      <rect x="64" y="74" width="48" height="6" fill="url(#iBR)"/>
+      <rect x="64" y="64" width="12" height="16" fill="{{window_bg}}"/>
+      <rect x="76" y="64" width="1" height="16" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
     </g>
     <g id="decoration-inactive-bottomleft">
-      <rect x="0" y="78" width="48" height="48" fill="url(#iBL)"/>
-      <rect x="35" y="78" width="13" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+      <rect x="0" y="80" width="48" height="48" fill="url(#iBL)"/>
+      <rect x="35" y="80" width="13" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
     </g>
     <g id="decoration-inactive-bottom">
-      <rect x="48" y="78" width="16" height="48" fill="url(#iB)"/>
-      <rect x="48" y="78" width="16" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+      <rect x="48" y="80" width="16" height="48" fill="url(#iB)"/>
+      <rect x="48" y="80" width="16" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
     </g>
     <g id="decoration-inactive-bottomright">
-      <rect x="64" y="78" width="48" height="48" fill="url(#iBR)"/>
-      <rect x="64" y="78" width="13" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+      <rect x="64" y="80" width="48" height="48" fill="url(#iBR)"/>
+      <rect x="64" y="80" width="13" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
     </g>
-    <rect id="decoration-maximized-inactive-center" x="0" y="140" width="16" height="38" fill="{{headerbar_bg_backdrop}}"/>
+    <rect id="decoration-maximized-inactive-center" x="0" y="140" width="16" height="{{headerbar_height|px}}" fill="{{headerbar_bg_backdrop}}"/>
   </g>
 </svg>

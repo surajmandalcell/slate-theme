@@ -17,7 +17,6 @@ write_cfg=1
 if [ "$dry" = 1 ] && [ -z "${XDG_CONFIG_HOME:-}" ]; then write_cfg=0; fi
 
 # Tuning values the tokens do not cover.
-font_size=10
 blur_strength=9
 blur_noise=2
 scale_in_out=0.92
@@ -30,6 +29,9 @@ tok() {
 factor=$(tok kwin_animation_factor)
 family=$(tok font_family_kde)
 radius=$(tok radius_window)
+font_pt=$(tok font_size_kde_pt)
+font_small_pt=$(tok font_size_small_kde_pt)
+panel_height=$(tok panel_height)
 
 # kw <file> <group> <key> <value>: write one config key.
 kw() {
@@ -72,15 +74,26 @@ kw kwinrc Windows TitlebarDoubleClickCommand Maximize
 
 # Font: only when the family is installed.
 if fc-list : family 2>/dev/null | grep -qiE "(^|,)$family(,|\$)"; then
-  f="$family,$font_size,-1,5,400,0,0,0,0,0,0,0,0,0,0,1"
+  f="$family,$font_pt,-1,5,400,0,0,0,0,0,0,0,0,0,0,1"
   kw kdeglobals General font "$f"
   kw kdeglobals General menuFont "$f"
   kw kdeglobals General toolBarFont "$f"
-  kw kdeglobals General smallestReadableFont "$family,$((font_size - 1)),-1,5,400,0,0,0,0,0,0,0,0,0,0,1"
-  kw kdeglobals WM activeFont "$family,$font_size,-1,5,600,0,0,0,0,0,0,0,0,0,0,1"
+  kw kdeglobals General smallestReadableFont "$family,$font_small_pt,-1,5,400,0,0,0,0,0,0,0,0,0,0,1"
+  kw kdeglobals WM activeFont "$family,$font_pt,-1,5,600,0,0,0,0,0,0,0,0,0,0,1"
+  # The fixed font keeps its monospace family; only its size follows the tokens.
+  fixed=$(kreadconfig6 --file kdeglobals --group General --key fixed 2>/dev/null || true)
+  if [ -n "$fixed" ]; then
+    kw kdeglobals General fixed "$(echo "$fixed" | awk -F, -v s="$font_pt" 'BEGIN{OFS=","} {$2=s; print}')"
+  else
+    echo "note: no fixed font set; left as it is."
+  fi
 else
   echo "note: font $family is not installed; fonts left as they are."
 fi
+
+# Panel thickness (token panel_height) through the running plasmashell.
+act qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "panels().forEach(function (p) { p.height = $panel_height; })" 2>/dev/null ||
+  echo "note: plasmashell is not on the session bus; panel height not changed."
 
 # Motion.
 kw kdeglobals KDE AnimationDurationFactor "$factor"

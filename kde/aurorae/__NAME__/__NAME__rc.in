@@ -17,10 +17,10 @@ BorderBottomMaximized=0
 BorderTopMaximized={{headerbar_height|px}}
 
 # Shadow area drawn by decoration.svg (see the comment there). Left/right/top/bottom.
-PaddingLeft=36
-PaddingRight=36
-PaddingTop=24
-PaddingBottom=48
+PaddingLeft={{shadow_pad_side|px}}
+PaddingRight={{shadow_pad_side|px}}
+PaddingTop={{shadow_pad_top|px}}
+PaddingBottom={{shadow_pad_bottom|px}}
 
 TitleHeight={{headerbar_height|px}}
 TitleEdgeTop=0
@@ -31,9 +31,10 @@ TitleEdgeTopMaximized=0
 TitleEdgeBottomMaximized=0
 TitleEdgeLeftMaximized={{traffic_margin|px}}
 TitleEdgeRightMaximized=0
-# Caption sits centered in the window: left group is 3 x 12 + 2 x 8 = 52 wide + margin 12 = 64,
-# so TitleBorderLeft 8 + 64 equals TitleBorderRight 72.
-TitleBorderLeft=8
+# Caption sits centered in the window: the left group is margin + 3 x size + 2 x gap
+# ({{traffic_margin|px}} + 3 x {{traffic_size|px}} + 2 x {{traffic_gap|px}} = 64), so Left + 64 equals Right.
+# No token holds the sum and templates cannot add, so Right stays typed; keep it in step with the tokens.
+TitleBorderLeft={{spacing_m|px}}
 TitleBorderRight=72
 TitleAlignment=AlignHCenter
 TitleVerticalAlignment=AlignVCenter
@@ -41,7 +42,7 @@ TitleVerticalAlignment=AlignVCenter
 ButtonWidth={{traffic_size|px}}
 ButtonHeight={{traffic_size|px}}
 ButtonSpacing={{traffic_gap|px}}
-# (headerbar_height - traffic_size) / 2
-ButtonMarginTop=13
-ButtonMarginTopMaximized=13
+# (headerbar_height - traffic_size) / 2 = ({{headerbar_height|px}} - {{traffic_size|px}}) / 2 = 14; no token holds the difference.
+ButtonMarginTop=14
+ButtonMarginTopMaximized=14
 ExplicitButtonSpacer=0

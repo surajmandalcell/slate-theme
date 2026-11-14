@@ -50,10 +50,10 @@
   <g id="shadow-right" transform="translate(48 84)"><rect width="38" height="1" fill-opacity="0"/><rect x="16" width="22" height="1" fill="url(#gr)"/></g>
   <rect id="shadow-center" x="44" y="84" width="1" height="1" fill-opacity="0"/>
 
-  <rect id="hint-top-margin" x="110" y="0" width="4" height="{{spacing_s|px}}" fill-opacity="0"/>
-  <rect id="hint-bottom-margin" x="120" y="0" width="4" height="{{spacing_s|px}}" fill-opacity="0"/>
-  <rect id="hint-left-margin" x="110" y="30" width="{{spacing_s|px}}" height="4" fill-opacity="0"/>
-  <rect id="hint-right-margin" x="110" y="40" width="{{spacing_s|px}}" height="4" fill-opacity="0"/>
+  <rect id="hint-top-margin" x="110" y="0" width="4" height="{{spacing_m|px}}" fill-opacity="0"/>
+  <rect id="hint-bottom-margin" x="120" y="0" width="4" height="{{spacing_m|px}}" fill-opacity="0"/>
+  <rect id="hint-left-margin" x="110" y="30" width="{{spacing_m|px}}" height="4" fill-opacity="0"/>
+  <rect id="hint-right-margin" x="110" y="40" width="{{spacing_m|px}}" height="4" fill-opacity="0"/>
   <rect id="shadow-hint-top-margin" x="140" y="0" width="4" height="14" fill-opacity="0"/>
   <rect id="shadow-hint-bottom-margin" x="150" y="0" width="4" height="30" fill-opacity="0"/>
   <rect id="shadow-hint-left-margin" x="140" y="40" width="22" height="4" fill-opacity="0"/>
