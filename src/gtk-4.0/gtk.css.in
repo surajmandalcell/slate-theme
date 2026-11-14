@@ -1,0 +1,730 @@
+/* Slate {{mode}} - GTK4 / libadwaita. Generated from src/gtk-4.0/gtk.css.in; edit the template and tokens.json. */
+
+/* ---- libadwaita named colors ---- */
+@define-color accent_color {{accent}};
+@define-color accent_bg_color {{accent}};
+@define-color accent_fg_color {{accent_fg}};
+@define-color destructive_color {{destructive}};
+@define-color destructive_bg_color {{destructive}};
+@define-color destructive_fg_color #FFFFFF;
+@define-color success_color {{success}};
+@define-color success_bg_color {{success}};
+@define-color success_fg_color #FFFFFF;
+@define-color warning_color {{warning}};
+@define-color warning_bg_color {{warning}};
+@define-color warning_fg_color #FFFFFF;
+@define-color error_color {{destructive}};
+@define-color error_bg_color {{destructive}};
+@define-color error_fg_color #FFFFFF;
+@define-color window_bg_color {{window_bg}};
+@define-color window_fg_color {{fg}};
+@define-color view_bg_color {{view_bg}};
+@define-color view_fg_color {{fg}};
+@define-color headerbar_bg_color {{headerbar_bg}};
+@define-color headerbar_fg_color {{fg}};
+@define-color headerbar_border_color {{separator}};
+@define-color headerbar_backdrop_color {{headerbar_bg_backdrop}};
+@define-color headerbar_shade_color {{separator}};
+@define-color headerbar_darker_shade_color {{separator}};
+@define-color sidebar_bg_color {{sidebar_bg}};
+@define-color sidebar_fg_color {{fg}};
+@define-color sidebar_backdrop_color {{headerbar_bg_backdrop}};
+@define-color sidebar_border_color {{separator}};
+@define-color sidebar_shade_color {{separator}};
+@define-color secondary_sidebar_bg_color {{sidebar_bg}};
+@define-color secondary_sidebar_fg_color {{fg}};
+@define-color secondary_sidebar_backdrop_color {{headerbar_bg_backdrop}};
+@define-color secondary_sidebar_border_color {{separator}};
+@define-color secondary_sidebar_shade_color {{separator}};
+@define-color card_bg_color {{view_bg}};
+@define-color card_fg_color {{fg}};
+@define-color card_shade_color {{separator}};
+@define-color dialog_bg_color {{popover_bg}};
+@define-color dialog_fg_color {{fg}};
+@define-color popover_bg_color {{popover_bg}};
+@define-color popover_fg_color {{fg}};
+@define-color popover_shade_color {{separator}};
+@define-color shade_color {{separator}};
+@define-color scrollbar_outline_color transparent;
+@define-color thumbnail_bg_color {{button_bg}};
+@define-color thumbnail_fg_color {{fg}};
+@define-color borders {{border}};
+@define-color unfocused_borders {{separator}};
+@define-color theme_bg_color {{window_bg}};
+@define-color theme_fg_color {{fg}};
+@define-color theme_base_color {{view_bg}};
+@define-color theme_text_color {{fg}};
+@define-color theme_selected_bg_color {{selection_bg}};
+@define-color theme_selected_fg_color {{selection_fg}};
+@define-color insensitive_fg_color {{fg_disabled}};
+@define-color theme_unfocused_fg_color {{fg_backdrop}};
+@define-color theme_unfocused_bg_color {{headerbar_bg_backdrop}};
+@define-color theme_unfocused_selected_bg_color {{selection_bg_backdrop}};
+@define-color theme_unfocused_selected_fg_color {{fg}};
+@define-color content_view_bg {{view_bg}};
+@define-color text_view_bg {{view_bg}};
+
+/* ---- base ---- */
+* {
+  outline: 0 solid transparent;
+  outline-offset: 2px;
+  -gtk-icon-style: symbolic;
+}
+
+window, popover, tooltip {
+  font-family: {{font_family}};
+  font-size: {{font_size}};
+}
+
+window.background, window.background > contents, .background {
+  background-color: @window_bg_color;
+  color: @window_fg_color;
+}
+window.background:backdrop { color: {{fg_backdrop}}; }
+
+window.csd {
+  border-radius: {{radius_window}};
+  box-shadow: {{window_shadow}}, inset 0 1px {{window_highlight}};
+  margin: 0;
+}
+window.csd:backdrop { box-shadow: {{window_shadow_backdrop}}, inset 0 1px {{window_highlight}}; }
+window.maximized, window.fullscreen, window.tiled, window.tiled-top, window.tiled-bottom, window.tiled-left, window.tiled-right, window.solid-csd {
+  border-radius: 0;
+  box-shadow: none;
+}
+window.csd > .titlebar, window.csd > headerbar, window.csd > toolbarview > headerbar {
+  border-top-left-radius: {{radius_window}};
+  border-top-right-radius: {{radius_window}};
+}
+
+label.dim-label, .dim-label, .dimmed { color: {{fg_secondary}}; }
+label:disabled, *:disabled { color: {{fg_disabled}}; }
+.caption { font-size: {{font_size_small}}; }
+.heading { font-weight: 600; }
+.title-1 { font-size: 24px; font-weight: 700; }
+.title-2 { font-size: 18px; font-weight: 700; }
+.title-3 { font-size: 15px; font-weight: 600; }
+.title-4 { font-size: 13px; font-weight: 600; }
+.accent { color: @accent_color; }
+.success { color: @success_color; }
+.warning { color: @warning_color; }
+.error { color: @error_color; }
+
+selection, text selection, label selection {
+  background-color: {{selection_bg}};
+  color: {{selection_fg}};
+}
+
+separator {
+  background-color: {{separator}};
+  min-width: 1px;
+  min-height: 1px;
+}
+
+:focus-visible { outline: 2px solid {{focus_ring}}; outline-offset: 1px; }
+
+/* ---- header bar ---- */
+headerbar, .titlebar {
+  min-height: {{headerbar_height}};
+  padding: 0 {{spacing_m}};
+  background-color: @headerbar_bg_color;
+  background-image: none;
+  color: @headerbar_fg_color;
+  border: none;
+  border-radius: 0;
+  box-shadow: inset 0 -1px {{separator}};
+  transition: background-color {{duration_normal}} {{ease_standard}};
+}
+headerbar:backdrop { background-color: @headerbar_backdrop_color; color: {{fg_backdrop}}; }
+headerbar .title, headerbar .subtitle, window-title {
+  font-size: {{font_size_title}};
+  font-weight: 600;
+}
+headerbar .subtitle { font-weight: 400; color: {{fg_secondary}}; font-size: {{font_size_small}}; }
+headerbar box.start, headerbar box.end { margin: 0; }
+headerbar > box, headerbar > windowhandle > box { min-height: {{headerbar_height}}; }
+headerbar.flat, toolbarview > .top-bar headerbar.flat { box-shadow: none; }
+toolbarview > .top-bar, toolbarview > .bottom-bar, toolbarview > .top-bar > *, toolbarview > .bottom-bar > * {
+  background-color: @headerbar_bg_color;
+  box-shadow: none;
+}
+toolbarview > .top-bar:backdrop, toolbarview > .bottom-bar:backdrop { background-color: @headerbar_backdrop_color; }
+toolbarview > .bottom-bar { box-shadow: inset 0 1px {{separator}}; }
+toolbarview > .top-bar.raised, toolbarview > .bottom-bar.raised { box-shadow: 0 1px {{separator}}; }
+actionbar > revealer > box { background-color: @headerbar_bg_color; box-shadow: inset 0 1px {{separator}}; padding: {{spacing_s}}; border-radius: 0; }
+.toolbar { padding: {{spacing_s}}; }
+
+/* ---- traffic lights ---- */
+windowcontrols { margin: 0 {{traffic_margin}}; }
+windowcontrols > button, windowcontrols > button.image-button, windowcontrols > button.circular {
+  min-width: {{traffic_size}};
+  min-height: {{traffic_size}};
+  padding: 0;
+  margin: calc(({{headerbar_height|px}}px - {{traffic_size|px}}px) / 2) calc({{traffic_gap|px}}px / 2);
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background-image: none;
+  box-shadow: none;
+  color: {{traffic_glyph}};
+  transition: background-color {{duration_fast}} {{ease_standard}}, border-color {{duration_fast}} {{ease_standard}};
+}
+windowcontrols > button > image {
+  opacity: 0;
+  min-width: 8px;
+  min-height: 8px;
+  -gtk-icon-size: 8px;
+  color: {{traffic_glyph}};
+  transition: opacity {{duration_fast}} {{ease_standard}};
+}
+windowcontrols:hover > button > image { opacity: 1; }
+windowcontrols > button.close { background-color: {{traffic_close}}; border-color: {{traffic_close_border}}; }
+windowcontrols > button.minimize { background-color: {{traffic_min}}; border-color: {{traffic_min_border}}; }
+windowcontrols > button.maximize { background-color: {{traffic_max}}; border-color: {{traffic_max_border}}; }
+windowcontrols > button.close > image { -gtk-icon-source: url("assets/close.svg"); }
+windowcontrols > button.minimize > image { -gtk-icon-source: url("assets/minimize.svg"); }
+windowcontrols > button.maximize > image { -gtk-icon-source: url("assets/maximize.svg"); }
+windowcontrols > button:active { filter: brightness(0.85); }
+windowcontrols:backdrop > button, windowcontrols > button:disabled {
+  background-color: {{button_bg_active}};
+  border-color: {{border_hex}};
+}
+windowcontrols:backdrop:hover > button.close { background-color: {{traffic_close}}; border-color: {{traffic_close_border}}; }
+windowcontrols:backdrop:hover > button.minimize { background-color: {{traffic_min}}; border-color: {{traffic_min_border}}; }
+windowcontrols:backdrop:hover > button.maximize { background-color: {{traffic_max}}; border-color: {{traffic_max_border}}; }
+windowcontrols:backdrop > button > image { opacity: 0; }
+windowcontrols:backdrop:hover > button > image { opacity: 1; }
+
+/* ---- buttons ---- */
+button {
+  min-height: {{control_height}};
+  min-width: 16px;
+  padding: 0 {{spacing_m}};
+  border: none;
+  border-radius: {{radius_control}};
+  background-color: {{button_bg}};
+  background-image: none;
+  color: {{fg}};
+  box-shadow: {{button_shadow}}, 0 0 0 0.5px {{border}};
+  transition: background-color {{duration_fast}} {{ease_standard}}, color {{duration_fast}} {{ease_standard}}, box-shadow {{duration_normal}} {{ease_standard}};
+}
+button:hover { background-color: {{button_bg_hover}}; }
+button:active, button:checked { background-color: {{button_bg_active}}; }
+button:disabled { color: {{fg_disabled}}; box-shadow: 0 0 0 0.5px {{separator}}; }
+button:backdrop { color: {{fg_backdrop}}; }
+button:focus-visible { outline: 3px solid {{focus_ring}}; outline-offset: 0; }
+
+button.flat, headerbar button, .toolbar button, actionbar button, button.image-button.flat, button.text-button.flat {
+  background-color: transparent;
+  box-shadow: none;
+}
+button.flat:hover, headerbar button:hover, .toolbar button:hover, actionbar button:hover { background-color: {{flat_hover}}; }
+button.flat:active, button.flat:checked, headerbar button:active, headerbar button:checked, .toolbar button:active, .toolbar button:checked, actionbar button:active, actionbar button:checked { background-color: {{flat_active}}; }
+button.flat:disabled, headerbar button:disabled { background-color: transparent; color: {{fg_disabled}}; }
+
+button.suggested-action, headerbar button.suggested-action, .toolbar button.suggested-action {
+  background-color: {{accent}};
+  color: {{accent_fg}};
+  box-shadow: {{button_shadow}};
+}
+button.suggested-action:hover, headerbar button.suggested-action:hover { background-color: {{accent_hover}}; }
+button.suggested-action:active, button.suggested-action:checked { background-color: {{accent_active}}; }
+button.suggested-action:disabled { background-color: {{accent_soft}}; color: {{fg_disabled}}; box-shadow: none; }
+button.destructive-action, headerbar button.destructive-action {
+  background-color: {{destructive}};
+  color: #FFFFFF;
+  box-shadow: {{button_shadow}};
+}
+button.destructive-action:hover { background-color: {{destructive}}; background-image: linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)); }
+button.destructive-action:active { background-image: linear-gradient(rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.14)); }
+button.destructive-action:disabled { background-color: {{button_bg_active}}; color: {{fg_disabled}}; box-shadow: none; }
+
+button.pill { border-radius: {{radius_pill}}; padding: 0 {{spacing_xl}}; min-height: 32px; }
+button.circular, button.image-button.circular { border-radius: 50%; min-width: {{control_height}}; padding: 0; }
+button.image-button, button.circular { min-width: {{control_height}}; padding: 0 {{spacing_s}}; }
+button.opaque { background-color: {{button_bg}}; }
+button.card { border-radius: {{radius_popover}}; background-color: {{view_bg}}; padding: {{spacing_l}}; }
+button.link, button.link:hover { background: none; box-shadow: none; color: {{accent}}; }
+button.osd { background-color: rgba(0, 0, 0, 0.6); color: #FFFFFF; box-shadow: none; }
+
+/* linked groups render as a segmented control */
+.linked:not(.vertical) > button, .linked:not(.vertical) > menubutton > button, .linked:not(.vertical) > dropdown > button {
+  border-radius: 0;
+  margin-right: 1px;
+}
+.linked:not(.vertical) > button:first-child, .linked:not(.vertical) > menubutton:first-child > button { border-top-left-radius: {{radius_control}}; border-bottom-left-radius: {{radius_control}}; }
+.linked:not(.vertical) > button:last-child, .linked:not(.vertical) > menubutton:last-child > button { border-top-right-radius: {{radius_control}}; border-bottom-right-radius: {{radius_control}}; margin-right: 0; }
+.linked.vertical > button { border-radius: 0; margin-bottom: 1px; }
+.linked.vertical > button:first-child { border-top-left-radius: {{radius_control}}; border-top-right-radius: {{radius_control}}; }
+.linked.vertical > button:last-child { border-bottom-left-radius: {{radius_control}}; border-bottom-right-radius: {{radius_control}}; margin-bottom: 0; }
+.linked > button:checked, .linked > button:active { background-color: {{accent}}; color: {{accent_fg}}; }
+headerbar .linked > button { background-color: {{flat_hover}}; }
+headerbar .linked > button:hover { background-color: {{flat_active}}; }
+headerbar .linked > button:checked { background-color: {{button_bg}}; color: {{fg}}; box-shadow: {{button_shadow}}; }
+
+/* ---- entries ---- */
+entry, spinbutton, searchbar > revealer > box {
+  min-height: {{control_height}};
+  padding: 0 {{spacing_m}};
+  border: none;
+  border-radius: {{radius_control}};
+  background-color: {{entry_bg}};
+  color: {{fg}};
+  box-shadow: inset 0 0 0 1px {{border}};
+  caret-color: {{accent}};
+  transition: box-shadow {{duration_fast}} {{ease_standard}}, background-color {{duration_fast}} {{ease_standard}};
+}
+entry > text, spinbutton > text { min-height: {{control_height}}; background: none; box-shadow: none; padding: 0; }
+entry:focus-within, spinbutton:focus-within {
+  box-shadow: inset 0 0 0 1px {{accent}}, 0 0 0 3px {{focus_ring}};
+}
+entry:disabled, spinbutton:disabled { color: {{fg_disabled}}; background-color: {{separator}}; }
+entry > image, entry > text > placeholder { color: {{fg_secondary}}; }
+entry > text > placeholder { opacity: 0.8; }
+entry.error { box-shadow: inset 0 0 0 1px {{destructive}}; }
+entry.warning { box-shadow: inset 0 0 0 1px {{warning}}; }
+entry progress > trough > progress { background-color: {{accent}}; border-radius: 1px; min-height: 2px; }
+searchentry { border-radius: {{radius_pill}}; padding: 0 {{spacing_m}}; }
+searchentry > image { color: {{fg_secondary}}; }
+entry > image.left { margin-right: {{spacing_s}}; }
+entry > image.right { margin-left: {{spacing_s}}; }
+searchbar > revealer > box { border-radius: 0; box-shadow: inset 0 -1px {{separator}}; background-color: @headerbar_bg_color; }
+searchbar entry { background-color: {{flat_hover}}; box-shadow: none; }
+
+spinbutton { padding: 0; }
+spinbutton > text { padding: 0 {{spacing_m}}; }
+spinbutton > button {
+  min-width: 20px; min-height: {{control_height}}; padding: 0;
+  background-color: transparent; box-shadow: none; border-radius: 0;
+  color: {{fg_secondary}};
+}
+spinbutton > button:hover { background-color: {{flat_hover}}; }
+spinbutton > button:active { background-color: {{flat_active}}; }
+spinbutton > button.up { border-radius: 0 {{radius_control}} {{radius_control}} 0; }
+spinbutton > button.down { border-radius: {{radius_control}} 0 0 {{radius_control}}; }
+
+/* ---- dropdown / combobox / menu button ---- */
+dropdown > button, combobox > box > button, combobox button.combo, menubutton.combo > button { padding: 0 {{spacing_s}} 0 {{spacing_m}}; }
+dropdown arrow, combobox arrow, menubutton arrow, button.combo arrow {
+  min-width: 12px; min-height: 12px;
+  -gtk-icon-source: url("assets/arrow-down.svg");
+  background: none; border: none;
+}
+dropdown popover.background > contents, combobox popover.background > contents { padding: {{spacing_xs}}; }
+dropdown popover listview > row, dropdown popover list > row {
+  min-height: {{menu_item_height}};
+  padding: 0 {{spacing_m}};
+  margin: 1px 0;
+  border-radius: {{radius_menu_item}};
+}
+dropdown popover listview > row:hover, dropdown popover listview > row:selected { background-color: {{accent}}; color: {{accent_fg}}; }
+dropdown popover entry, dropdown popover searchentry { margin: {{spacing_xs}}; }
+
+/* ---- check / radio ---- */
+check, radio {
+  min-width: 16px;
+  min-height: 16px;
+  margin: 0 2px;
+  padding: 0;
+  border: none;
+  background-color: {{button_bg}};
+  background-image: none;
+  box-shadow: inset 0 0 0 1px {{border_hex}}, {{button_shadow}};
+  color: {{accent_fg}};
+  -gtk-icon-source: none;
+  transition: background-color {{duration_fast}} {{ease_standard}}, box-shadow {{duration_fast}} {{ease_standard}};
+}
+check { border-radius: {{radius_check}}; }
+radio { border-radius: 50%; }
+check:hover, radio:hover { background-color: {{button_bg_hover}}; }
+check:active, radio:active { background-color: {{button_bg_active}}; }
+check:checked, check:indeterminate, radio:checked, radio:indeterminate {
+  background-color: {{accent}};
+  box-shadow: {{button_shadow}};
+}
+check:checked:hover, check:indeterminate:hover, radio:checked:hover, radio:indeterminate:hover { background-color: {{accent_hover}}; }
+check:checked:active, radio:checked:active { background-color: {{accent_active}}; }
+check:checked { -gtk-icon-source: url("assets/check.svg"); }
+check:indeterminate { -gtk-icon-source: url("assets/dash.svg"); }
+radio:checked { -gtk-icon-source: url("assets/radio.svg"); }
+radio:indeterminate { -gtk-icon-source: url("assets/dash.svg"); }
+check:disabled, radio:disabled { background-color: {{separator}}; box-shadow: inset 0 0 0 1px {{separator}}; }
+check:checked:disabled, check:indeterminate:disabled, radio:checked:disabled { background-color: {{accent_soft}}; }
+checkbutton, radiobutton { padding: 2px 0; }
+checkbutton:focus-visible > check, checkbutton:focus-visible > radio { outline: 3px solid {{focus_ring}}; outline-offset: 0; }
+checkbutton.selection-mode check, .selection-mode check { border-radius: 50%; }
+
+/* ---- switch ---- */
+switch {
+  min-width: {{switch_width}};
+  min-height: {{switch_height}};
+  padding: 0;
+  margin: 2px 0;
+  border: none;
+  border-radius: {{radius_pill}};
+  background-color: {{switch_off}};
+  background-image: none;
+  box-shadow: inset 0 0 0 0.5px {{border}};
+  color: transparent;
+  transition: background-color {{duration_normal}} {{ease_emphasized}}, box-shadow {{duration_normal}} {{ease_emphasized}};
+}
+switch:checked { background-color: {{accent}}; box-shadow: none; }
+switch:disabled { opacity: 0.5; }
+switch:focus-visible { outline: 3px solid {{focus_ring}}; outline-offset: 0; }
+switch > slider {
+  min-width: 16px;
+  min-height: 18px;
+  margin: 1px;
+  padding: 0;
+  border: none;
+  border-radius: {{radius_pill}};
+  background-color: {{switch_knob_color}};
+  background-image: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.30), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+  transition: background-color {{duration_normal}} {{ease_emphasized}}, box-shadow {{duration_normal}} {{ease_emphasized}};
+}
+switch > image { color: transparent; opacity: 0; }
+
+/* ---- scale / progress / level ---- */
+scale trough, scale.horizontal trough, scale.vertical trough {
+  background-color: {{switch_off}};
+  border-radius: {{radius_pill}};
+  min-height: 4px;
+  min-width: 4px;
+  border: none;
+  box-shadow: inset 0 0 0 0.5px {{border}};
+}
+scale highlight { background-color: {{accent}}; border-radius: {{radius_pill}}; border: none; min-height: 4px; min-width: 4px; }
+scale slider {
+  min-width: 16px;
+  min-height: 16px;
+  margin: -8px;
+  border: none;
+  border-radius: 50%;
+  background-color: {{switch_knob_color}};
+  background-image: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.30), 0 0 0 0.5px rgba(0, 0, 0, 0.14);
+  transition: box-shadow {{duration_fast}} {{ease_standard}};
+}
+scale:hover slider, scale slider:active { box-shadow: 0 1px 4px rgba(0, 0, 0, 0.38), 0 0 0 0.5px rgba(0, 0, 0, 0.18); }
+scale:disabled { opacity: 0.5; }
+scale marks, scale mark indicator { color: {{fg_secondary}}; min-width: 1px; min-height: 4px; background-color: {{separator}}; }
+scale value { color: {{fg_secondary}}; font-size: {{font_size_small}}; }
+scale slider:focus-visible { outline: 3px solid {{focus_ring}}; outline-offset: 0; }
+
+progressbar trough { background-color: {{switch_off}}; border-radius: {{radius_pill}}; min-height: 4px; min-width: 4px; border: none; box-shadow: inset 0 0 0 0.5px {{border}}; }
+progressbar progress { background-color: {{accent}}; border-radius: {{radius_pill}}; border: none; min-height: 4px; min-width: 4px; transition: min-width {{duration_normal}} {{ease_standard}}; }
+progressbar.osd trough { background-color: rgba(255, 255, 255, 0.2); }
+progressbar > text, progressbar > trough > progress ~ text { font-size: {{font_size_small}}; color: {{fg_secondary}}; }
+progressbar.vertical trough { min-width: 4px; }
+progressbar:disabled { opacity: 0.5; }
+
+levelbar trough { background-color: {{switch_off}}; border-radius: {{radius_pill}}; border: none; min-height: 6px; }
+levelbar block { border-radius: {{radius_pill}}; min-height: 6px; min-width: 6px; border: none; }
+levelbar block.empty { background-color: transparent; }
+levelbar block.low { background-color: {{warning}}; }
+levelbar block.high, levelbar block.full { background-color: {{success}}; }
+levelbar block.filled { background-color: {{accent}}; }
+levelbar block.filled.low { background-color: {{warning}}; }
+levelbar block.filled.high, levelbar block.filled.full { background-color: {{success}}; }
+
+/* ---- scrollbar (thin overlay) ---- */
+scrollbar { background: none; border: none; transition: background-color {{duration_normal}} {{ease_standard}}; }
+scrollbar slider {
+  min-width: 6px;
+  min-height: 6px;
+  margin: 2px;
+  border: none;
+  border-radius: {{radius_pill}};
+  background-color: {{scrollbar}};
+  transition: min-width {{duration_normal}} {{ease_emphasized}}, min-height {{duration_normal}} {{ease_emphasized}}, background-color {{duration_fast}} {{ease_standard}}, opacity {{duration_normal}} {{ease_standard}};
+}
+scrollbar.vertical slider { min-height: 32px; }
+scrollbar.horizontal slider { min-width: 32px; }
+scrollbar slider:hover, scrollbar slider:active { background-color: {{fg_secondary}}; }
+scrollbar.overlay-indicator:not(.dragging):not(.hovering) slider { min-width: 3px; min-height: 3px; margin: 2px; }
+scrollbar.overlay-indicator.hovering, scrollbar.overlay-indicator.dragging { background-color: {{flat_hover}}; border-radius: {{radius_pill}}; }
+scrollbar.overlay-indicator.hovering slider, scrollbar.overlay-indicator.dragging slider { min-width: 8px; min-height: 8px; }
+scrollbar trough { background: none; border: none; }
+scrollbar button { min-width: 0; min-height: 0; padding: 0; opacity: 0; }
+scrolledwindow > undershoot, scrolledwindow > overshoot { background: none; }
+scrolledwindow.frame, frame, .frame { border: none; box-shadow: inset 0 0 0 1px {{border}}; border-radius: {{radius_control}}; }
+scrolledwindow.frame > viewport, scrolledwindow.frame > listview, scrolledwindow.frame > textview { border-radius: {{radius_control}}; }
+
+/* ---- notebook / tabs ---- */
+notebook > header {
+  background-color: {{window_bg}};
+  box-shadow: inset 0 -1px {{separator}};
+  padding: {{spacing_xs}} {{spacing_s}};
+}
+notebook > header.bottom { box-shadow: inset 0 1px {{separator}}; }
+notebook > header.left { box-shadow: inset -1px 0 {{separator}}; }
+notebook > header.right { box-shadow: inset 1px 0 {{separator}}; }
+notebook > header > tabs > tab {
+  min-height: {{control_height}};
+  min-width: 24px;
+  padding: 0 {{spacing_l}};
+  margin: 0 1px;
+  border: none;
+  border-radius: {{radius_control}};
+  background-color: transparent;
+  color: {{fg_secondary}};
+  box-shadow: none;
+  transition: background-color {{duration_fast}} {{ease_standard}}, color {{duration_fast}} {{ease_standard}};
+}
+notebook > header > tabs > tab:hover { background-color: {{flat_hover}}; color: {{fg}}; }
+notebook > header > tabs > tab:checked { background-color: {{button_bg}}; color: {{fg}}; box-shadow: {{button_shadow}}, 0 0 0 0.5px {{border}}; }
+notebook > header > tabs > tab > box > button.flat { min-height: 16px; min-width: 16px; padding: 0; border-radius: 50%; }
+notebook > stack:not(:only-child) { background-color: {{view_bg}}; }
+notebook > header > tabs > arrow { color: {{fg_secondary}}; }
+
+tabbar .box, tabbar > revealer > box { background-color: @headerbar_bg_color; box-shadow: inset 0 -1px {{separator}}; padding: 0 {{spacing_s}}; min-height: {{headerbar_height}}; }
+tabbar tab, tabbar tabbox > tab {
+  min-height: {{control_height}};
+  margin: 7px 1px;
+  padding: 0 {{spacing_m}};
+  border-radius: {{radius_control}};
+  background-color: transparent;
+  color: {{fg_secondary}};
+  box-shadow: none;
+  transition: background-color {{duration_fast}} {{ease_standard}};
+}
+tabbar tab:hover { background-color: {{flat_hover}}; }
+tabbar tab:selected { background-color: {{button_bg}}; color: {{fg}}; box-shadow: {{button_shadow}}, 0 0 0 0.5px {{border}}; }
+tabbar tab button.tab-close-button, tabbar tab .tab-close-button { min-height: 16px; min-width: 16px; padding: 0; border-radius: 50%; box-shadow: none; background: none; }
+tabbar tab indicator { background-color: {{accent}}; }
+
+/* ---- segmented control: stack switcher / view switcher ---- */
+stackswitcher, viewswitcher {
+  padding: 2px;
+  border-radius: {{radius_control}};
+  background-color: {{flat_hover}};
+}
+stackswitcher > button, viewswitcher > button, viewswitcher button.toggle {
+  min-height: calc({{control_height|px}}px - 4px);
+  padding: 0 {{spacing_l}};
+  margin: 0;
+  border-radius: calc({{radius_control|px}}px - 2px);
+  background-color: transparent;
+  box-shadow: none;
+  color: {{fg}};
+}
+stackswitcher > button:hover, viewswitcher button.toggle:hover { background-color: {{flat_hover}}; }
+stackswitcher > button:checked, viewswitcher button.toggle:checked {
+  background-color: {{button_bg}};
+  color: {{fg}};
+  box-shadow: {{button_shadow}}, 0 0 0 0.5px {{border}};
+}
+stackswitcher.linked > button, stackswitcher.linked > button:first-child, stackswitcher.linked > button:last-child { border-radius: calc({{radius_control|px}}px - 2px); margin: 0; }
+viewswitcherbar > actionbar > revealer > box, viewswitcherbar actionbar > revealer > box { background-color: @headerbar_bg_color; }
+viewswitchertitle viewswitcher { margin: 7px 0; }
+
+/* ---- lists ---- */
+list, listview, columnview, columnview > listview, .view, iconview, textview, textview > text, treeview.view, viewport {
+  background-color: transparent;
+  color: {{fg}};
+}
+.view, iconview, textview > text, treeview.view, columnview, listview, list { background-color: {{view_bg}}; }
+list.navigation-sidebar, listview.navigation-sidebar, placessidebar list, .sidebar-pane list, .sidebar-pane listview, .navigation-sidebar { background-color: transparent; padding: {{spacing_xs}} {{spacing_s}}; }
+list.transparent, list.background, listview.background, row.background, list.rich-list { background-color: transparent; }
+
+row, listview > row, list > row, columnview > listview > row, gridview > child {
+  min-height: {{row_height}};
+  padding: 0 {{spacing_m}};
+  margin: 0;
+  border-radius: {{radius_control}};
+  background-color: transparent;
+  color: inherit;
+  transition: background-color {{duration_fast}} {{ease_standard}}, color {{duration_fast}} {{ease_standard}};
+}
+listview, list { padding: {{spacing_xs}}; }
+listview > row:hover, list > row:hover, columnview > listview > row:hover { background-color: {{flat_hover}}; }
+listview > row:selected, list > row:selected, columnview > listview > row:selected, row:selected, gridview > child:selected, iconview:selected, treeview.view:selected, .view:selected {
+  background-color: {{selection_bg}};
+  color: {{selection_fg}};
+}
+row:selected label, row:selected image, row:selected .dim-label, row:selected .subtitle { color: {{selection_fg}}; }
+row:selected .dim-label, row:selected .subtitle { opacity: 0.8; }
+row:selected:backdrop, listview > row:selected:backdrop, list > row:selected:backdrop { background-color: {{selection_bg_backdrop}}; color: {{fg}}; }
+row:selected:backdrop label, row:selected:backdrop image { color: {{fg}}; }
+row:disabled { color: {{fg_disabled}}; }
+row.activatable:active { background-color: {{flat_active}}; }
+list > row + row, listview > row + row { margin-top: 1px; }
+columnview > listview > row > cell { padding: 0 {{spacing_s}}; }
+columnview > header > button, columnview > header.top > button, treeview.view header button {
+  min-height: {{control_height}};
+  border-radius: 0;
+  background-color: {{window_bg}};
+  box-shadow: inset 0 -1px {{separator}}, inset -1px 0 {{separator}};
+  color: {{fg_secondary}};
+  font-weight: 600;
+  padding: 0 {{spacing_m}};
+}
+columnview > header > button:hover { background-color: {{flat_hover}}; }
+list.boxed-list, list.content, .boxed-list {
+  background-color: {{view_bg}};
+  border-radius: {{radius_popover}};
+  border: none;
+  box-shadow: inset 0 0 0 1px {{border}};
+  padding: 0;
+}
+list.boxed-list > row, list.content > row { border-radius: 0; margin: 0; padding: 0 {{spacing_l}}; min-height: 36px; }
+list.boxed-list > row:first-child, list.content > row:first-child { border-top-left-radius: {{radius_popover}}; border-top-right-radius: {{radius_popover}}; }
+list.boxed-list > row:last-child, list.content > row:last-child { border-bottom-left-radius: {{radius_popover}}; border-bottom-right-radius: {{radius_popover}}; }
+list.boxed-list > row + row, list.content > row + row { margin-top: 0; box-shadow: inset 0 1px {{separator}}; }
+list.navigation-sidebar > row, listview.navigation-sidebar > row, .sidebar-pane list > row, placessidebar row {
+  margin: 1px 0;
+  padding: 0 {{spacing_m}};
+  border-radius: {{radius_control}};
+  min-height: {{row_height}};
+}
+placessidebar row.sidebar-row { min-height: {{row_height}}; }
+placessidebar row.sidebar-row.sidebar-new-bookmark-row { color: {{accent}}; }
+.navigation-sidebar > row:selected, .navigation-sidebar > row:selected:focus { background-color: {{selection_bg}}; color: {{selection_fg}}; }
+
+/* ---- sidebars / panes ---- */
+.sidebar-pane, .sidebar, placessidebar, placessidebar > scrolledwindow, .navigation-sidebar-pane {
+  background-color: {{sidebar_bg}};
+  color: @sidebar_fg_color;
+}
+.sidebar-pane:backdrop, .sidebar:backdrop, placessidebar:backdrop { background-color: @sidebar_backdrop_color; }
+.sidebar-pane headerbar, .sidebar-pane toolbarview > .top-bar { background-color: {{sidebar_bg}}; box-shadow: none; }
+.sidebar-pane headerbar:backdrop { background-color: @sidebar_backdrop_color; }
+.content-pane { background-color: {{view_bg}}; }
+.sidebar-pane + separator, .sidebar + separator, navigation-split-view > separator, overlay-split-view > separator, paned > separator { background-color: {{separator}}; min-width: 1px; min-height: 1px; }
+paned > separator { background-image: none; }
+paned > separator.wide { min-width: 6px; min-height: 6px; background-color: transparent; }
+.sidebar-pane .title-4, .sidebar-pane .heading { color: {{fg_secondary}}; font-size: {{font_size_small}}; }
+stacksidebar list { background-color: {{sidebar_bg}}; }
+stacksidebar row { margin: 1px 6px; }
+
+/* ---- popovers / menus ---- */
+popover { background: none; border: none; box-shadow: none; }
+popover > contents, popover.background > contents {
+  padding: {{spacing_xs}};
+  background-color: {{popover_bg}};
+  color: {{fg}};
+  border: none;
+  border-radius: {{radius_popover}};
+  box-shadow: {{popover_shadow}};
+  animation: slate-popover-in {{duration_fast}} {{ease_emphasized}} both;
+}
+popover > arrow { background-color: {{popover_bg}}; border: none; box-shadow: none; min-width: 10px; min-height: 10px; }
+popover.menu > contents { padding: {{spacing_xs}}; }
+popover.menu box.inline-buttons button.image-button.model { min-width: 28px; min-height: 28px; padding: 0; }
+popover modelbutton, popover.menu modelbutton, popover button.model {
+  min-height: {{menu_item_height}};
+  min-width: 40px;
+  padding: 0 {{spacing_m}};
+  margin: 0;
+  border-radius: {{radius_menu_item}};
+  background-color: transparent;
+  box-shadow: none;
+  color: {{fg}};
+  transition: background-color {{duration_fast}} {{ease_standard}};
+}
+popover modelbutton:hover, popover modelbutton:focus-visible, popover button.model:hover {
+  background-color: {{accent}};
+  color: {{accent_fg}};
+  outline: none;
+}
+popover modelbutton:disabled { color: {{fg_disabled}}; background-color: transparent; }
+popover modelbutton check, popover modelbutton radio { background-color: transparent; box-shadow: none; color: {{fg}}; }
+popover modelbutton check:checked { -gtk-icon-source: -gtk-icontheme("object-select-symbolic"); background-color: transparent; }
+popover modelbutton:hover check:checked { color: {{accent_fg}}; }
+popover modelbutton arrow { -gtk-icon-source: -gtk-icontheme("pan-end-symbolic"); color: {{fg_secondary}}; }
+popover modelbutton:hover arrow { color: {{accent_fg}}; }
+popover separator { margin: {{spacing_xs}} {{spacing_m}}; background-color: {{separator}}; }
+popover label.heading, popover .heading { color: {{fg_secondary}}; font-size: {{font_size_small}}; padding: 0 {{spacing_m}}; }
+popover.emoji-picker > contents { padding: 0; }
+popover.touch-selection, popover.magnifier { background: none; }
+
+@keyframes slate-popover-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+menubar { background-color: @headerbar_bg_color; }
+menubar > item { padding: 0 {{spacing_m}}; border-radius: {{radius_menu_item}}; min-height: {{control_height}}; }
+menubar > item:hover { background-color: {{flat_hover}}; }
+
+tooltip, tooltip.background {
+  background-color: {{tooltip_bg}};
+  color: {{tooltip_fg}};
+  border-radius: {{radius_control}};
+  box-shadow: {{popover_shadow}};
+  border: none;
+}
+tooltip > box { padding: {{spacing_xs}} {{spacing_m}}; }
+tooltip label { font-size: {{font_size_small}}; color: {{tooltip_fg}}; }
+
+/* ---- dialogs / alert dialogs ---- */
+window.dialog, window.messagedialog, window.alert, window.dialog.message, dialog-host > dialog.alert sheet, dialog-host > dialog.floating sheet {
+  background-color: @dialog_bg_color;
+  color: @dialog_fg_color;
+  border-radius: {{radius_window}};
+}
+window.dialog.message .dialog-action-area, window.messagedialog .dialog-action-area { padding: {{spacing_l}}; }
+window.dialog .dialog-action-area button, window.messagedialog .dialog-action-area button { min-height: {{control_height}}; }
+window.messagedialog .titlebar, window.dialog.message .titlebar, window.alert .titlebar { box-shadow: none; background-color: transparent; min-height: 0; }
+window.messagedialog .message-area > .title, window.alert .message-area .title, .alert .heading { font-weight: 700; font-size: 15px; }
+window.alert .response-area > button, window.alert .response-area button, dialog.alert .response-area button { min-height: {{control_height}}; border-radius: {{radius_control}}; margin: 0; }
+window.alert .response-area, dialog.alert .response-area { padding: {{spacing_l}}; }
+dialog-host > dialog.floating sheet, dialog-host > dialog.bottom-sheet sheet { box-shadow: {{popover_shadow}}; }
+dialog-host > dialog > dimming, dialog-host > dialog > scrim { background-color: rgba(0, 0, 0, 0.32); }
+window.aboutdialog image.large-icons { -gtk-icon-size: 64px; }
+
+/* ---- toast / banner / infobar ---- */
+toast {
+  margin: {{spacing_l}};
+  padding: {{spacing_xs}} {{spacing_xs}} {{spacing_xs}} {{spacing_l}};
+  border-radius: {{radius_pill}};
+  background-color: rgba(30, 30, 31, 0.92);
+  color: #FFFFFF;
+  box-shadow: {{popover_shadow}};
+  transition: opacity {{duration_normal}} {{ease_standard}};
+}
+toast button { color: #FFFFFF; background-color: transparent; box-shadow: none; }
+toast button:hover { background-color: rgba(255, 255, 255, 0.14); }
+toast label { color: #FFFFFF; }
+banner > revealer > widget, banner > revealer > box { background-color: {{accent}}; color: {{accent_fg}}; min-height: 32px; }
+banner button { background-color: rgba(255, 255, 255, 0.2); color: {{accent_fg}}; box-shadow: none; }
+banner button:hover { background-color: rgba(255, 255, 255, 0.3); }
+infobar > revealer > box { background-color: {{accent_soft}}; border-radius: 0; padding: {{spacing_s}} {{spacing_l}}; }
+infobar.warning > revealer > box { background-color: {{warning}}; color: #FFFFFF; }
+infobar.error > revealer > box { background-color: {{destructive}}; color: #FFFFFF; }
+
+/* ---- libadwaita preferences rows ---- */
+row.activatable:hover, row.expander > box > list > row.activatable:hover { background-color: {{flat_hover}}; }
+row.property > box.header .title, row.property > box.header .subtitle { color: inherit; }
+row .title, row.property > box.header > box.title > .title { font-weight: 500; }
+row .subtitle, row .subtitle label, row > box.header > box.title > .subtitle { color: {{fg_secondary}}; font-size: {{font_size_small}}; }
+row > box.header { min-height: 36px; padding: 0; }
+row.expander > box > list { background-color: transparent; box-shadow: none; border-radius: 0; }
+row.expander > box > list > row { border-radius: 0; box-shadow: inset 0 1px {{separator}}; }
+row.expander image.expander-row-arrow { color: {{fg_secondary}}; -gtk-icon-source: -gtk-icontheme("pan-down-symbolic"); }
+row.expander:checked image.expander-row-arrow { color: {{fg}}; }
+row.entry { padding: 0 {{spacing_l}}; min-height: 36px; }
+row.entry text, row.entry > box > box > text { background: none; box-shadow: none; }
+row.entry entry, row.entry text { box-shadow: none; background: none; }
+row.entry:focus-within { box-shadow: inset 0 0 0 1px {{accent}}; background-color: {{accent_soft}}; }
+row.entry .edit-icon { color: {{fg_secondary}}; }
+row.combo > box.header, row.switch > box.header { min-height: 36px; }
+row.combo popover.background > contents > scrolledwindow > listview > row:selected, row.combo popover listview > row:selected { background-color: {{accent}}; color: {{accent_fg}}; }
+preferencespage > scrolledwindow > viewport > clamp > box { padding: {{spacing_xl}}; }
+preferencesgroup > box > box.header > box > label.title { font-weight: 600; font-size: {{font_size_small}}; color: {{fg_secondary}}; }
+preferencesgroup > box > box.header > box > label.description { color: {{fg_secondary}}; font-size: {{font_size_small}}; }
+statuspage > scrolledwindow > viewport > box > clamp > box > .title { font-size: 20px; font-weight: 700; }
+statuspage .icon { color: {{fg_disabled}}; }
+.card { background-color: {{view_bg}}; color: {{fg}}; border-radius: {{radius_popover}}; box-shadow: inset 0 0 0 1px {{border}}; }
+.card.activatable:hover { background-color: {{button_bg_hover}}; }
+.osd { background-color: rgba(30, 30, 31, 0.85); color: #FFFFFF; border-radius: {{radius_popover}}; }
+
+/* ---- misc ---- */
+expander > title > arrow { color: {{fg_secondary}}; min-width: 16px; min-height: 16px; -gtk-icon-source: -gtk-icontheme("pan-end-symbolic"); }
+expander > title > arrow:checked { -gtk-icon-source: -gtk-icontheme("pan-down-symbolic"); }
+spinner { color: {{fg_secondary}}; }
+treeview.view { border-radius: 0; }
+treeview.view:selected:focus, treeview.view:selected { background-color: {{selection_bg}}; color: {{selection_fg}}; }
+calendar { padding: {{spacing_s}}; color: {{fg}}; }
+calendar:selected { background-color: {{accent}}; color: {{accent_fg}}; border-radius: {{radius_control}}; }
+colorswatch, colorswatch overlay { border-radius: {{radius_control}}; }
