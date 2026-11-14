@@ -1,0 +1,497 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="560" height="112">
+<!-- Slate Kvantum sheet. Corner radii are LITERAL in the path arcs and must be redrawn if the tokens change: 6 = radius_control (button, lineedit, tab, tabframe, group, dock, tooltip), 5 = radius_menu_item (menu, menuitem, menubaritem, itemview; the menu corner piece cannot be 10 because Kvantum scales it into the frame size, which must stay about 5 for tight padding; radius_popover=10 is not reachable), 4 = scrollbar pills and common frames, 3 = progress/slider tracks. Checkbox rx uses the radius_check token. Each assembled widget = 8 frame pieces + interior. -->
+<!-- Opacity of flat_hover, flat_active, scrollbar and accent_soft comes from the alpha token filter. -->
+<rect width="560" height="112" fill="{{window_bg}}"/>
+<g id="button-normal-topleft" transform="translate(8,8)"><rect width="6" height="6" opacity="0"/><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="{{button_bg}}"/><path d="M0 6A6 6 0 0 1 6 0V1A5 5 0 0 0 1 6Z" fill="{{border_hex}}"/></g>
+<g id="button-normal-topright" transform="translate(18,8)"><rect width="6" height="6" opacity="0"/><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="{{button_bg}}"/><path d="M0 0A6 6 0 0 1 6 6H5A5 5 0 0 0 0 1Z" fill="{{border_hex}}"/></g>
+<g id="button-normal-bottomleft" transform="translate(8,18)"><rect width="6" height="7" opacity="0"/><path d="M0 1A6 6 0 0 0 6 7V1Z" fill="#000" fill-opacity="0.16"/><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="{{button_bg}}"/><path d="M0 0A6 6 0 0 0 6 6V5A5 5 0 0 1 1 0Z" fill="{{border_hex}}"/></g>
+<g id="button-normal-bottomright" transform="translate(18,18)"><rect width="6" height="7" opacity="0"/><path d="M6 1A6 6 0 0 1 0 7V1Z" fill="#000" fill-opacity="0.16"/><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="{{button_bg}}"/><path d="M6 0A6 6 0 0 1 0 6V5A5 5 0 0 0 5 0Z" fill="{{border_hex}}"/></g>
+<g id="button-normal-top" transform="translate(14,8)"><rect width="4" height="6" opacity="0"/><path d="M0 0H4V6H0Z" fill="{{button_bg}}"/><path d="M0 0H4V1H0Z" fill="{{border_hex}}"/></g>
+<g id="button-normal-bottom" transform="translate(14,18)"><rect width="4" height="7" opacity="0"/><path d="M0 1H4V7H0Z" fill="#000" fill-opacity="0.16"/><path d="M0 0H4V6H0Z" fill="{{button_bg}}"/><path d="M0 5H4V6H0Z" fill="{{border_hex}}"/></g>
+<g id="button-normal-left" transform="translate(8,14)"><rect width="6" height="4" opacity="0"/><path d="M0 0H6V4H0Z" fill="{{button_bg}}"/><path d="M0 0H1V4H0Z" fill="{{border_hex}}"/></g>
+<g id="button-normal-right" transform="translate(18,14)"><rect width="6" height="4" opacity="0"/><path d="M0 0H6V4H0Z" fill="{{button_bg}}"/><path d="M5 0H6V4H5Z" fill="{{border_hex}}"/></g>
+<rect id="button-normal" x="14" y="14" width="4" height="4" fill="{{button_bg}}"/>
+<g id="button-focused-topleft" transform="translate(32,8)"><rect width="6" height="6" opacity="0"/><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="{{button_bg_hover}}"/><path d="M0 6A6 6 0 0 1 6 0V1A5 5 0 0 0 1 6Z" fill="{{border_hex}}"/></g>
+<g id="button-focused-topright" transform="translate(42,8)"><rect width="6" height="6" opacity="0"/><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="{{button_bg_hover}}"/><path d="M0 0A6 6 0 0 1 6 6H5A5 5 0 0 0 0 1Z" fill="{{border_hex}}"/></g>
+<g id="button-focused-bottomleft" transform="translate(32,18)"><rect width="6" height="7" opacity="0"/><path d="M0 1A6 6 0 0 0 6 7V1Z" fill="#000" fill-opacity="0.16"/><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="{{button_bg_hover}}"/><path d="M0 0A6 6 0 0 0 6 6V5A5 5 0 0 1 1 0Z" fill="{{border_hex}}"/></g>
+<g id="button-focused-bottomright" transform="translate(42,18)"><rect width="6" height="7" opacity="0"/><path d="M6 1A6 6 0 0 1 0 7V1Z" fill="#000" fill-opacity="0.16"/><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="{{button_bg_hover}}"/><path d="M6 0A6 6 0 0 1 0 6V5A5 5 0 0 0 5 0Z" fill="{{border_hex}}"/></g>
+<g id="button-focused-top" transform="translate(38,8)"><rect width="4" height="6" opacity="0"/><path d="M0 0H4V6H0Z" fill="{{button_bg_hover}}"/><path d="M0 0H4V1H0Z" fill="{{border_hex}}"/></g>
+<g id="button-focused-bottom" transform="translate(38,18)"><rect width="4" height="7" opacity="0"/><path d="M0 1H4V7H0Z" fill="#000" fill-opacity="0.16"/><path d="M0 0H4V6H0Z" fill="{{button_bg_hover}}"/><path d="M0 5H4V6H0Z" fill="{{border_hex}}"/></g>
+<g id="button-focused-left" transform="translate(32,14)"><rect width="6" height="4" opacity="0"/><path d="M0 0H6V4H0Z" fill="{{button_bg_hover}}"/><path d="M0 0H1V4H0Z" fill="{{border_hex}}"/></g>
+<g id="button-focused-right" transform="translate(42,14)"><rect width="6" height="4" opacity="0"/><path d="M0 0H6V4H0Z" fill="{{button_bg_hover}}"/><path d="M5 0H6V4H5Z" fill="{{border_hex}}"/></g>
+<rect id="button-focused" x="38" y="14" width="4" height="4" fill="{{button_bg_hover}}"/>
+<g id="button-pressed-topleft" transform="translate(56,8)"><rect width="6" height="6" opacity="0"/><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="{{button_bg_active}}"/><path d="M0 6A6 6 0 0 1 6 0V1A5 5 0 0 0 1 6Z" fill="{{border_hex}}"/></g>
+<g id="button-pressed-topright" transform="translate(66,8)"><rect width="6" height="6" opacity="0"/><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="{{button_bg_active}}"/><path d="M0 0A6 6 0 0 1 6 6H5A5 5 0 0 0 0 1Z" fill="{{border_hex}}"/></g>
+<g id="button-pressed-bottomleft" transform="translate(56,18)"><rect width="6" height="7" opacity="0"/><path d="M0 1A6 6 0 0 0 6 7V1Z" fill="#000" fill-opacity="0.16"/><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="{{button_bg_active}}"/><path d="M0 0A6 6 0 0 0 6 6V5A5 5 0 0 1 1 0Z" fill="{{border_hex}}"/></g>
+<g id="button-pressed-bottomright" transform="translate(66,18)"><rect width="6" height="7" opacity="0"/><path d="M6 1A6 6 0 0 1 0 7V1Z" fill="#000" fill-opacity="0.16"/><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="{{button_bg_active}}"/><path d="M6 0A6 6 0 0 1 0 6V5A5 5 0 0 0 5 0Z" fill="{{border_hex}}"/></g>
+<g id="button-pressed-top" transform="translate(62,8)"><rect width="4" height="6" opacity="0"/><path d="M0 0H4V6H0Z" fill="{{button_bg_active}}"/><path d="M0 0H4V1H0Z" fill="{{border_hex}}"/></g>
+<g id="button-pressed-bottom" transform="translate(62,18)"><rect width="4" height="7" opacity="0"/><path d="M0 1H4V7H0Z" fill="#000" fill-opacity="0.16"/><path d="M0 0H4V6H0Z" fill="{{button_bg_active}}"/><path d="M0 5H4V6H0Z" fill="{{border_hex}}"/></g>
+<g id="button-pressed-left" transform="translate(56,14)"><rect width="6" height="4" opacity="0"/><path d="M0 0H6V4H0Z" fill="{{button_bg_active}}"/><path d="M0 0H1V4H0Z" fill="{{border_hex}}"/></g>
+<g id="button-pressed-right" transform="translate(66,14)"><rect width="6" height="4" opacity="0"/><path d="M0 0H6V4H0Z" fill="{{button_bg_active}}"/><path d="M5 0H6V4H5Z" fill="{{border_hex}}"/></g>
+<rect id="button-pressed" x="62" y="14" width="4" height="4" fill="{{button_bg_active}}"/>
+<g id="button-toggled-topleft" transform="translate(80,8)"><rect width="6" height="6" opacity="0"/><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="{{button_bg_active}}"/><path d="M0 6A6 6 0 0 1 6 0V1A5 5 0 0 0 1 6Z" fill="{{border_hex}}"/></g>
+<g id="button-toggled-topright" transform="translate(90,8)"><rect width="6" height="6" opacity="0"/><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="{{button_bg_active}}"/><path d="M0 0A6 6 0 0 1 6 6H5A5 5 0 0 0 0 1Z" fill="{{border_hex}}"/></g>
+<g id="button-toggled-bottomleft" transform="translate(80,18)"><rect width="6" height="7" opacity="0"/><path d="M0 1A6 6 0 0 0 6 7V1Z" fill="#000" fill-opacity="0.16"/><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="{{button_bg_active}}"/><path d="M0 0A6 6 0 0 0 6 6V5A5 5 0 0 1 1 0Z" fill="{{border_hex}}"/></g>
+<g id="button-toggled-bottomright" transform="translate(90,18)"><rect width="6" height="7" opacity="0"/><path d="M6 1A6 6 0 0 1 0 7V1Z" fill="#000" fill-opacity="0.16"/><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="{{button_bg_active}}"/><path d="M6 0A6 6 0 0 1 0 6V5A5 5 0 0 0 5 0Z" fill="{{border_hex}}"/></g>
+<g id="button-toggled-top" transform="translate(86,8)"><rect width="4" height="6" opacity="0"/><path d="M0 0H4V6H0Z" fill="{{button_bg_active}}"/><path d="M0 0H4V1H0Z" fill="{{border_hex}}"/></g>
+<g id="button-toggled-bottom" transform="translate(86,18)"><rect width="4" height="7" opacity="0"/><path d="M0 1H4V7H0Z" fill="#000" fill-opacity="0.16"/><path d="M0 0H4V6H0Z" fill="{{button_bg_active}}"/><path d="M0 5H4V6H0Z" fill="{{border_hex}}"/></g>
+<g id="button-toggled-left" transform="translate(80,14)"><rect width="6" height="4" opacity="0"/><path d="M0 0H6V4H0Z" fill="{{button_bg_active}}"/><path d="M0 0H1V4H0Z" fill="{{border_hex}}"/></g>
+<g id="button-toggled-right" transform="translate(90,14)"><rect width="6" height="4" opacity="0"/><path d="M0 0H6V4H0Z" fill="{{button_bg_active}}"/><path d="M5 0H6V4H5Z" fill="{{border_hex}}"/></g>
+<rect id="button-toggled" x="86" y="14" width="4" height="4" fill="{{button_bg_active}}"/>
+<!-- default button: Kvantum cannot color default-button text, so the default style is a subtle accent tint (accent_soft) over the normal button with an accent border; the normal fg text stays readable -->
+<g id="button-default-topleft" transform="translate(104,8)"><rect width="6" height="6" opacity="0"/><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="rgb({{accent|rgb}})" fill-opacity="{{accent_soft|alpha}}"/><path d="M0 6A6 6 0 0 1 6 0V1A5 5 0 0 0 1 6Z" fill="{{accent}}"/></g>
+<g id="button-default-topright" transform="translate(114,8)"><rect width="6" height="6" opacity="0"/><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="rgb({{accent|rgb}})" fill-opacity="{{accent_soft|alpha}}"/><path d="M0 0A6 6 0 0 1 6 6H5A5 5 0 0 0 0 1Z" fill="{{accent}}"/></g>
+<g id="button-default-bottomleft" transform="translate(104,18)"><rect width="6" height="7" opacity="0"/><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="rgb({{accent|rgb}})" fill-opacity="{{accent_soft|alpha}}"/><path d="M0 0A6 6 0 0 0 6 6V5A5 5 0 0 1 1 0Z" fill="{{accent}}"/></g>
+<g id="button-default-bottomright" transform="translate(114,18)"><rect width="6" height="7" opacity="0"/><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="rgb({{accent|rgb}})" fill-opacity="{{accent_soft|alpha}}"/><path d="M6 0A6 6 0 0 1 0 6V5A5 5 0 0 0 5 0Z" fill="{{accent}}"/></g>
+<g id="button-default-top" transform="translate(110,8)"><rect width="4" height="6" opacity="0"/><path d="M0 0H4V6H0Z" fill="rgb({{accent|rgb}})" fill-opacity="{{accent_soft|alpha}}"/><path d="M0 0H4V1H0Z" fill="{{accent}}"/></g>
+<g id="button-default-bottom" transform="translate(110,18)"><rect width="4" height="7" opacity="0"/><path d="M0 0H4V6H0Z" fill="rgb({{accent|rgb}})" fill-opacity="{{accent_soft|alpha}}"/><path d="M0 5H4V6H0Z" fill="{{accent}}"/></g>
+<g id="button-default-left" transform="translate(104,14)"><rect width="6" height="4" opacity="0"/><path d="M0 0H6V4H0Z" fill="rgb({{accent|rgb}})" fill-opacity="{{accent_soft|alpha}}"/><path d="M0 0H1V4H0Z" fill="{{accent}}"/></g>
+<g id="button-default-right" transform="translate(114,14)"><rect width="6" height="4" opacity="0"/><path d="M0 0H6V4H0Z" fill="rgb({{accent|rgb}})" fill-opacity="{{accent_soft|alpha}}"/><path d="M5 0H6V4H5Z" fill="{{accent}}"/></g>
+<rect id="button-default" x="110" y="14" width="4" height="4" fill="rgb({{accent|rgb}})" fill-opacity="{{accent_soft|alpha}}"/>
+<g id="tbutton-normal-topleft" transform="translate(128,8)"><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="none"/></g>
+<g id="tbutton-normal-topright" transform="translate(138,8)"><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="none"/></g>
+<g id="tbutton-normal-bottomleft" transform="translate(128,18)"><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="none"/></g>
+<g id="tbutton-normal-bottomright" transform="translate(138,18)"><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="none"/></g>
+<g id="tbutton-normal-top" transform="translate(134,8)"><path d="M0 0H4V6H0Z" fill="none"/></g>
+<g id="tbutton-normal-bottom" transform="translate(134,18)"><path d="M0 0H4V6H0Z" fill="none"/></g>
+<g id="tbutton-normal-left" transform="translate(128,14)"><path d="M0 0H6V4H0Z" fill="none"/></g>
+<g id="tbutton-normal-right" transform="translate(138,14)"><path d="M0 0H6V4H0Z" fill="none"/></g>
+<rect id="tbutton-normal" x="134" y="14" width="4" height="4" fill="none"/>
+<g id="tbutton-focused-topleft" transform="translate(152,8)" opacity="{{flat_hover|alpha}}"><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<g id="tbutton-focused-topright" transform="translate(162,8)" opacity="{{flat_hover|alpha}}"><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<g id="tbutton-focused-bottomleft" transform="translate(152,18)" opacity="{{flat_hover|alpha}}"><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<g id="tbutton-focused-bottomright" transform="translate(162,18)" opacity="{{flat_hover|alpha}}"><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<g id="tbutton-focused-top" transform="translate(158,8)" opacity="{{flat_hover|alpha}}"><path d="M0 0H4V6H0Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<g id="tbutton-focused-bottom" transform="translate(158,18)" opacity="{{flat_hover|alpha}}"><path d="M0 0H4V6H0Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<g id="tbutton-focused-left" transform="translate(152,14)" opacity="{{flat_hover|alpha}}"><path d="M0 0H6V4H0Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<g id="tbutton-focused-right" transform="translate(162,14)" opacity="{{flat_hover|alpha}}"><path d="M0 0H6V4H0Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<rect id="tbutton-focused" x="158" y="14" width="4" height="4" fill="rgb({{flat_hover|rgb}})" opacity="{{flat_hover|alpha}}"/>
+<g id="tbutton-pressed-topleft" transform="translate(176,8)" opacity="{{flat_active|alpha}}"><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="rgb({{flat_active|rgb}})"/></g>
+<g id="tbutton-pressed-topright" transform="translate(186,8)" opacity="{{flat_active|alpha}}"><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="rgb({{flat_active|rgb}})"/></g>
+<g id="tbutton-pressed-bottomleft" transform="translate(176,18)" opacity="{{flat_active|alpha}}"><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="rgb({{flat_active|rgb}})"/></g>
+<g id="tbutton-pressed-bottomright" transform="translate(186,18)" opacity="{{flat_active|alpha}}"><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="rgb({{flat_active|rgb}})"/></g>
+<g id="tbutton-pressed-top" transform="translate(182,8)" opacity="{{flat_active|alpha}}"><path d="M0 0H4V6H0Z" fill="rgb({{flat_active|rgb}})"/></g>
+<g id="tbutton-pressed-bottom" transform="translate(182,18)" opacity="{{flat_active|alpha}}"><path d="M0 0H4V6H0Z" fill="rgb({{flat_active|rgb}})"/></g>
+<g id="tbutton-pressed-left" transform="translate(176,14)" opacity="{{flat_active|alpha}}"><path d="M0 0H6V4H0Z" fill="rgb({{flat_active|rgb}})"/></g>
+<g id="tbutton-pressed-right" transform="translate(186,14)" opacity="{{flat_active|alpha}}"><path d="M0 0H6V4H0Z" fill="rgb({{flat_active|rgb}})"/></g>
+<rect id="tbutton-pressed" x="182" y="14" width="4" height="4" fill="rgb({{flat_active|rgb}})" opacity="{{flat_active|alpha}}"/>
+<g id="tbutton-toggled-topleft" transform="translate(200,8)" opacity="{{flat_active|alpha}}"><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="rgb({{flat_active|rgb}})"/></g>
+<g id="tbutton-toggled-topright" transform="translate(210,8)" opacity="{{flat_active|alpha}}"><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="rgb({{flat_active|rgb}})"/></g>
+<g id="tbutton-toggled-bottomleft" transform="translate(200,18)" opacity="{{flat_active|alpha}}"><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="rgb({{flat_active|rgb}})"/></g>
+<g id="tbutton-toggled-bottomright" transform="translate(210,18)" opacity="{{flat_active|alpha}}"><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="rgb({{flat_active|rgb}})"/></g>
+<g id="tbutton-toggled-top" transform="translate(206,8)" opacity="{{flat_active|alpha}}"><path d="M0 0H4V6H0Z" fill="rgb({{flat_active|rgb}})"/></g>
+<g id="tbutton-toggled-bottom" transform="translate(206,18)" opacity="{{flat_active|alpha}}"><path d="M0 0H4V6H0Z" fill="rgb({{flat_active|rgb}})"/></g>
+<g id="tbutton-toggled-left" transform="translate(200,14)" opacity="{{flat_active|alpha}}"><path d="M0 0H6V4H0Z" fill="rgb({{flat_active|rgb}})"/></g>
+<g id="tbutton-toggled-right" transform="translate(210,14)" opacity="{{flat_active|alpha}}"><path d="M0 0H6V4H0Z" fill="rgb({{flat_active|rgb}})"/></g>
+<rect id="tbutton-toggled" x="206" y="14" width="4" height="4" fill="rgb({{flat_active|rgb}})" opacity="{{flat_active|alpha}}"/>
+<g id="lineedit-normal-topleft" transform="translate(224,8)"><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="{{entry_bg}}"/><path d="M0 6A6 6 0 0 1 6 0V1A5 5 0 0 0 1 6Z" fill="{{border_hex}}"/></g>
+<g id="lineedit-normal-topright" transform="translate(234,8)"><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="{{entry_bg}}"/><path d="M0 0A6 6 0 0 1 6 6H5A5 5 0 0 0 0 1Z" fill="{{border_hex}}"/></g>
+<g id="lineedit-normal-bottomleft" transform="translate(224,18)"><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="{{entry_bg}}"/><path d="M0 0A6 6 0 0 0 6 6V5A5 5 0 0 1 1 0Z" fill="{{border_hex}}"/></g>
+<g id="lineedit-normal-bottomright" transform="translate(234,18)"><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="{{entry_bg}}"/><path d="M6 0A6 6 0 0 1 0 6V5A5 5 0 0 0 5 0Z" fill="{{border_hex}}"/></g>
+<g id="lineedit-normal-top" transform="translate(230,8)"><path d="M0 0H4V6H0Z" fill="{{entry_bg}}"/><path d="M0 0H4V1H0Z" fill="{{border_hex}}"/></g>
+<g id="lineedit-normal-bottom" transform="translate(230,18)"><path d="M0 0H4V6H0Z" fill="{{entry_bg}}"/><path d="M0 5H4V6H0Z" fill="{{border_hex}}"/></g>
+<g id="lineedit-normal-left" transform="translate(224,14)"><path d="M0 0H6V4H0Z" fill="{{entry_bg}}"/><path d="M0 0H1V4H0Z" fill="{{border_hex}}"/></g>
+<g id="lineedit-normal-right" transform="translate(234,14)"><path d="M0 0H6V4H0Z" fill="{{entry_bg}}"/><path d="M5 0H6V4H5Z" fill="{{border_hex}}"/></g>
+<rect id="lineedit-normal" x="230" y="14" width="4" height="4" fill="{{entry_bg}}"/>
+<g id="lineedit-focused-topleft" transform="translate(248,8)"><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="{{entry_bg}}"/><path d="M0 6A6 6 0 0 1 6 0V2A4 4 0 0 0 2 6Z" fill="{{accent}}"/></g>
+<g id="lineedit-focused-topright" transform="translate(258,8)"><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="{{entry_bg}}"/><path d="M0 0A6 6 0 0 1 6 6H4A4 4 0 0 0 0 2Z" fill="{{accent}}"/></g>
+<g id="lineedit-focused-bottomleft" transform="translate(248,18)"><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="{{entry_bg}}"/><path d="M0 0A6 6 0 0 0 6 6V4A4 4 0 0 1 2 0Z" fill="{{accent}}"/></g>
+<g id="lineedit-focused-bottomright" transform="translate(258,18)"><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="{{entry_bg}}"/><path d="M6 0A6 6 0 0 1 0 6V4A4 4 0 0 0 4 0Z" fill="{{accent}}"/></g>
+<g id="lineedit-focused-top" transform="translate(254,8)"><path d="M0 0H4V6H0Z" fill="{{entry_bg}}"/><path d="M0 0H4V2H0Z" fill="{{accent}}"/></g>
+<g id="lineedit-focused-bottom" transform="translate(254,18)"><path d="M0 0H4V6H0Z" fill="{{entry_bg}}"/><path d="M0 4H4V6H0Z" fill="{{accent}}"/></g>
+<g id="lineedit-focused-left" transform="translate(248,14)"><path d="M0 0H6V4H0Z" fill="{{entry_bg}}"/><path d="M0 0H2V4H0Z" fill="{{accent}}"/></g>
+<g id="lineedit-focused-right" transform="translate(258,14)"><path d="M0 0H6V4H0Z" fill="{{entry_bg}}"/><path d="M4 0H6V4H4Z" fill="{{accent}}"/></g>
+<rect id="lineedit-focused" x="254" y="14" width="4" height="4" fill="{{entry_bg}}"/>
+<g id="tab-normal-topleft" transform="translate(272,8)"><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="{{switch_off}}"/><path d="M0 6A6 6 0 0 1 6 0V1A5 5 0 0 0 1 6Z" fill="{{switch_off}}"/></g>
+<g id="tab-normal-topright" transform="translate(282,8)"><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="{{switch_off}}"/><path d="M0 0A6 6 0 0 1 6 6H5A5 5 0 0 0 0 1Z" fill="{{switch_off}}"/></g>
+<g id="tab-normal-bottomleft" transform="translate(272,18)"><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="{{switch_off}}"/><path d="M0 0A6 6 0 0 0 6 6V5A5 5 0 0 1 1 0Z" fill="{{switch_off}}"/></g>
+<g id="tab-normal-bottomright" transform="translate(282,18)"><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="{{switch_off}}"/><path d="M6 0A6 6 0 0 1 0 6V5A5 5 0 0 0 5 0Z" fill="{{switch_off}}"/></g>
+<g id="tab-normal-top" transform="translate(278,8)"><path d="M0 0H4V6H0Z" fill="{{switch_off}}"/><path d="M0 0H4V1H0Z" fill="{{switch_off}}"/></g>
+<g id="tab-normal-bottom" transform="translate(278,18)"><path d="M0 0H4V6H0Z" fill="{{switch_off}}"/><path d="M0 5H4V6H0Z" fill="{{switch_off}}"/></g>
+<g id="tab-normal-left" transform="translate(272,14)"><path d="M0 0H6V4H0Z" fill="{{switch_off}}"/><path d="M0 0H1V4H0Z" fill="{{switch_off}}"/></g>
+<g id="tab-normal-right" transform="translate(282,14)"><path d="M0 0H6V4H0Z" fill="{{switch_off}}"/><path d="M5 0H6V4H5Z" fill="{{switch_off}}"/></g>
+<rect id="tab-normal" x="278" y="14" width="4" height="4" fill="{{switch_off}}"/>
+<g id="tab-focused-topleft" transform="translate(296,8)"><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="{{button_bg_active}}"/><path d="M0 6A6 6 0 0 1 6 0V1A5 5 0 0 0 1 6Z" fill="{{button_bg_active}}"/></g>
+<g id="tab-focused-topright" transform="translate(306,8)"><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="{{button_bg_active}}"/><path d="M0 0A6 6 0 0 1 6 6H5A5 5 0 0 0 0 1Z" fill="{{button_bg_active}}"/></g>
+<g id="tab-focused-bottomleft" transform="translate(296,18)"><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="{{button_bg_active}}"/><path d="M0 0A6 6 0 0 0 6 6V5A5 5 0 0 1 1 0Z" fill="{{button_bg_active}}"/></g>
+<g id="tab-focused-bottomright" transform="translate(306,18)"><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="{{button_bg_active}}"/><path d="M6 0A6 6 0 0 1 0 6V5A5 5 0 0 0 5 0Z" fill="{{button_bg_active}}"/></g>
+<g id="tab-focused-top" transform="translate(302,8)"><path d="M0 0H4V6H0Z" fill="{{button_bg_active}}"/><path d="M0 0H4V1H0Z" fill="{{button_bg_active}}"/></g>
+<g id="tab-focused-bottom" transform="translate(302,18)"><path d="M0 0H4V6H0Z" fill="{{button_bg_active}}"/><path d="M0 5H4V6H0Z" fill="{{button_bg_active}}"/></g>
+<g id="tab-focused-left" transform="translate(296,14)"><path d="M0 0H6V4H0Z" fill="{{button_bg_active}}"/><path d="M0 0H1V4H0Z" fill="{{button_bg_active}}"/></g>
+<g id="tab-focused-right" transform="translate(306,14)"><path d="M0 0H6V4H0Z" fill="{{button_bg_active}}"/><path d="M5 0H6V4H5Z" fill="{{button_bg_active}}"/></g>
+<rect id="tab-focused" x="302" y="14" width="4" height="4" fill="{{button_bg_active}}"/>
+<g id="tab-toggled-topleft" transform="translate(320,8)"><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="{{accent}}"/><path d="M0 6A6 6 0 0 1 6 0V1A5 5 0 0 0 1 6Z" fill="{{accent_active}}"/></g>
+<g id="tab-toggled-topright" transform="translate(330,8)"><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="{{accent}}"/><path d="M0 0A6 6 0 0 1 6 6H5A5 5 0 0 0 0 1Z" fill="{{accent_active}}"/></g>
+<g id="tab-toggled-bottomleft" transform="translate(320,18)"><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="{{accent}}"/><path d="M0 0A6 6 0 0 0 6 6V5A5 5 0 0 1 1 0Z" fill="{{accent_active}}"/></g>
+<g id="tab-toggled-bottomright" transform="translate(330,18)"><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="{{accent}}"/><path d="M6 0A6 6 0 0 1 0 6V5A5 5 0 0 0 5 0Z" fill="{{accent_active}}"/></g>
+<g id="tab-toggled-top" transform="translate(326,8)"><path d="M0 0H4V6H0Z" fill="{{accent}}"/><path d="M0 0H4V1H0Z" fill="{{accent_active}}"/></g>
+<g id="tab-toggled-bottom" transform="translate(326,18)"><path d="M0 0H4V6H0Z" fill="{{accent}}"/><path d="M0 5H4V6H0Z" fill="{{accent_active}}"/></g>
+<g id="tab-toggled-left" transform="translate(320,14)"><path d="M0 0H6V4H0Z" fill="{{accent}}"/><path d="M0 0H1V4H0Z" fill="{{accent_active}}"/></g>
+<g id="tab-toggled-right" transform="translate(330,14)"><path d="M0 0H6V4H0Z" fill="{{accent}}"/><path d="M5 0H6V4H5Z" fill="{{accent_active}}"/></g>
+<rect id="tab-toggled" x="326" y="14" width="4" height="4" fill="{{accent}}"/>
+<g id="tab-pressed-topleft" transform="translate(344,8)"><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="{{accent_active}}"/><path d="M0 6A6 6 0 0 1 6 0V1A5 5 0 0 0 1 6Z" fill="{{accent_active}}"/></g>
+<g id="tab-pressed-topright" transform="translate(354,8)"><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="{{accent_active}}"/><path d="M0 0A6 6 0 0 1 6 6H5A5 5 0 0 0 0 1Z" fill="{{accent_active}}"/></g>
+<g id="tab-pressed-bottomleft" transform="translate(344,18)"><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="{{accent_active}}"/><path d="M0 0A6 6 0 0 0 6 6V5A5 5 0 0 1 1 0Z" fill="{{accent_active}}"/></g>
+<g id="tab-pressed-bottomright" transform="translate(354,18)"><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="{{accent_active}}"/><path d="M6 0A6 6 0 0 1 0 6V5A5 5 0 0 0 5 0Z" fill="{{accent_active}}"/></g>
+<g id="tab-pressed-top" transform="translate(350,8)"><path d="M0 0H4V6H0Z" fill="{{accent_active}}"/><path d="M0 0H4V1H0Z" fill="{{accent_active}}"/></g>
+<g id="tab-pressed-bottom" transform="translate(350,18)"><path d="M0 0H4V6H0Z" fill="{{accent_active}}"/><path d="M0 5H4V6H0Z" fill="{{accent_active}}"/></g>
+<g id="tab-pressed-left" transform="translate(344,14)"><path d="M0 0H6V4H0Z" fill="{{accent_active}}"/><path d="M0 0H1V4H0Z" fill="{{accent_active}}"/></g>
+<g id="tab-pressed-right" transform="translate(354,14)"><path d="M0 0H6V4H0Z" fill="{{accent_active}}"/><path d="M5 0H6V4H5Z" fill="{{accent_active}}"/></g>
+<rect id="tab-pressed" x="350" y="14" width="4" height="4" fill="{{accent_active}}"/>
+<g id="tabframe-normal-topleft" transform="translate(368,8)"><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="{{view_bg}}"/><path d="M0 6A6 6 0 0 1 6 0V1A5 5 0 0 0 1 6Z" fill="{{border_hex}}"/></g>
+<g id="tabframe-normal-topright" transform="translate(378,8)"><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="{{view_bg}}"/><path d="M0 0A6 6 0 0 1 6 6H5A5 5 0 0 0 0 1Z" fill="{{border_hex}}"/></g>
+<g id="tabframe-normal-bottomleft" transform="translate(368,18)"><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="{{view_bg}}"/><path d="M0 0A6 6 0 0 0 6 6V5A5 5 0 0 1 1 0Z" fill="{{border_hex}}"/></g>
+<g id="tabframe-normal-bottomright" transform="translate(378,18)"><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="{{view_bg}}"/><path d="M6 0A6 6 0 0 1 0 6V5A5 5 0 0 0 5 0Z" fill="{{border_hex}}"/></g>
+<g id="tabframe-normal-top" transform="translate(374,8)"><path d="M0 0H4V6H0Z" fill="{{view_bg}}"/><path d="M0 0H4V1H0Z" fill="{{border_hex}}"/></g>
+<g id="tabframe-normal-bottom" transform="translate(374,18)"><path d="M0 0H4V6H0Z" fill="{{view_bg}}"/><path d="M0 5H4V6H0Z" fill="{{border_hex}}"/></g>
+<g id="tabframe-normal-left" transform="translate(368,14)"><path d="M0 0H6V4H0Z" fill="{{view_bg}}"/><path d="M0 0H1V4H0Z" fill="{{border_hex}}"/></g>
+<g id="tabframe-normal-right" transform="translate(378,14)"><path d="M0 0H6V4H0Z" fill="{{view_bg}}"/><path d="M5 0H6V4H5Z" fill="{{border_hex}}"/></g>
+<rect id="tabframe-normal" x="374" y="14" width="4" height="4" fill="{{view_bg}}"/>
+<g id="group-normal-topleft" transform="translate(392,8)"><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="{{sidebar_bg}}"/><path d="M0 6A6 6 0 0 1 6 0V1A5 5 0 0 0 1 6Z" fill="{{border_hex}}"/></g>
+<g id="group-normal-topright" transform="translate(402,8)"><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="{{sidebar_bg}}"/><path d="M0 0A6 6 0 0 1 6 6H5A5 5 0 0 0 0 1Z" fill="{{border_hex}}"/></g>
+<g id="group-normal-bottomleft" transform="translate(392,18)"><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="{{sidebar_bg}}"/><path d="M0 0A6 6 0 0 0 6 6V5A5 5 0 0 1 1 0Z" fill="{{border_hex}}"/></g>
+<g id="group-normal-bottomright" transform="translate(402,18)"><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="{{sidebar_bg}}"/><path d="M6 0A6 6 0 0 1 0 6V5A5 5 0 0 0 5 0Z" fill="{{border_hex}}"/></g>
+<g id="group-normal-top" transform="translate(398,8)"><path d="M0 0H4V6H0Z" fill="{{sidebar_bg}}"/><path d="M0 0H4V1H0Z" fill="{{border_hex}}"/></g>
+<g id="group-normal-bottom" transform="translate(398,18)"><path d="M0 0H4V6H0Z" fill="{{sidebar_bg}}"/><path d="M0 5H4V6H0Z" fill="{{border_hex}}"/></g>
+<g id="group-normal-left" transform="translate(392,14)"><path d="M0 0H6V4H0Z" fill="{{sidebar_bg}}"/><path d="M0 0H1V4H0Z" fill="{{border_hex}}"/></g>
+<g id="group-normal-right" transform="translate(402,14)"><path d="M0 0H6V4H0Z" fill="{{sidebar_bg}}"/><path d="M5 0H6V4H5Z" fill="{{border_hex}}"/></g>
+<rect id="group-normal" x="398" y="14" width="4" height="4" fill="{{sidebar_bg}}"/>
+<g id="common-normal-topleft" transform="translate(416,8)"><path d="M0 4A4 4 0 0 1 4 0V4Z" fill="none"/><path d="M0 4A4 4 0 0 1 4 0V1A3 3 0 0 0 1 4Z" fill="{{border_hex}}"/></g>
+<g id="common-normal-topright" transform="translate(424,8)"><path d="M0 0A4 4 0 0 1 4 4H0Z" fill="none"/><path d="M0 0A4 4 0 0 1 4 4H3A3 3 0 0 0 0 1Z" fill="{{border_hex}}"/></g>
+<g id="common-normal-bottomleft" transform="translate(416,16)"><path d="M0 0A4 4 0 0 0 4 4V0Z" fill="none"/><path d="M0 0A4 4 0 0 0 4 4V3A3 3 0 0 1 1 0Z" fill="{{border_hex}}"/></g>
+<g id="common-normal-bottomright" transform="translate(424,16)"><path d="M4 0A4 4 0 0 1 0 4V0Z" fill="none"/><path d="M4 0A4 4 0 0 1 0 4V3A3 3 0 0 0 3 0Z" fill="{{border_hex}}"/></g>
+<g id="common-normal-top" transform="translate(420,8)"><path d="M0 0H4V4H0Z" fill="none"/><path d="M0 0H4V1H0Z" fill="{{border_hex}}"/></g>
+<g id="common-normal-bottom" transform="translate(420,16)"><path d="M0 0H4V4H0Z" fill="none"/><path d="M0 3H4V4H0Z" fill="{{border_hex}}"/></g>
+<g id="common-normal-left" transform="translate(416,12)"><path d="M0 0H4V4H0Z" fill="none"/><path d="M0 0H1V4H0Z" fill="{{border_hex}}"/></g>
+<g id="common-normal-right" transform="translate(424,12)"><path d="M0 0H4V4H0Z" fill="none"/><path d="M3 0H4V4H3Z" fill="{{border_hex}}"/></g>
+<rect id="common-normal" x="420" y="12" width="4" height="4" fill="none"/>
+<g id="common-focused-topleft" transform="translate(436,8)"><path d="M0 4A4 4 0 0 1 4 0V4Z" fill="none"/><path d="M0 4A4 4 0 0 1 4 0V2A2 2 0 0 0 2 4Z" fill="{{accent}}"/></g>
+<g id="common-focused-topright" transform="translate(444,8)"><path d="M0 0A4 4 0 0 1 4 4H0Z" fill="none"/><path d="M0 0A4 4 0 0 1 4 4H2A2 2 0 0 0 0 2Z" fill="{{accent}}"/></g>
+<g id="common-focused-bottomleft" transform="translate(436,16)"><path d="M0 0A4 4 0 0 0 4 4V0Z" fill="none"/><path d="M0 0A4 4 0 0 0 4 4V2A2 2 0 0 1 2 0Z" fill="{{accent}}"/></g>
+<g id="common-focused-bottomright" transform="translate(444,16)"><path d="M4 0A4 4 0 0 1 0 4V0Z" fill="none"/><path d="M4 0A4 4 0 0 1 0 4V2A2 2 0 0 0 2 0Z" fill="{{accent}}"/></g>
+<g id="common-focused-top" transform="translate(440,8)"><path d="M0 0H4V4H0Z" fill="none"/><path d="M0 0H4V2H0Z" fill="{{accent}}"/></g>
+<g id="common-focused-bottom" transform="translate(440,16)"><path d="M0 0H4V4H0Z" fill="none"/><path d="M0 2H4V4H0Z" fill="{{accent}}"/></g>
+<g id="common-focused-left" transform="translate(436,12)"><path d="M0 0H4V4H0Z" fill="none"/><path d="M0 0H2V4H0Z" fill="{{accent}}"/></g>
+<g id="common-focused-right" transform="translate(444,12)"><path d="M0 0H4V4H0Z" fill="none"/><path d="M2 0H4V4H2Z" fill="{{accent}}"/></g>
+<rect id="common-focused" x="440" y="12" width="4" height="4" fill="none"/>
+<g id="dock-normal-topleft" transform="translate(456,8)"><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="{{window_bg}}"/><path d="M0 6A6 6 0 0 1 6 0V1A5 5 0 0 0 1 6Z" fill="{{border_hex}}"/></g>
+<g id="dock-normal-topright" transform="translate(466,8)"><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="{{window_bg}}"/><path d="M0 0A6 6 0 0 1 6 6H5A5 5 0 0 0 0 1Z" fill="{{border_hex}}"/></g>
+<g id="dock-normal-bottomleft" transform="translate(456,18)"><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="{{window_bg}}"/><path d="M0 0A6 6 0 0 0 6 6V5A5 5 0 0 1 1 0Z" fill="{{border_hex}}"/></g>
+<g id="dock-normal-bottomright" transform="translate(466,18)"><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="{{window_bg}}"/><path d="M6 0A6 6 0 0 1 0 6V5A5 5 0 0 0 5 0Z" fill="{{border_hex}}"/></g>
+<g id="dock-normal-top" transform="translate(462,8)"><path d="M0 0H4V6H0Z" fill="{{window_bg}}"/><path d="M0 0H4V1H0Z" fill="{{border_hex}}"/></g>
+<g id="dock-normal-bottom" transform="translate(462,18)"><path d="M0 0H4V6H0Z" fill="{{window_bg}}"/><path d="M0 5H4V6H0Z" fill="{{border_hex}}"/></g>
+<g id="dock-normal-left" transform="translate(456,14)"><path d="M0 0H6V4H0Z" fill="{{window_bg}}"/><path d="M0 0H1V4H0Z" fill="{{border_hex}}"/></g>
+<g id="dock-normal-right" transform="translate(466,14)"><path d="M0 0H6V4H0Z" fill="{{window_bg}}"/><path d="M5 0H6V4H5Z" fill="{{border_hex}}"/></g>
+<rect id="dock-normal" x="462" y="14" width="4" height="4" fill="{{window_bg}}"/>
+<g id="menu-normal-topleft" transform="translate(480,8)"><path d="M0 5A5 5 0 0 1 5 0V5Z" fill="{{menu_bg}}"/><path d="M0 5A5 5 0 0 1 5 0V1A4 4 0 0 0 1 5Z" fill="{{border_hex}}"/></g>
+<g id="menu-normal-topright" transform="translate(489,8)"><path d="M0 0A5 5 0 0 1 5 5H0Z" fill="{{menu_bg}}"/><path d="M0 0A5 5 0 0 1 5 5H4A4 4 0 0 0 0 1Z" fill="{{border_hex}}"/></g>
+<g id="menu-normal-bottomleft" transform="translate(480,17)"><path d="M0 0A5 5 0 0 0 5 5V0Z" fill="{{menu_bg}}"/><path d="M0 0A5 5 0 0 0 5 5V4A4 4 0 0 1 1 0Z" fill="{{border_hex}}"/></g>
+<g id="menu-normal-bottomright" transform="translate(489,17)"><path d="M5 0A5 5 0 0 1 0 5V0Z" fill="{{menu_bg}}"/><path d="M5 0A5 5 0 0 1 0 5V4A4 4 0 0 0 4 0Z" fill="{{border_hex}}"/></g>
+<g id="menu-normal-top" transform="translate(485,8)"><path d="M0 0H4V5H0Z" fill="{{menu_bg}}"/><path d="M0 0H4V1H0Z" fill="{{border_hex}}"/></g>
+<g id="menu-normal-bottom" transform="translate(485,17)"><path d="M0 0H4V5H0Z" fill="{{menu_bg}}"/><path d="M0 4H4V5H0Z" fill="{{border_hex}}"/></g>
+<g id="menu-normal-left" transform="translate(480,13)"><path d="M0 0H5V4H0Z" fill="{{menu_bg}}"/><path d="M0 0H1V4H0Z" fill="{{border_hex}}"/></g>
+<g id="menu-normal-right" transform="translate(489,13)"><path d="M0 0H5V4H0Z" fill="{{menu_bg}}"/><path d="M4 0H5V4H4Z" fill="{{border_hex}}"/></g>
+<rect id="menu-normal" x="485" y="13" width="4" height="4" fill="{{menu_bg}}"/>
+<g id="menuitem-normal-topleft" transform="translate(512,8)"><path d="M0 5A5 5 0 0 1 5 0V5Z" fill="none"/></g>
+<g id="menuitem-normal-topright" transform="translate(521,8)"><path d="M0 0A5 5 0 0 1 5 5H0Z" fill="none"/></g>
+<g id="menuitem-normal-bottomleft" transform="translate(512,17)"><path d="M0 0A5 5 0 0 0 5 5V0Z" fill="none"/></g>
+<g id="menuitem-normal-bottomright" transform="translate(521,17)"><path d="M5 0A5 5 0 0 1 0 5V0Z" fill="none"/></g>
+<g id="menuitem-normal-top" transform="translate(517,8)"><path d="M0 0H4V5H0Z" fill="none"/></g>
+<g id="menuitem-normal-bottom" transform="translate(517,17)"><path d="M0 0H4V5H0Z" fill="none"/></g>
+<g id="menuitem-normal-left" transform="translate(512,13)"><path d="M0 0H5V4H0Z" fill="none"/></g>
+<g id="menuitem-normal-right" transform="translate(521,13)"><path d="M0 0H5V4H0Z" fill="none"/></g>
+<rect id="menuitem-normal" x="517" y="13" width="4" height="4" fill="none"/>
+<g id="menuitem-focused-topleft" transform="translate(534,8)"><path d="M0 5A5 5 0 0 1 5 0V5Z" fill="{{accent}}"/><path d="M0 5A5 5 0 0 1 5 0V1A4 4 0 0 0 1 5Z" fill="{{accent}}"/></g>
+<g id="menuitem-focused-topright" transform="translate(543,8)"><path d="M0 0A5 5 0 0 1 5 5H0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 1 5 5H4A4 4 0 0 0 0 1Z" fill="{{accent}}"/></g>
+<g id="menuitem-focused-bottomleft" transform="translate(534,17)"><path d="M0 0A5 5 0 0 0 5 5V0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 0 5 5V4A4 4 0 0 1 1 0Z" fill="{{accent}}"/></g>
+<g id="menuitem-focused-bottomright" transform="translate(543,17)"><path d="M5 0A5 5 0 0 1 0 5V0Z" fill="{{accent}}"/><path d="M5 0A5 5 0 0 1 0 5V4A4 4 0 0 0 4 0Z" fill="{{accent}}"/></g>
+<g id="menuitem-focused-top" transform="translate(539,8)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 0H4V1H0Z" fill="{{accent}}"/></g>
+<g id="menuitem-focused-bottom" transform="translate(539,17)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 4H4V5H0Z" fill="{{accent}}"/></g>
+<g id="menuitem-focused-left" transform="translate(534,13)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M0 0H1V4H0Z" fill="{{accent}}"/></g>
+<g id="menuitem-focused-right" transform="translate(543,13)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M4 0H5V4H4Z" fill="{{accent}}"/></g>
+<rect id="menuitem-focused" x="539" y="13" width="4" height="4" fill="{{accent}}"/>
+<g id="menubaritem-focused-topleft" transform="translate(8,40)"><path d="M0 5A5 5 0 0 1 5 0V5Z" fill="{{accent}}"/><path d="M0 5A5 5 0 0 1 5 0V1A4 4 0 0 0 1 5Z" fill="{{accent}}"/></g>
+<g id="menubaritem-focused-topright" transform="translate(17,40)"><path d="M0 0A5 5 0 0 1 5 5H0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 1 5 5H4A4 4 0 0 0 0 1Z" fill="{{accent}}"/></g>
+<g id="menubaritem-focused-bottomleft" transform="translate(8,49)"><path d="M0 0A5 5 0 0 0 5 5V0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 0 5 5V4A4 4 0 0 1 1 0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-focused-bottomright" transform="translate(17,49)"><path d="M5 0A5 5 0 0 1 0 5V0Z" fill="{{accent}}"/><path d="M5 0A5 5 0 0 1 0 5V4A4 4 0 0 0 4 0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-focused-top" transform="translate(13,40)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 0H4V1H0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-focused-bottom" transform="translate(13,49)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 4H4V5H0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-focused-left" transform="translate(8,45)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M0 0H1V4H0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-focused-right" transform="translate(17,45)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M4 0H5V4H4Z" fill="{{accent}}"/></g>
+<rect id="menubaritem-focused" x="13" y="45" width="4" height="4" fill="{{accent}}"/>
+<g id="menuitem-pressed-topleft" transform="translate(30,40)"><path d="M0 5A5 5 0 0 1 5 0V5Z" fill="{{accent}}"/><path d="M0 5A5 5 0 0 1 5 0V1A4 4 0 0 0 1 5Z" fill="{{accent}}"/></g>
+<g id="menuitem-pressed-topright" transform="translate(39,40)"><path d="M0 0A5 5 0 0 1 5 5H0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 1 5 5H4A4 4 0 0 0 0 1Z" fill="{{accent}}"/></g>
+<g id="menuitem-pressed-bottomleft" transform="translate(30,49)"><path d="M0 0A5 5 0 0 0 5 5V0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 0 5 5V4A4 4 0 0 1 1 0Z" fill="{{accent}}"/></g>
+<g id="menuitem-pressed-bottomright" transform="translate(39,49)"><path d="M5 0A5 5 0 0 1 0 5V0Z" fill="{{accent}}"/><path d="M5 0A5 5 0 0 1 0 5V4A4 4 0 0 0 4 0Z" fill="{{accent}}"/></g>
+<g id="menuitem-pressed-top" transform="translate(35,40)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 0H4V1H0Z" fill="{{accent}}"/></g>
+<g id="menuitem-pressed-bottom" transform="translate(35,49)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 4H4V5H0Z" fill="{{accent}}"/></g>
+<g id="menuitem-pressed-left" transform="translate(30,45)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M0 0H1V4H0Z" fill="{{accent}}"/></g>
+<g id="menuitem-pressed-right" transform="translate(39,45)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M4 0H5V4H4Z" fill="{{accent}}"/></g>
+<rect id="menuitem-pressed" x="35" y="45" width="4" height="4" fill="{{accent}}"/>
+<g id="menubaritem-pressed-topleft" transform="translate(52,40)"><path d="M0 5A5 5 0 0 1 5 0V5Z" fill="{{accent}}"/><path d="M0 5A5 5 0 0 1 5 0V1A4 4 0 0 0 1 5Z" fill="{{accent}}"/></g>
+<g id="menubaritem-pressed-topright" transform="translate(61,40)"><path d="M0 0A5 5 0 0 1 5 5H0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 1 5 5H4A4 4 0 0 0 0 1Z" fill="{{accent}}"/></g>
+<g id="menubaritem-pressed-bottomleft" transform="translate(52,49)"><path d="M0 0A5 5 0 0 0 5 5V0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 0 5 5V4A4 4 0 0 1 1 0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-pressed-bottomright" transform="translate(61,49)"><path d="M5 0A5 5 0 0 1 0 5V0Z" fill="{{accent}}"/><path d="M5 0A5 5 0 0 1 0 5V4A4 4 0 0 0 4 0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-pressed-top" transform="translate(57,40)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 0H4V1H0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-pressed-bottom" transform="translate(57,49)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 4H4V5H0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-pressed-left" transform="translate(52,45)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M0 0H1V4H0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-pressed-right" transform="translate(61,45)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M4 0H5V4H4Z" fill="{{accent}}"/></g>
+<rect id="menubaritem-pressed" x="57" y="45" width="4" height="4" fill="{{accent}}"/>
+<g id="menuitem-toggled-topleft" transform="translate(74,40)"><path d="M0 5A5 5 0 0 1 5 0V5Z" fill="{{accent}}"/><path d="M0 5A5 5 0 0 1 5 0V1A4 4 0 0 0 1 5Z" fill="{{accent}}"/></g>
+<g id="menuitem-toggled-topright" transform="translate(83,40)"><path d="M0 0A5 5 0 0 1 5 5H0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 1 5 5H4A4 4 0 0 0 0 1Z" fill="{{accent}}"/></g>
+<g id="menuitem-toggled-bottomleft" transform="translate(74,49)"><path d="M0 0A5 5 0 0 0 5 5V0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 0 5 5V4A4 4 0 0 1 1 0Z" fill="{{accent}}"/></g>
+<g id="menuitem-toggled-bottomright" transform="translate(83,49)"><path d="M5 0A5 5 0 0 1 0 5V0Z" fill="{{accent}}"/><path d="M5 0A5 5 0 0 1 0 5V4A4 4 0 0 0 4 0Z" fill="{{accent}}"/></g>
+<g id="menuitem-toggled-top" transform="translate(79,40)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 0H4V1H0Z" fill="{{accent}}"/></g>
+<g id="menuitem-toggled-bottom" transform="translate(79,49)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 4H4V5H0Z" fill="{{accent}}"/></g>
+<g id="menuitem-toggled-left" transform="translate(74,45)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M0 0H1V4H0Z" fill="{{accent}}"/></g>
+<g id="menuitem-toggled-right" transform="translate(83,45)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M4 0H5V4H4Z" fill="{{accent}}"/></g>
+<rect id="menuitem-toggled" x="79" y="45" width="4" height="4" fill="{{accent}}"/>
+<g id="menubaritem-toggled-topleft" transform="translate(96,40)"><path d="M0 5A5 5 0 0 1 5 0V5Z" fill="{{accent}}"/><path d="M0 5A5 5 0 0 1 5 0V1A4 4 0 0 0 1 5Z" fill="{{accent}}"/></g>
+<g id="menubaritem-toggled-topright" transform="translate(105,40)"><path d="M0 0A5 5 0 0 1 5 5H0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 1 5 5H4A4 4 0 0 0 0 1Z" fill="{{accent}}"/></g>
+<g id="menubaritem-toggled-bottomleft" transform="translate(96,49)"><path d="M0 0A5 5 0 0 0 5 5V0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 0 5 5V4A4 4 0 0 1 1 0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-toggled-bottomright" transform="translate(105,49)"><path d="M5 0A5 5 0 0 1 0 5V0Z" fill="{{accent}}"/><path d="M5 0A5 5 0 0 1 0 5V4A4 4 0 0 0 4 0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-toggled-top" transform="translate(101,40)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 0H4V1H0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-toggled-bottom" transform="translate(101,49)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 4H4V5H0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-toggled-left" transform="translate(96,45)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M0 0H1V4H0Z" fill="{{accent}}"/></g>
+<g id="menubaritem-toggled-right" transform="translate(105,45)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M4 0H5V4H4Z" fill="{{accent}}"/></g>
+<rect id="menubaritem-toggled" x="101" y="45" width="4" height="4" fill="{{accent}}"/>
+<g id="menubaritem-normal-topleft" transform="translate(118,40)"><path d="M0 5A5 5 0 0 1 5 0V5Z" fill="none"/></g>
+<g id="menubaritem-normal-topright" transform="translate(127,40)"><path d="M0 0A5 5 0 0 1 5 5H0Z" fill="none"/></g>
+<g id="menubaritem-normal-bottomleft" transform="translate(118,49)"><path d="M0 0A5 5 0 0 0 5 5V0Z" fill="none"/></g>
+<g id="menubaritem-normal-bottomright" transform="translate(127,49)"><path d="M5 0A5 5 0 0 1 0 5V0Z" fill="none"/></g>
+<g id="menubaritem-normal-top" transform="translate(123,40)"><path d="M0 0H4V5H0Z" fill="none"/></g>
+<g id="menubaritem-normal-bottom" transform="translate(123,49)"><path d="M0 0H4V5H0Z" fill="none"/></g>
+<g id="menubaritem-normal-left" transform="translate(118,45)"><path d="M0 0H5V4H0Z" fill="none"/></g>
+<g id="menubaritem-normal-right" transform="translate(127,45)"><path d="M0 0H5V4H0Z" fill="none"/></g>
+<rect id="menubaritem-normal" x="123" y="45" width="4" height="4" fill="none"/>
+<g id="tooltip-normal-topleft" transform="translate(140,40)"><path d="M0 6A6 6 0 0 1 6 0V6Z" fill="{{tooltip_bg}}"/><path d="M0 6A6 6 0 0 1 6 0V1A5 5 0 0 0 1 6Z" fill="{{border_hex}}"/></g>
+<g id="tooltip-normal-topright" transform="translate(150,40)"><path d="M0 0A6 6 0 0 1 6 6H0Z" fill="{{tooltip_bg}}"/><path d="M0 0A6 6 0 0 1 6 6H5A5 5 0 0 0 0 1Z" fill="{{border_hex}}"/></g>
+<g id="tooltip-normal-bottomleft" transform="translate(140,50)"><path d="M0 0A6 6 0 0 0 6 6V0Z" fill="{{tooltip_bg}}"/><path d="M0 0A6 6 0 0 0 6 6V5A5 5 0 0 1 1 0Z" fill="{{border_hex}}"/></g>
+<g id="tooltip-normal-bottomright" transform="translate(150,50)"><path d="M6 0A6 6 0 0 1 0 6V0Z" fill="{{tooltip_bg}}"/><path d="M6 0A6 6 0 0 1 0 6V5A5 5 0 0 0 5 0Z" fill="{{border_hex}}"/></g>
+<g id="tooltip-normal-top" transform="translate(146,40)"><path d="M0 0H4V6H0Z" fill="{{tooltip_bg}}"/><path d="M0 0H4V1H0Z" fill="{{border_hex}}"/></g>
+<g id="tooltip-normal-bottom" transform="translate(146,50)"><path d="M0 0H4V6H0Z" fill="{{tooltip_bg}}"/><path d="M0 5H4V6H0Z" fill="{{border_hex}}"/></g>
+<g id="tooltip-normal-left" transform="translate(140,46)"><path d="M0 0H6V4H0Z" fill="{{tooltip_bg}}"/><path d="M0 0H1V4H0Z" fill="{{border_hex}}"/></g>
+<g id="tooltip-normal-right" transform="translate(150,46)"><path d="M0 0H6V4H0Z" fill="{{tooltip_bg}}"/><path d="M5 0H6V4H5Z" fill="{{border_hex}}"/></g>
+<rect id="tooltip-normal" x="146" y="46" width="4" height="4" fill="{{tooltip_bg}}"/>
+<g id="itemview-normal-topleft" transform="translate(164,40)"><path d="M0 5A5 5 0 0 1 5 0V5Z" fill="none"/></g>
+<g id="itemview-normal-topright" transform="translate(173,40)"><path d="M0 0A5 5 0 0 1 5 5H0Z" fill="none"/></g>
+<g id="itemview-normal-bottomleft" transform="translate(164,49)"><path d="M0 0A5 5 0 0 0 5 5V0Z" fill="none"/></g>
+<g id="itemview-normal-bottomright" transform="translate(173,49)"><path d="M5 0A5 5 0 0 1 0 5V0Z" fill="none"/></g>
+<g id="itemview-normal-top" transform="translate(169,40)"><path d="M0 0H4V5H0Z" fill="none"/></g>
+<g id="itemview-normal-bottom" transform="translate(169,49)"><path d="M0 0H4V5H0Z" fill="none"/></g>
+<g id="itemview-normal-left" transform="translate(164,45)"><path d="M0 0H5V4H0Z" fill="none"/></g>
+<g id="itemview-normal-right" transform="translate(173,45)"><path d="M0 0H5V4H0Z" fill="none"/></g>
+<rect id="itemview-normal" x="169" y="45" width="4" height="4" fill="none"/>
+<g id="itemview-focused-topleft" transform="translate(186,40)" opacity="{{flat_hover|alpha}}"><path d="M0 5A5 5 0 0 1 5 0V5Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<g id="itemview-focused-topright" transform="translate(195,40)" opacity="{{flat_hover|alpha}}"><path d="M0 0A5 5 0 0 1 5 5H0Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<g id="itemview-focused-bottomleft" transform="translate(186,49)" opacity="{{flat_hover|alpha}}"><path d="M0 0A5 5 0 0 0 5 5V0Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<g id="itemview-focused-bottomright" transform="translate(195,49)" opacity="{{flat_hover|alpha}}"><path d="M5 0A5 5 0 0 1 0 5V0Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<g id="itemview-focused-top" transform="translate(191,40)" opacity="{{flat_hover|alpha}}"><path d="M0 0H4V5H0Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<g id="itemview-focused-bottom" transform="translate(191,49)" opacity="{{flat_hover|alpha}}"><path d="M0 0H4V5H0Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<g id="itemview-focused-left" transform="translate(186,45)" opacity="{{flat_hover|alpha}}"><path d="M0 0H5V4H0Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<g id="itemview-focused-right" transform="translate(195,45)" opacity="{{flat_hover|alpha}}"><path d="M0 0H5V4H0Z" fill="rgb({{flat_hover|rgb}})"/></g>
+<rect id="itemview-focused" x="191" y="45" width="4" height="4" fill="rgb({{flat_hover|rgb}})" opacity="{{flat_hover|alpha}}"/>
+<g id="itemview-pressed-topleft" transform="translate(208,40)"><path d="M0 5A5 5 0 0 1 5 0V5Z" fill="{{accent}}"/><path d="M0 5A5 5 0 0 1 5 0V1A4 4 0 0 0 1 5Z" fill="{{accent}}"/></g>
+<g id="itemview-pressed-topright" transform="translate(217,40)"><path d="M0 0A5 5 0 0 1 5 5H0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 1 5 5H4A4 4 0 0 0 0 1Z" fill="{{accent}}"/></g>
+<g id="itemview-pressed-bottomleft" transform="translate(208,49)"><path d="M0 0A5 5 0 0 0 5 5V0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 0 5 5V4A4 4 0 0 1 1 0Z" fill="{{accent}}"/></g>
+<g id="itemview-pressed-bottomright" transform="translate(217,49)"><path d="M5 0A5 5 0 0 1 0 5V0Z" fill="{{accent}}"/><path d="M5 0A5 5 0 0 1 0 5V4A4 4 0 0 0 4 0Z" fill="{{accent}}"/></g>
+<g id="itemview-pressed-top" transform="translate(213,40)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 0H4V1H0Z" fill="{{accent}}"/></g>
+<g id="itemview-pressed-bottom" transform="translate(213,49)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 4H4V5H0Z" fill="{{accent}}"/></g>
+<g id="itemview-pressed-left" transform="translate(208,45)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M0 0H1V4H0Z" fill="{{accent}}"/></g>
+<g id="itemview-pressed-right" transform="translate(217,45)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M4 0H5V4H4Z" fill="{{accent}}"/></g>
+<rect id="itemview-pressed" x="213" y="45" width="4" height="4" fill="{{accent}}"/>
+<g id="itemview-toggled-topleft" transform="translate(230,40)"><path d="M0 5A5 5 0 0 1 5 0V5Z" fill="{{accent}}"/><path d="M0 5A5 5 0 0 1 5 0V1A4 4 0 0 0 1 5Z" fill="{{accent}}"/></g>
+<g id="itemview-toggled-topright" transform="translate(239,40)"><path d="M0 0A5 5 0 0 1 5 5H0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 1 5 5H4A4 4 0 0 0 0 1Z" fill="{{accent}}"/></g>
+<g id="itemview-toggled-bottomleft" transform="translate(230,49)"><path d="M0 0A5 5 0 0 0 5 5V0Z" fill="{{accent}}"/><path d="M0 0A5 5 0 0 0 5 5V4A4 4 0 0 1 1 0Z" fill="{{accent}}"/></g>
+<g id="itemview-toggled-bottomright" transform="translate(239,49)"><path d="M5 0A5 5 0 0 1 0 5V0Z" fill="{{accent}}"/><path d="M5 0A5 5 0 0 1 0 5V4A4 4 0 0 0 4 0Z" fill="{{accent}}"/></g>
+<g id="itemview-toggled-top" transform="translate(235,40)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 0H4V1H0Z" fill="{{accent}}"/></g>
+<g id="itemview-toggled-bottom" transform="translate(235,49)"><path d="M0 0H4V5H0Z" fill="{{accent}}"/><path d="M0 4H4V5H0Z" fill="{{accent}}"/></g>
+<g id="itemview-toggled-left" transform="translate(230,45)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M0 0H1V4H0Z" fill="{{accent}}"/></g>
+<g id="itemview-toggled-right" transform="translate(239,45)"><path d="M0 0H5V4H0Z" fill="{{accent}}"/><path d="M4 0H5V4H4Z" fill="{{accent}}"/></g>
+<rect id="itemview-toggled" x="235" y="45" width="4" height="4" fill="{{accent}}"/>
+<g id="itemview-toggled-inactive-topleft" transform="translate(252,40)"><path d="M0 5A5 5 0 0 1 5 0V5Z" fill="{{selection_bg_backdrop}}"/><path d="M0 5A5 5 0 0 1 5 0V1A4 4 0 0 0 1 5Z" fill="{{selection_bg_backdrop}}"/></g>
+<g id="itemview-toggled-inactive-topright" transform="translate(261,40)"><path d="M0 0A5 5 0 0 1 5 5H0Z" fill="{{selection_bg_backdrop}}"/><path d="M0 0A5 5 0 0 1 5 5H4A4 4 0 0 0 0 1Z" fill="{{selection_bg_backdrop}}"/></g>
+<g id="itemview-toggled-inactive-bottomleft" transform="translate(252,49)"><path d="M0 0A5 5 0 0 0 5 5V0Z" fill="{{selection_bg_backdrop}}"/><path d="M0 0A5 5 0 0 0 5 5V4A4 4 0 0 1 1 0Z" fill="{{selection_bg_backdrop}}"/></g>
+<g id="itemview-toggled-inactive-bottomright" transform="translate(261,49)"><path d="M5 0A5 5 0 0 1 0 5V0Z" fill="{{selection_bg_backdrop}}"/><path d="M5 0A5 5 0 0 1 0 5V4A4 4 0 0 0 4 0Z" fill="{{selection_bg_backdrop}}"/></g>
+<g id="itemview-toggled-inactive-top" transform="translate(257,40)"><path d="M0 0H4V5H0Z" fill="{{selection_bg_backdrop}}"/><path d="M0 0H4V1H0Z" fill="{{selection_bg_backdrop}}"/></g>
+<g id="itemview-toggled-inactive-bottom" transform="translate(257,49)"><path d="M0 0H4V5H0Z" fill="{{selection_bg_backdrop}}"/><path d="M0 4H4V5H0Z" fill="{{selection_bg_backdrop}}"/></g>
+<g id="itemview-toggled-inactive-left" transform="translate(252,45)"><path d="M0 0H5V4H0Z" fill="{{selection_bg_backdrop}}"/><path d="M0 0H1V4H0Z" fill="{{selection_bg_backdrop}}"/></g>
+<g id="itemview-toggled-inactive-right" transform="translate(261,45)"><path d="M0 0H5V4H0Z" fill="{{selection_bg_backdrop}}"/><path d="M4 0H5V4H4Z" fill="{{selection_bg_backdrop}}"/></g>
+<rect id="itemview-toggled-inactive" x="257" y="45" width="4" height="4" fill="{{selection_bg_backdrop}}"/>
+<g id="progress-normal-topleft" transform="translate(274,40)"><path d="M0 3A3 3 0 0 1 3 0V3Z" fill="{{switch_off}}"/></g>
+<g id="progress-normal-topright" transform="translate(281,40)"><path d="M0 0A3 3 0 0 1 3 3H0Z" fill="{{switch_off}}"/></g>
+<g id="progress-normal-bottomleft" transform="translate(274,47)"><path d="M0 0A3 3 0 0 0 3 3V0Z" fill="{{switch_off}}"/></g>
+<g id="progress-normal-bottomright" transform="translate(281,47)"><path d="M3 0A3 3 0 0 1 0 3V0Z" fill="{{switch_off}}"/></g>
+<g id="progress-normal-top" transform="translate(277,40)"><path d="M0 0H4V3H0Z" fill="{{switch_off}}"/></g>
+<g id="progress-normal-bottom" transform="translate(277,47)"><path d="M0 0H4V3H0Z" fill="{{switch_off}}"/></g>
+<g id="progress-normal-left" transform="translate(274,43)"><path d="M0 0H3V4H0Z" fill="{{switch_off}}"/></g>
+<g id="progress-normal-right" transform="translate(281,43)"><path d="M0 0H3V4H0Z" fill="{{switch_off}}"/></g>
+<rect id="progress-normal" x="277" y="43" width="4" height="4" fill="{{switch_off}}"/>
+<g id="progress-pattern-normal-topleft" transform="translate(292,40)"><path d="M0 3A3 3 0 0 1 3 0V3Z" fill="{{accent}}"/></g>
+<g id="progress-pattern-normal-topright" transform="translate(299,40)"><path d="M0 0A3 3 0 0 1 3 3H0Z" fill="{{accent}}"/></g>
+<g id="progress-pattern-normal-bottomleft" transform="translate(292,47)"><path d="M0 0A3 3 0 0 0 3 3V0Z" fill="{{accent}}"/></g>
+<g id="progress-pattern-normal-bottomright" transform="translate(299,47)"><path d="M3 0A3 3 0 0 1 0 3V0Z" fill="{{accent}}"/></g>
+<g id="progress-pattern-normal-top" transform="translate(295,40)"><path d="M0 0H4V3H0Z" fill="{{accent}}"/></g>
+<g id="progress-pattern-normal-bottom" transform="translate(295,47)"><path d="M0 0H4V3H0Z" fill="{{accent}}"/></g>
+<g id="progress-pattern-normal-left" transform="translate(292,43)"><path d="M0 0H3V4H0Z" fill="{{accent}}"/></g>
+<g id="progress-pattern-normal-right" transform="translate(299,43)"><path d="M0 0H3V4H0Z" fill="{{accent}}"/></g>
+<rect id="progress-pattern-normal" x="295" y="43" width="4" height="4" fill="{{accent}}"/>
+<g id="progress-pattern-disabled-topleft" transform="translate(310,40)"><path d="M0 3A3 3 0 0 1 3 0V3Z" fill="{{fg_disabled}}"/></g>
+<g id="progress-pattern-disabled-topright" transform="translate(317,40)"><path d="M0 0A3 3 0 0 1 3 3H0Z" fill="{{fg_disabled}}"/></g>
+<g id="progress-pattern-disabled-bottomleft" transform="translate(310,47)"><path d="M0 0A3 3 0 0 0 3 3V0Z" fill="{{fg_disabled}}"/></g>
+<g id="progress-pattern-disabled-bottomright" transform="translate(317,47)"><path d="M3 0A3 3 0 0 1 0 3V0Z" fill="{{fg_disabled}}"/></g>
+<g id="progress-pattern-disabled-top" transform="translate(313,40)"><path d="M0 0H4V3H0Z" fill="{{fg_disabled}}"/></g>
+<g id="progress-pattern-disabled-bottom" transform="translate(313,47)"><path d="M0 0H4V3H0Z" fill="{{fg_disabled}}"/></g>
+<g id="progress-pattern-disabled-left" transform="translate(310,43)"><path d="M0 0H3V4H0Z" fill="{{fg_disabled}}"/></g>
+<g id="progress-pattern-disabled-right" transform="translate(317,43)"><path d="M0 0H3V4H0Z" fill="{{fg_disabled}}"/></g>
+<rect id="progress-pattern-disabled" x="313" y="43" width="4" height="4" fill="{{fg_disabled}}"/>
+<g id="slider-normal-topleft" transform="translate(328,40)"><path d="M0 3A3 3 0 0 1 3 0V3Z" fill="{{switch_off}}"/></g>
+<g id="slider-normal-topright" transform="translate(335,40)"><path d="M0 0A3 3 0 0 1 3 3H0Z" fill="{{switch_off}}"/></g>
+<g id="slider-normal-bottomleft" transform="translate(328,47)"><path d="M0 0A3 3 0 0 0 3 3V0Z" fill="{{switch_off}}"/></g>
+<g id="slider-normal-bottomright" transform="translate(335,47)"><path d="M3 0A3 3 0 0 1 0 3V0Z" fill="{{switch_off}}"/></g>
+<g id="slider-normal-top" transform="translate(331,40)"><path d="M0 0H4V3H0Z" fill="{{switch_off}}"/></g>
+<g id="slider-normal-bottom" transform="translate(331,47)"><path d="M0 0H4V3H0Z" fill="{{switch_off}}"/></g>
+<g id="slider-normal-left" transform="translate(328,43)"><path d="M0 0H3V4H0Z" fill="{{switch_off}}"/></g>
+<g id="slider-normal-right" transform="translate(335,43)"><path d="M0 0H3V4H0Z" fill="{{switch_off}}"/></g>
+<rect id="slider-normal" x="331" y="43" width="4" height="4" fill="{{switch_off}}"/>
+<g id="slider-toggled-topleft" transform="translate(346,40)"><path d="M0 3A3 3 0 0 1 3 0V3Z" fill="{{accent}}"/></g>
+<g id="slider-toggled-topright" transform="translate(353,40)"><path d="M0 0A3 3 0 0 1 3 3H0Z" fill="{{accent}}"/></g>
+<g id="slider-toggled-bottomleft" transform="translate(346,47)"><path d="M0 0A3 3 0 0 0 3 3V0Z" fill="{{accent}}"/></g>
+<g id="slider-toggled-bottomright" transform="translate(353,47)"><path d="M3 0A3 3 0 0 1 0 3V0Z" fill="{{accent}}"/></g>
+<g id="slider-toggled-top" transform="translate(349,40)"><path d="M0 0H4V3H0Z" fill="{{accent}}"/></g>
+<g id="slider-toggled-bottom" transform="translate(349,47)"><path d="M0 0H4V3H0Z" fill="{{accent}}"/></g>
+<g id="slider-toggled-left" transform="translate(346,43)"><path d="M0 0H3V4H0Z" fill="{{accent}}"/></g>
+<g id="slider-toggled-right" transform="translate(353,43)"><path d="M0 0H3V4H0Z" fill="{{accent}}"/></g>
+<rect id="slider-toggled" x="349" y="43" width="4" height="4" fill="{{accent}}"/>
+<g id="scrollbargroove-normal-topleft" transform="translate(364,40)"><path d="M0 4A4 4 0 0 1 4 0V4Z" fill="none"/></g>
+<g id="scrollbargroove-normal-topright" transform="translate(372,40)"><path d="M0 0A4 4 0 0 1 4 4H0Z" fill="none"/></g>
+<g id="scrollbargroove-normal-bottomleft" transform="translate(364,48)"><path d="M0 0A4 4 0 0 0 4 4V0Z" fill="none"/></g>
+<g id="scrollbargroove-normal-bottomright" transform="translate(372,48)"><path d="M4 0A4 4 0 0 1 0 4V0Z" fill="none"/></g>
+<g id="scrollbargroove-normal-top" transform="translate(368,40)"><path d="M0 0H4V4H0Z" fill="none"/></g>
+<g id="scrollbargroove-normal-bottom" transform="translate(368,48)"><path d="M0 0H4V4H0Z" fill="none"/></g>
+<g id="scrollbargroove-normal-left" transform="translate(364,44)"><path d="M0 0H4V4H0Z" fill="none"/></g>
+<g id="scrollbargroove-normal-right" transform="translate(372,44)"><path d="M0 0H4V4H0Z" fill="none"/></g>
+<rect id="scrollbargroove-normal" x="368" y="44" width="4" height="4" fill="none"/>
+<g id="scrollbarslider-normal-topleft" transform="translate(384,40)" opacity="{{scrollbar|alpha}}"><path d="M0 4A4 4 0 0 1 4 0V4Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="scrollbarslider-normal-topright" transform="translate(392,40)" opacity="{{scrollbar|alpha}}"><path d="M0 0A4 4 0 0 1 4 4H0Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="scrollbarslider-normal-bottomleft" transform="translate(384,48)" opacity="{{scrollbar|alpha}}"><path d="M0 0A4 4 0 0 0 4 4V0Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="scrollbarslider-normal-bottomright" transform="translate(392,48)" opacity="{{scrollbar|alpha}}"><path d="M4 0A4 4 0 0 1 0 4V0Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="scrollbarslider-normal-top" transform="translate(388,40)" opacity="{{scrollbar|alpha}}"><path d="M0 0H4V4H0Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="scrollbarslider-normal-bottom" transform="translate(388,48)" opacity="{{scrollbar|alpha}}"><path d="M0 0H4V4H0Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="scrollbarslider-normal-left" transform="translate(384,44)" opacity="{{scrollbar|alpha}}"><path d="M0 0H4V4H0Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="scrollbarslider-normal-right" transform="translate(392,44)" opacity="{{scrollbar|alpha}}"><path d="M0 0H4V4H0Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<rect id="scrollbarslider-normal" x="388" y="44" width="4" height="4" fill="rgb({{scrollbar|rgb}})" opacity="{{scrollbar|alpha}}"/>
+<g id="ss-normal-topleft" transform="translate(404,40)" opacity="{{scrollbar|alpha}}"><path d="M0 4A4 4 0 0 1 4 0V4Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="ss-normal-topright" transform="translate(412,40)" opacity="{{scrollbar|alpha}}"><path d="M0 0A4 4 0 0 1 4 4H0Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="ss-normal-bottomleft" transform="translate(404,48)" opacity="{{scrollbar|alpha}}"><path d="M0 0A4 4 0 0 0 4 4V0Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="ss-normal-bottomright" transform="translate(412,48)" opacity="{{scrollbar|alpha}}"><path d="M4 0A4 4 0 0 1 0 4V0Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="ss-normal-top" transform="translate(408,40)" opacity="{{scrollbar|alpha}}"><path d="M0 0H4V4H0Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="ss-normal-bottom" transform="translate(408,48)" opacity="{{scrollbar|alpha}}"><path d="M0 0H4V4H0Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="ss-normal-left" transform="translate(404,44)" opacity="{{scrollbar|alpha}}"><path d="M0 0H4V4H0Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="ss-normal-right" transform="translate(412,44)" opacity="{{scrollbar|alpha}}"><path d="M0 0H4V4H0Z" fill="rgb({{scrollbar|rgb}})"/></g>
+<g id="scrollbarslider-focused-topleft" transform="translate(424,40)"><path d="M0 4A4 4 0 0 1 4 0V4Z" fill="{{fg_backdrop}}"/></g>
+<g id="scrollbarslider-focused-topright" transform="translate(432,40)"><path d="M0 0A4 4 0 0 1 4 4H0Z" fill="{{fg_backdrop}}"/></g>
+<g id="scrollbarslider-focused-bottomleft" transform="translate(424,48)"><path d="M0 0A4 4 0 0 0 4 4V0Z" fill="{{fg_backdrop}}"/></g>
+<g id="scrollbarslider-focused-bottomright" transform="translate(432,48)"><path d="M4 0A4 4 0 0 1 0 4V0Z" fill="{{fg_backdrop}}"/></g>
+<g id="scrollbarslider-focused-top" transform="translate(428,40)"><path d="M0 0H4V4H0Z" fill="{{fg_backdrop}}"/></g>
+<g id="scrollbarslider-focused-bottom" transform="translate(428,48)"><path d="M0 0H4V4H0Z" fill="{{fg_backdrop}}"/></g>
+<g id="scrollbarslider-focused-left" transform="translate(424,44)"><path d="M0 0H4V4H0Z" fill="{{fg_backdrop}}"/></g>
+<g id="scrollbarslider-focused-right" transform="translate(432,44)"><path d="M0 0H4V4H0Z" fill="{{fg_backdrop}}"/></g>
+<rect id="scrollbarslider-focused" x="428" y="44" width="4" height="4" fill="{{fg_backdrop}}"/>
+<g id="ss-focused-topleft" transform="translate(444,40)"><path d="M0 4A4 4 0 0 1 4 0V4Z" fill="{{fg_backdrop}}"/></g>
+<g id="ss-focused-topright" transform="translate(452,40)"><path d="M0 0A4 4 0 0 1 4 4H0Z" fill="{{fg_backdrop}}"/></g>
+<g id="ss-focused-bottomleft" transform="translate(444,48)"><path d="M0 0A4 4 0 0 0 4 4V0Z" fill="{{fg_backdrop}}"/></g>
+<g id="ss-focused-bottomright" transform="translate(452,48)"><path d="M4 0A4 4 0 0 1 0 4V0Z" fill="{{fg_backdrop}}"/></g>
+<g id="ss-focused-top" transform="translate(448,40)"><path d="M0 0H4V4H0Z" fill="{{fg_backdrop}}"/></g>
+<g id="ss-focused-bottom" transform="translate(448,48)"><path d="M0 0H4V4H0Z" fill="{{fg_backdrop}}"/></g>
+<g id="ss-focused-left" transform="translate(444,44)"><path d="M0 0H4V4H0Z" fill="{{fg_backdrop}}"/></g>
+<g id="ss-focused-right" transform="translate(452,44)"><path d="M0 0H4V4H0Z" fill="{{fg_backdrop}}"/></g>
+<g id="scrollbarslider-pressed-topleft" transform="translate(464,40)"><path d="M0 4A4 4 0 0 1 4 0V4Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-pressed-topright" transform="translate(472,40)"><path d="M0 0A4 4 0 0 1 4 4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-pressed-bottomleft" transform="translate(464,48)"><path d="M0 0A4 4 0 0 0 4 4V0Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-pressed-bottomright" transform="translate(472,48)"><path d="M4 0A4 4 0 0 1 0 4V0Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-pressed-top" transform="translate(468,40)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-pressed-bottom" transform="translate(468,48)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-pressed-left" transform="translate(464,44)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-pressed-right" transform="translate(472,44)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<rect id="scrollbarslider-pressed" x="468" y="44" width="4" height="4" fill="{{fg_secondary}}"/>
+<g id="ss-pressed-topleft" transform="translate(484,40)"><path d="M0 4A4 4 0 0 1 4 0V4Z" fill="{{fg_secondary}}"/></g>
+<g id="ss-pressed-topright" transform="translate(492,40)"><path d="M0 0A4 4 0 0 1 4 4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="ss-pressed-bottomleft" transform="translate(484,48)"><path d="M0 0A4 4 0 0 0 4 4V0Z" fill="{{fg_secondary}}"/></g>
+<g id="ss-pressed-bottomright" transform="translate(492,48)"><path d="M4 0A4 4 0 0 1 0 4V0Z" fill="{{fg_secondary}}"/></g>
+<g id="ss-pressed-top" transform="translate(488,40)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="ss-pressed-bottom" transform="translate(488,48)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="ss-pressed-left" transform="translate(484,44)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="ss-pressed-right" transform="translate(492,44)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-toggled-topleft" transform="translate(504,40)"><path d="M0 4A4 4 0 0 1 4 0V4Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-toggled-topright" transform="translate(512,40)"><path d="M0 0A4 4 0 0 1 4 4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-toggled-bottomleft" transform="translate(504,48)"><path d="M0 0A4 4 0 0 0 4 4V0Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-toggled-bottomright" transform="translate(512,48)"><path d="M4 0A4 4 0 0 1 0 4V0Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-toggled-top" transform="translate(508,40)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-toggled-bottom" transform="translate(508,48)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-toggled-left" transform="translate(504,44)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="scrollbarslider-toggled-right" transform="translate(512,44)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<rect id="scrollbarslider-toggled" x="508" y="44" width="4" height="4" fill="{{fg_secondary}}"/>
+<g id="ss-toggled-topleft" transform="translate(524,40)"><path d="M0 4A4 4 0 0 1 4 0V4Z" fill="{{fg_secondary}}"/></g>
+<g id="ss-toggled-topright" transform="translate(532,40)"><path d="M0 0A4 4 0 0 1 4 4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="ss-toggled-bottomleft" transform="translate(524,48)"><path d="M0 0A4 4 0 0 0 4 4V0Z" fill="{{fg_secondary}}"/></g>
+<g id="ss-toggled-bottomright" transform="translate(532,48)"><path d="M4 0A4 4 0 0 1 0 4V0Z" fill="{{fg_secondary}}"/></g>
+<g id="ss-toggled-top" transform="translate(528,40)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="ss-toggled-bottom" transform="translate(528,48)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="ss-toggled-left" transform="translate(524,44)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<g id="ss-toggled-right" transform="translate(532,44)"><path d="M0 0H4V4H0Z" fill="{{fg_secondary}}"/></g>
+<g transform="translate(544,40)"><g id="arrow-up-normal"><rect width="9" height="9" opacity="0"/><path d="M2 5.75L4.5 3.25L7 5.75" fill="none" stroke="{{fg_secondary}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(8,64)"><g id="arrow-up-pressed"><rect width="9" height="9" opacity="0"/><path d="M2 5.75L4.5 3.25L7 5.75" fill="none" stroke="{{fg}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(25,64)"><g id="arrow-up-disabled"><rect width="9" height="9" opacity="0"/><path d="M2 5.75L4.5 3.25L7 5.75" fill="none" stroke="{{fg_disabled}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(42,64)"><g id="arrow-down-normal"><rect width="9" height="9" opacity="0"/><path d="M2 3.25L4.5 5.75L7 3.25" fill="none" stroke="{{fg_secondary}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(59,64)"><g id="arrow-down-pressed"><rect width="9" height="9" opacity="0"/><path d="M2 3.25L4.5 5.75L7 3.25" fill="none" stroke="{{fg}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(76,64)"><g id="arrow-down-disabled"><rect width="9" height="9" opacity="0"/><path d="M2 3.25L4.5 5.75L7 3.25" fill="none" stroke="{{fg_disabled}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(93,64)"><g id="arrow-right-normal"><rect width="9" height="9" opacity="0"/><path d="M3.25 2L5.75 4.5L3.25 7" fill="none" stroke="{{fg_secondary}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(110,64)"><g id="arrow-right-pressed"><rect width="9" height="9" opacity="0"/><path d="M3.25 2L5.75 4.5L3.25 7" fill="none" stroke="{{fg}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(127,64)"><g id="arrow-right-disabled"><rect width="9" height="9" opacity="0"/><path d="M3.25 2L5.75 4.5L3.25 7" fill="none" stroke="{{fg_disabled}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(144,64)"><g id="arrow-left-normal"><rect width="9" height="9" opacity="0"/><path d="M5.75 2L3.25 4.5L5.75 7" fill="none" stroke="{{fg_secondary}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(161,64)"><g id="arrow-left-pressed"><rect width="9" height="9" opacity="0"/><path d="M5.75 2L3.25 4.5L5.75 7" fill="none" stroke="{{fg}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(178,64)"><g id="arrow-left-disabled"><rect width="9" height="9" opacity="0"/><path d="M5.75 2L3.25 4.5L5.75 7" fill="none" stroke="{{fg_disabled}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(195,64)"><g id="menuitem-right-normal"><rect width="9" height="9" opacity="0"/><path d="M3.25 2L5.75 4.5L3.25 7" fill="none" stroke="{{fg_secondary}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(212,64)"><g id="menuitem-right-focused"><rect width="9" height="9" opacity="0"/><path d="M3.25 2L5.75 4.5L3.25 7" fill="none" stroke="{{accent_fg}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(229,64)"><g id="menuitem-left-normal"><rect width="9" height="9" opacity="0"/><path d="M5.75 2L3.25 4.5L5.75 7" fill="none" stroke="{{fg_secondary}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(246,64)"><g id="menuitem-left-focused"><rect width="9" height="9" opacity="0"/><path d="M5.75 2L3.25 4.5L5.75 7" fill="none" stroke="{{accent_fg}}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(263,64)"><g id="combo-arrow-down-normal"><rect width="9" height="9" opacity="0"/><path d="M2 3.4L4.5 1.1L7 3.4M2 5.6L4.5 7.9L7 5.6" fill="none" stroke="{{fg}}" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(280,64)"><g id="combo-arrow-down-pressed"><rect width="9" height="9" opacity="0"/><path d="M2 3.4L4.5 1.1L7 3.4M2 5.6L4.5 7.9L7 5.6" fill="none" stroke="{{fg}}" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(297,64)"><g id="combo-arrow-down-disabled"><rect width="9" height="9" opacity="0"/><path d="M2 3.4L4.5 1.1L7 3.4M2 5.6L4.5 7.9L7 5.6" fill="none" stroke="{{fg_disabled}}" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(314,64)"><g id="button-default-indicator"><rect width="4" height="4" opacity="0"/></g></g>
+<g transform="translate(326,64)"><g id="toolbar-handle"><rect width="5" height="8" opacity="0"/></g></g>
+<g transform="translate(339,64)"><g id="grip-normal"><rect width="8" height="8" opacity="0"/></g></g>
+<g transform="translate(355,64)"><g id="grip-focused"><rect width="8" height="8" opacity="0"/></g></g>
+<g transform="translate(371,64)"><g id="grip-pressed"><rect width="8" height="8" opacity="0"/></g></g>
+<g transform="translate(387,64)"><g id="splitter-grip-normal"><rect width="8" height="8" opacity="0"/></g></g>
+<g transform="translate(403,64)"><g id="splitter-grip-focused"><rect width="8" height="8" opacity="0"/></g></g>
+<g transform="translate(419,64)"><g id="splitter-grip-pressed"><rect width="8" height="8" opacity="0"/></g></g>
+<g transform="translate(435,64)"><g id="resize-grip-normal"><rect width="8" height="8" opacity="0"/></g></g>
+<g transform="translate(451,64)"><g id="resize-grip-focused"><rect width="8" height="8" opacity="0"/></g></g>
+<g transform="translate(467,64)"><g id="resize-grip-pressed"><rect width="8" height="8" opacity="0"/></g></g>
+<g transform="translate(483,64)"><rect id="header-separator" width="1" height="16" fill="{{separator_hex}}"/></g>
+<g transform="translate(492,64)"><rect id="header-normal" width="16" height="16" fill="none"/></g>
+<g transform="translate(516,64)"><rect id="header-focused" width="16" height="16" fill="rgb({{flat_hover|rgb}})" opacity="{{flat_hover|alpha}}"/></g>
+<g transform="translate(540,64)"><rect id="header-pressed" width="16" height="16" fill="rgb({{flat_active|rgb}})" opacity="{{flat_active|alpha}}"/></g>
+<g transform="translate(8,88)"><rect id="header-toggled" width="16" height="16" fill="rgb({{flat_active|rgb}})" opacity="{{flat_active|alpha}}"/></g>
+<g transform="translate(32,88)"><rect id="toolbar-normal" width="16" height="16" fill="{{headerbar_bg}}"/></g>
+<g transform="translate(56,88)"><rect id="menubar-normal" width="16" height="16" fill="{{headerbar_bg}}"/></g>
+<g transform="translate(80,88)"><rect id="titlebar-normal" width="16" height="16" fill="{{headerbar_bg_backdrop}}"/></g>
+<g transform="translate(104,88)"><rect id="titlebar-focused" width="16" height="16" fill="{{headerbar_bg}}"/></g>
+<g transform="translate(128,88)"><g id="checkbox-normal"><rect width="14" height="14" opacity="0"/><rect x="0.5" y="0.5" width="13" height="13" rx="{{radius_check|px}}" fill="{{entry_bg}}" stroke="{{border_hex}}" stroke-width="1"/></g></g>
+<g transform="translate(150,88)"><g id="checkbox-checked-normal"><rect width="14" height="14" fill="{{accent}}" rx="{{radius_check|px}}"/><path d="M3.6 7.3L6 9.6L10.4 4.6" fill="none" stroke="{{accent_fg}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(172,88)"><g id="checkbox-tristate-normal"><rect width="14" height="14" fill="{{accent}}" rx="{{radius_check|px}}"/><path d="M3.5 7H10.5" fill="none" stroke="{{accent_fg}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(194,88)"><g id="radio-normal"><rect width="14" height="14" opacity="0"/><circle cx="7" cy="7" r="6.5" fill="{{entry_bg}}" stroke="{{border_hex}}" stroke-width="1"/></g></g>
+<g transform="translate(216,88)"><g id="radio-checked-normal"><rect width="14" height="14" opacity="0"/><circle cx="7" cy="7" r="7" fill="{{accent}}"/><circle cx="7" cy="7" r="2.5" fill="{{accent_fg}}"/></g></g>
+<g transform="translate(238,88)"><g id="checkbox-focused"><rect width="14" height="14" opacity="0"/><rect x="0.75" y="0.75" width="12.5" height="12.5" rx="{{radius_check|px}}" fill="{{entry_bg}}" stroke="{{accent}}" stroke-width="1.5"/></g></g>
+<g transform="translate(260,88)"><g id="checkbox-checked-focused"><rect width="14" height="14" fill="{{accent_hover}}" rx="{{radius_check|px}}"/><path d="M3.6 7.3L6 9.6L10.4 4.6" fill="none" stroke="{{accent_fg}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(282,88)"><g id="checkbox-tristate-focused"><rect width="14" height="14" fill="{{accent_hover}}" rx="{{radius_check|px}}"/><path d="M3.5 7H10.5" fill="none" stroke="{{accent_fg}}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+<g transform="translate(304,88)"><g id="radio-focused"><rect width="14" height="14" opacity="0"/><circle cx="7" cy="7" r="6.25" fill="{{entry_bg}}" stroke="{{accent}}" stroke-width="1.5"/></g></g>
+<g transform="translate(326,88)"><g id="radio-checked-focused"><rect width="14" height="14" opacity="0"/><circle cx="7" cy="7" r="7" fill="{{accent_hover}}"/><circle cx="7" cy="7" r="2.5" fill="{{accent_fg}}"/></g></g>
+<g transform="translate(348,88)"><g id="slidercursor-normal"><rect width="16" height="16" opacity="0"/><circle cx="8" cy="8.7" r="7" fill="#000" fill-opacity="0.18"/><circle cx="8" cy="8" r="7" fill="{{switch_knob_color}}" stroke="{{border_hex}}" stroke-width="0.6"/></g></g>
+<g transform="translate(372,88)"><g id="slidercursor-focused"><rect width="16" height="16" opacity="0"/><circle cx="8" cy="8.7" r="7" fill="#000" fill-opacity="0.18"/><circle cx="8" cy="8" r="7" fill="{{switch_knob_color}}" stroke="{{border_hex}}" stroke-width="0.6"/></g></g>
+<g transform="translate(396,88)"><g id="slidercursor-pressed"><rect width="16" height="16" opacity="0"/><circle cx="8" cy="8.7" r="7" fill="#000" fill-opacity="0.18"/><circle cx="8" cy="8" r="7" fill="{{switch_knob_color}}" stroke="{{border_hex}}" stroke-width="0.6"/></g></g>
+<g transform="translate(420,88)"><g id="slidercursor-toggled"><rect width="16" height="16" opacity="0"/><circle cx="8" cy="8.7" r="7" fill="#000" fill-opacity="0.18"/><circle cx="8" cy="8" r="7" fill="{{switch_knob_color}}" stroke="{{border_hex}}" stroke-width="0.6"/></g></g>
+<g transform="translate(444,88)"><g id="slidercursor-disabled" opacity="0.55"><rect width="16" height="16" opacity="0"/><circle cx="8" cy="8.7" r="7" fill="#000" fill-opacity="0.18"/><circle cx="8" cy="8" r="7" fill="{{switch_knob_color}}" stroke="{{border_hex}}" stroke-width="0.6"/></g></g>
+</svg>
