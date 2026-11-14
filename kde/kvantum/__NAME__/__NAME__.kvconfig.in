@@ -226,7 +226,7 @@ text.toggle.color={{fg}}
 text.bold=true
 text.margin.left=2
 
-; Segment 20 high, radius_inner 4, padding 12 = frame 4 + margin 8, inside a 2 px track (TabBarFrame).
+; Tab 24 high = track; the 20 px segment (radius_inner 4) is inset 2 inside the tile. Padding 12 = frame 6 + margin 6.
 [Tab]
 inherits=PanelButtonCommand
 interior.element=tab
@@ -234,14 +234,14 @@ frame.element=tab
 indicator.element=tab
 frame.top={{spacing_2xs|px}}
 frame.bottom={{spacing_2xs|px}}
-frame.left={{radius_inner|px}}
-frame.right={{radius_inner|px}}
-frame.expansion=8
-text.margin.left=8
-text.margin.right=8
+frame.left={{radius_control|px}}
+frame.right={{radius_control|px}}
+frame.expansion=12
+text.margin.left=6
+text.margin.right=6
 text.press.color={{accent_fg}}
 text.toggle.color={{accent_fg}}
-min_height={{control_height_sm|px}}
+min_height={{control_height|px}}
 
 [TabFrame]
 inherits=PanelButtonCommand
