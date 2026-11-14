@@ -256,10 +256,7 @@ button.osd { background-color: rgba(0, 0, 0, 0.6); color: #FFFFFF; box-shadow: n
 .linked.vertical > button { border-radius: 0; margin-bottom: 1px; }
 .linked.vertical > button:first-child { border-top-left-radius: {{radius_control}}; border-top-right-radius: {{radius_control}}; }
 .linked.vertical > button:last-child { border-bottom-left-radius: {{radius_control}}; border-bottom-right-radius: {{radius_control}}; margin-bottom: 0; }
-.linked > button:checked, .linked > button:active { background-color: {{accent}}; color: {{accent_fg}}; }
-headerbar .linked > button { background-color: {{flat_hover}}; }
-headerbar .linked > button:hover { background-color: {{flat_active}}; }
-headerbar .linked > button:checked { background-color: {{button_bg}}; color: {{fg}}; box-shadow: {{button_shadow}}; }
+.linked > button:checked { background-color: {{button_bg_active}}; color: {{fg}}; }
 
 /* ---- entries ---- */
 entry, spinbutton, searchbar > revealer > box {
@@ -355,7 +352,7 @@ checkbutton.selection-mode check, .selection-mode check { border-radius: 50%; }
 
 /* ---- switch ---- */
 switch {
-  min-width: {{switch_width}};
+  min-width: calc(2 * {{switch_knob|px}}px + 4px);
   min-height: {{switch_height}};
   padding: 0;
   margin: 2px 0;
@@ -371,8 +368,8 @@ switch:checked { background-color: {{accent}}; box-shadow: none; }
 switch:disabled { opacity: 0.5; }
 switch:focus-visible { outline: 3px solid {{focus_ring}}; outline-offset: 0; }
 switch > slider {
-  min-width: 16px;
-  min-height: 18px;
+  min-width: {{switch_knob}};
+  min-height: {{switch_knob}};
   margin: 1px;
   padding: 0;
   border: none;
@@ -460,19 +457,10 @@ notebook > header.bottom { box-shadow: inset 0 1px {{separator}}; }
 notebook > header.left { box-shadow: inset -1px 0 {{separator}}; }
 notebook > header.right { box-shadow: inset 1px 0 {{separator}}; }
 notebook > header > tabs > tab {
-  min-height: {{control_height}};
   min-width: 24px;
-  padding: 0 {{spacing_l}};
-  margin: 0 1px;
   border: none;
-  border-radius: {{radius_control}};
-  background-color: transparent;
-  color: {{fg_secondary}};
-  box-shadow: none;
   transition: background-color {{duration_fast}} {{ease_standard}}, color {{duration_fast}} {{ease_standard}};
 }
-notebook > header > tabs > tab:hover { background-color: {{flat_hover}}; color: {{fg}}; }
-notebook > header > tabs > tab:checked { background-color: {{button_bg}}; color: {{fg}}; box-shadow: {{button_shadow}}, 0 0 0 0.5px {{border}}; }
 notebook > header > tabs > tab > box > button.flat { min-height: 16px; min-width: 16px; padding: 0; border-radius: 50%; }
 notebook > stack:not(:only-child) { background-color: {{view_bg}}; }
 notebook > header > tabs > arrow { color: {{fg_secondary}}; }
@@ -494,27 +482,30 @@ tabbar tab button.tab-close-button, tabbar tab .tab-close-button { min-height: 1
 tabbar tab indicator { background-color: {{accent}}; }
 
 /* ---- segmented control: stack switcher / view switcher ---- */
-stackswitcher, viewswitcher {
+stackswitcher, viewswitcher, headerbar .linked:not(.vertical), notebook > header > tabs {
   padding: 2px;
   border-radius: {{radius_control}};
   background-color: {{flat_hover}};
+  box-shadow: none;
 }
-stackswitcher > button, viewswitcher > button, viewswitcher button.toggle {
+headerbar stackswitcher, headerbar .linked:not(.vertical) { margin: 0 {{spacing_xs}}; }
+stackswitcher.linked:not(.vertical) > button,stackswitcher.linked:not(.vertical) > button:first-child, stackswitcher.linked:not(.vertical) > button:last-child,
+headerbar .linked:not(.vertical) > button, headerbar .linked:not(.vertical) > button:first-child, headerbar .linked:not(.vertical) > button:last-child,
+viewswitcher button.toggle, notebook > header > tabs > tab {
   min-height: calc({{control_height|px}}px - 4px);
   padding: 0 {{spacing_l}};
   margin: 0;
-  border-radius: calc({{radius_control|px}}px - 2px);
+  border-radius: {{radius_menu_item}};
   background-color: transparent;
   box-shadow: none;
   color: {{fg}};
 }
-stackswitcher > button:hover, viewswitcher button.toggle:hover { background-color: {{flat_hover}}; }
-stackswitcher > button:checked, viewswitcher button.toggle:checked {
+stackswitcher.linked:not(.vertical) > button:hover, headerbar .linked:not(.vertical) > button:hover, viewswitcher button.toggle:hover, notebook > header > tabs > tab:hover { background-color: {{flat_hover}}; }
+stackswitcher.linked:not(.vertical) > button:checked, headerbar .linked:not(.vertical) > button:checked, viewswitcher button.toggle:checked, notebook > header > tabs > tab:checked {
   background-color: {{button_bg}};
   color: {{fg}};
-  box-shadow: {{button_shadow}}, 0 0 0 0.5px {{border}};
+  box-shadow: {{button_shadow}};
 }
-stackswitcher.linked > button, stackswitcher.linked > button:first-child, stackswitcher.linked > button:last-child { border-radius: calc({{radius_control|px}}px - 2px); margin: 0; }
 viewswitcherbar > actionbar > revealer > box, viewswitcherbar actionbar > revealer > box { background-color: @headerbar_bg_color; }
 viewswitchertitle viewswitcher { margin: 7px 0; }
 
@@ -565,12 +556,10 @@ list.boxed-list, list.content, .boxed-list {
   border-radius: {{radius_popover}};
   border: none;
   box-shadow: inset 0 0 0 1px {{border}};
-  padding: 0;
+  padding: {{spacing_xs}};
 }
-list.boxed-list > row, list.content > row { border-radius: 0; margin: 0; padding: 0 {{spacing_l}}; min-height: 36px; }
-list.boxed-list > row:first-child, list.content > row:first-child { border-top-left-radius: {{radius_popover}}; border-top-right-radius: {{radius_popover}}; }
-list.boxed-list > row:last-child, list.content > row:last-child { border-bottom-left-radius: {{radius_popover}}; border-bottom-right-radius: {{radius_popover}}; }
-list.boxed-list > row + row, list.content > row + row { margin-top: 0; box-shadow: inset 0 1px {{separator}}; }
+list.boxed-list > row, list.content > row { border-radius: {{radius_control}}; margin: 0; padding: 0 {{spacing_l}}; min-height: 32px; }
+list.boxed-list > row + row, list.content > row + row { margin-top: 1px; }
 list.navigation-sidebar > row, listview.navigation-sidebar > row, .sidebar-pane list > row, placessidebar row {
   margin: 1px 0;
   padding: 0 {{spacing_m}};
