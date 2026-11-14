@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Maximize traffic light (fullscreen arrows: triangles pointing to the corners). -->
+<svg xmlns="http://www.w3.org/2000/svg" width="12" height="60" viewBox="0 0 12 60">
+  <g id="active-center">
+    <rect x="0" y="0" width="12" height="12" fill="none"/>
+    <circle cx="6" cy="6" r="5.75" fill="{{traffic_max}}" stroke="{{traffic_max_border}}" stroke-width="0.5"/>
+  </g>
+  <g id="hover-center">
+    <rect x="0" y="12" width="12" height="12" fill="none"/>
+    <circle cx="6" cy="18" r="5.75" fill="{{traffic_max}}" stroke="{{traffic_max_border}}" stroke-width="0.5"/>
+    <path d="M3.8 15.8H7.2L3.8 19.2ZM8.2 20.2H4.8L8.2 16.8Z" fill="{{traffic_glyph}}"/>
+  </g>
+  <g id="pressed-center">
+    <rect x="0" y="24" width="12" height="12" fill="none"/>
+    <circle cx="6" cy="30" r="5.75" fill="{{traffic_max_border}}" stroke="{{traffic_max_border}}" stroke-width="0.5"/>
+    <path d="M3.8 27.8H7.2L3.8 31.2ZM8.2 32.2H4.8L8.2 28.8Z" fill="{{traffic_glyph}}"/>
+  </g>
+  <g id="inactive-center">
+    <rect x="0" y="36" width="12" height="12" fill="none"/>
+    <circle cx="6" cy="42" r="5.75" fill="{{border_hex}}" stroke="{{fg_disabled}}" stroke-width="0.5"/>
+  </g>
+  <g id="deactivated-center">
+    <rect x="0" y="48" width="12" height="12" fill="none"/>
+    <circle cx="6" cy="54" r="5.75" fill="{{border_hex}}" stroke="{{fg_disabled}}" stroke-width="0.5"/>
+  </g>
+</svg>

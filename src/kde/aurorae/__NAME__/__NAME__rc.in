@@ -1,0 +1,47 @@
+[General]
+ActiveTextColor={{fg|rgb}}
+InactiveTextColor={{fg_backdrop|rgb}}
+Animation=150
+UseTextShadow=false
+Shadow=true
+
+[Layout]
+# Title bar {{headerbar_height}}; every border is 0 so the client touches the frame.
+BorderLeft=0
+BorderRight=0
+BorderBottom=0
+BorderTop={{headerbar_height|px}}
+BorderLeftMaximized=0
+BorderRightMaximized=0
+BorderBottomMaximized=0
+BorderTopMaximized={{headerbar_height|px}}
+
+# Shadow area drawn by decoration.svg (see the comment there). Left/right/top/bottom.
+PaddingLeft=32
+PaddingRight=32
+PaddingTop=24
+PaddingBottom=40
+
+TitleHeight={{headerbar_height|px}}
+TitleEdgeTop=0
+TitleEdgeBottom=0
+TitleEdgeLeft={{traffic_margin|px}}
+TitleEdgeRight=0
+TitleEdgeTopMaximized=0
+TitleEdgeBottomMaximized=0
+TitleEdgeLeftMaximized={{traffic_margin|px}}
+TitleEdgeRightMaximized=0
+# Caption sits centered in the window: left group is 3 x 12 + 2 x 8 = 52 wide + margin 12 = 64,
+# so TitleBorderLeft 8 + 64 equals TitleBorderRight 72.
+TitleBorderLeft=8
+TitleBorderRight=72
+TitleAlignment=AlignHCenter
+TitleVerticalAlignment=AlignVCenter
+
+ButtonWidth={{traffic_size|px}}
+ButtonHeight={{traffic_size|px}}
+ButtonSpacing={{traffic_gap|px}}
+# (headerbar_height - traffic_size) / 2
+ButtonMarginTop=13
+ButtonMarginTopMaximized=13
+ExplicitButtonSpacer=0

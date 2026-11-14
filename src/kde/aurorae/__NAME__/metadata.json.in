@@ -1,0 +1,11 @@
+{
+    "KPackageStructure": "KWin/Decoration",
+    "KPlugin": {
+        "Id": "{{name}}",
+        "Name": "{{name}}",
+        "Description": "Slate window decoration with macOS traffic lights",
+        "Category": "",
+        "License": "GPL-2.0+",
+        "Version": "1.0"
+    }
+}
