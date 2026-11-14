@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render src/ into dist/Slate-Light and dist/Slate-Dark from tokens.json.
+"""Render gtk/ and kde/ into dist/Slate-Light and dist/Slate-Dark from tokens.json.
 
 Files ending in `.in` are templates: `{{key}}` becomes the token value, and
 `{{key|rgb}}` becomes "r,g,b" (for KDE .colors files), `{{key|alpha}}` the
@@ -42,15 +42,16 @@ def render(text, tokens, where):
 
 def build():
     data = json.loads((ROOT / "tokens.json").read_text())
-    src, dist = ROOT / "src", ROOT / "dist"
+    dist = ROOT / "dist"
     shutil.rmtree(dist, ignore_errors=True)
+    # gtk/ renders to the theme root (gtk-3.0, gtk-4.0, index.theme); kde/ to kde/.
+    sources = [(ROOT / "gtk", ""), (ROOT / "kde", "kde/")]
     for mode in ("light", "dark"):
         tokens = {**data["common"], **data[mode]}
         out_root = dist / tokens["name"]
-        for f in sorted(src.rglob("*")):
-            if not f.is_file():
-                continue
-            rel = str(f.relative_to(src)).replace("__NAME__", tokens["name"])
+        files = [(f, src, prefix) for src, prefix in sources for f in sorted(src.rglob("*")) if f.is_file()]
+        for f, src, prefix in files:
+            rel = prefix + str(f.relative_to(src)).replace("__NAME__", tokens["name"])
             out = out_root / rel.removesuffix(".in")
             out.parent.mkdir(parents=True, exist_ok=True)
             if f.suffix == ".in":
