@@ -49,6 +49,8 @@ layout_margin={{spacing_l|px}}
 button_contents_shift=false
 tree_branch_line=false
 respect_DE=true
+; motion (specs/motion.md): Kvantum fades hover, press and focus with one fixed built-in timing;
+; menu and tooltip fades come from KWin fadingpopups (scripts/apply-kde.sh)
 animate_states=true
 no_window_pattern=true
 fill_rubberband=true

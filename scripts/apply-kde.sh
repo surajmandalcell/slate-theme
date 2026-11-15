@@ -19,8 +19,6 @@ if [ "$dry" = 1 ] && [ -z "${XDG_CONFIG_HOME:-}" ]; then write_cfg=0; fi
 # Tuning values the tokens do not cover.
 blur_strength=9
 blur_noise=2
-scale_in_out=0.92
-genie_ms=400
 
 tok() {
   python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["common"][sys.argv[2]].removesuffix("px"))' \
@@ -32,6 +30,13 @@ radius=$(tok radius_window)
 font_pt=$(tok font_size_kde_pt)
 font_small_pt=$(tok font_size_small_kde_pt)
 panel_height=$(tok panel_height)
+window_scale=$(tok kwin_window_scale)
+# KWin multiplies every effect duration by AnimationDurationFactor, so store target / factor
+# to land on the macOS timings in tokens.json (specs/motion.md).
+kms() { awk -v t="$(tok "$1")" -v f="$factor" 'BEGIN { printf "%d", t / f + 0.5 }'; }
+window_ms=$(kms kwin_window_ms)
+minimize_ms=$(kms kwin_minimize_ms)
+popup_slide_ms=$(kms kwin_popup_slide_ms)
 
 # kw <file> <group> <key> <value>: write one config key.
 kw() {
@@ -97,15 +102,23 @@ act qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "
 
 # Motion.
 kw kdeglobals KDE AnimationDurationFactor "$factor"
-for id in scale magiclamp blur fadingpopups slidingpopups overview fullscreen maximize; do
+for id in scale magiclamp blur fadingpopups slidingpopups overview fullscreen maximize slide; do
   kw kwinrc Plugins "${id}Enabled" true
 done
-for id in squash fade wobblywindows; do   # squash and fade clash with scale and genie
+for id in squash fade glide wobblywindows; do   # squash, fade and glide clash with scale and genie
   kw kwinrc Plugins "${id}Enabled" false
 done
-kw kwinrc Effect-scale InScale "$scale_in_out"
-kw kwinrc Effect-scale OutScale "$scale_in_out"
-kw kwinrc Effect-magiclamp AnimationDuration "$genie_ms"
+# Window open/close: zoom from kwin_window_scale + fade (macOS new-window zoom).
+kw kwinrc Effect-scale Duration "$window_ms"
+kw kwinrc Effect-scale InScale "$window_scale"
+kw kwinrc Effect-scale OutScale "$window_scale"
+# Minimize: genie (magic lamp).
+kw kwinrc Effect-magiclamp AnimationDuration "$minimize_ms"
+# Plasma popups and notifications slide in and out.
+kw kwinrc Effect-slidingpopups SlideInTime "$popup_slide_ms"
+kw kwinrc Effect-slidingpopups SlideOutTime "$popup_slide_ms"
+# Menus and tooltips: fadingpopups has no keys (fade in 150, out 600, both x factor).
+# Maximize (250 OutCubic) and desktop slide (default 500) also follow the factor only.
 kw kwinrc Effect-blur BlurStrength "$blur_strength"
 kw kwinrc Effect-blur NoiseStrength "$blur_noise"
 
