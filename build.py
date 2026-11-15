@@ -6,7 +6,7 @@ Files ending in `.in` are templates: `{{key}}` becomes the token value, and
 alpha of an rgba() value (1 for hex), `{{key|px}}` the number without px. `__NAME__` in a path
 becomes the theme name. Other files are copied as they are.
 """
-import json, re, shutil, sys
+import json, os, re, shutil, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -42,7 +42,7 @@ def render(text, tokens, where):
 
 def build():
     data = json.loads((ROOT / "tokens.json").read_text())
-    dist = ROOT / "dist"
+    dist = Path(os.environ.get("SLATE_DIST") or ROOT / "dist")  # scripts/pixdiff.sh builds into its own copy
     shutil.rmtree(dist, ignore_errors=True)
     # gtk/ renders to the theme root (gtk-3.0, gtk-4.0, index.theme); kde/ to kde/.
     sources = [(ROOT / "gtk", ""), (ROOT / "kde", "kde/")]
@@ -58,7 +58,7 @@ def build():
                 out.write_text(render(f.read_text(), tokens, f))
             else:
                 shutil.copy2(f, out)
-        print(f"built {out_root.relative_to(ROOT)}")
+        print(f"built {out_root.relative_to(dist.parent)}")
 
 
 if __name__ == "__main__":

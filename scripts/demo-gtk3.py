@@ -24,6 +24,7 @@ ARGS = ap.parse_args()
 
 IDS = {}
 SHOWN = {}  # popovers opened by --show
+DLG = []    # dialogs opened by --show
 TIP = []    # the stand-in tooltip window and its position in the main window
 NAMES = {
     "button": "Button", "button-suggested": "Suggested button", "button-destructive": "Destructive button",
@@ -217,7 +218,12 @@ def build_grid():
     tframe.add(tv)
     cell(grid, "tree", tframe, 2, 6)
 
-    cell(grid, "calendar", Gtk.Calendar(), 3, 6, 1, 2)
+    # GTK3's calendar is 268 px wide at minimum, wider than a 258 px cell (GTK4's fits): without this wrapper it
+    # stretches every homogeneous column and the window grows past 1100. The wrapper lets the cell win (clips the overflow).
+    cal = Gtk.ScrolledWindow(hscrollbar_policy=Gtk.PolicyType.EXTERNAL, vscrollbar_policy=Gtk.PolicyType.NEVER,
+                             shadow_type=Gtk.ShadowType.NONE)
+    cal.add(Gtk.Calendar())
+    cell(grid, "calendar", cal, 3, 6, 1, 2)
 
     exp = Gtk.Expander(label="Expander", expanded=True)
     exp.add(Gtk.Label(label="Hidden details appear here.\nSecond line of the content.", xalign=0,
@@ -251,7 +257,13 @@ def write_bounds(win, path):
         bx, by, bw, bh = rect(win, btn)
         pw, ph = pop.get_allocated_width(), pop.get_allocated_height()
         px = min(max(bx + bw / 2 - pw / 2, ox), ox + w - pw)
-        out[name] = [round(px - ox), by + bh - oy, pw, ph]
+        # the popover's allocation includes its CSS margin (the shadow room): report the visible part only
+        m = pop.get_style_context().get_margin(Gtk.StateFlags.NORMAL)
+        out[name] = [round(px - ox) + m.left, by + bh - oy + m.top, pw - m.left - m.right, ph - m.top - m.bottom]
+    for d in DLG:  # a real window: its visible frame is titlebar + child, inside the CSD shadow margin
+        parts = [rect(d, p) for p in (d.get_titlebar(), d.get_child()) if p is not None]
+        x0, y0 = min(r[0] for r in parts), min(r[1] for r in parts)
+        out["surface:dialog"] = [x0, y0, max(r[0] + r[2] for r in parts) - x0, max(r[1] + r[3] for r in parts) - y0]
     for t, x, y in TIP:
         out["tooltip"] = [x - ox, y - oy, t.get_allocated_width(), t.get_allocated_height()]
     with open(path, "w") as f:
@@ -272,6 +284,7 @@ def on_activate(app):
         d.add_button("Discard", Gtk.ResponseType.ACCEPT)
         d.connect("response", lambda dd, r: dd.destroy())
         d.show()
+        DLG.append(d)
 
     dlg_btn.connect("clicked", show_dialog)
     win.show_all()

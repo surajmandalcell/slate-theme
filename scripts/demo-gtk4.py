@@ -23,6 +23,7 @@ ap.add_argument("--show", choices=["menu", "popover", "tooltip", "dialog"])
 ARGS = ap.parse_args()
 
 IDS = {}
+SURF = {}  # popup natives opened by --show, for write_bounds
 NAMES = {
     "button": "Button", "button-suggested": "Suggested button", "button-destructive": "Destructive button",
     "button-flat": "Flat button", "segmented": "Segmented control", "entry": "Text field",
@@ -239,6 +240,23 @@ def write_bounds(win, path):
         ok, r = widget.compute_bounds(win)
         if ok:
             out[wid] = [round(r.get_x() - ox), round(r.get_y() - oy), round(r.get_width()), round(r.get_height())]
+    # --show runs: where the visible popup sits inside its own X surface (the surface also holds the shadow margin),
+    # so scripts/pixdiff.py can crop the popup without the shadow. Logical px: [x, y, w, h] relative to the surface.
+    for name, native in SURF.items():
+        tx, ty = native.get_surface_transform()
+        x0, y0, x1, y1 = 0, 0, native.get_width(), native.get_height()
+        if isinstance(native, Gtk.Popover):  # the surface is bigger than the visible popup: keep contents + arrow only
+            rs = []
+            child = native.get_first_child()
+            while child:
+                ok, r = child.compute_bounds(native)
+                if ok and child.get_mapped() and child.get_css_name() in ("contents", "arrow"):
+                    rs.append(r)
+                child = child.get_next_sibling()
+            if rs:
+                x0, y0 = min(r.get_x() for r in rs), min(r.get_y() for r in rs)
+                x1, y1 = max(r.get_x() + r.get_width() for r in rs), max(r.get_y() + r.get_height() for r in rs)
+        out["surface:" + name] = [round(tx + x0), round(ty + y0), round(x1 - x0), round(y1 - y0)]
     with open(path, "w") as f:
         json.dump(out, f)
 
@@ -263,10 +281,14 @@ def on_activate(app):
     def after_map():
         if ARGS.show == "menu":
             menubtn.popup()
+            SURF["menu"] = menubtn.get_popover()
         elif ARGS.show == "popover":
             IDS["popover"].popup()
+            SURF["popover"] = IDS["popover"]
         elif ARGS.show == "dialog":
             show_dialog()
+            GLib.timeout_add(400, lambda: SURF.update(
+                dialog=next(t for t in Gtk.Window.list_toplevels() if t is not win and t.get_mapped())) or False)
         elif ARGS.show == "tooltip":
             # no pointer in the nested compositor, so a real tooltip never fires: draw the same
             # `tooltip` CSS node as a popover under the button
@@ -276,6 +298,7 @@ def on_activate(app):
                                   margin_start=8, margin_end=8))
             p.set_parent(tip_btn)
             p.popup()
+            SURF["tooltip-tip"] = p
         return False
 
     def write():
@@ -283,7 +306,7 @@ def on_activate(app):
             write_bounds(win, ARGS.bounds)
         return False
 
-    GLib.timeout_add(900, write)
+    GLib.timeout_add(1900 if ARGS.show else 900, write)  # popups open at 1200 ms
     GLib.timeout_add(1200, after_map)
     GLib.timeout_add_seconds(90, app.quit)  # safety net, shoot.sh kills earlier
 

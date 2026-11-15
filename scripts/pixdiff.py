@@ -14,12 +14,17 @@ import re
 import subprocess
 import sys
 import time
+import zlib
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-DATA = Path(os.environ.get("AGENT_DATA_DIR", "/mnt/nvme1/data/_custom/orca/workspaces")) / "Slate-pixdiff"
+TAG = os.environ.get("PIXDIFF_TAG", "main")
+DATA = Path(os.environ.get("AGENT_DATA_DIR", "/mnt/nvme1/data/_custom/orca/workspaces")) / f"Slate-pixdiff-{TAG}"
+DIST = Path(os.environ.get("SLATE_DIST") or DATA / "dist")
 TOOLKITS = ("gtk4", "gtk3", "qt")
+ONLY = os.environ.get("PIXDIFF_ONLY", "")  # gtk3 | qt: skip the other toolkit (GTK4 is the reference and always runs)
+ACTIVE = tuple(t for t in TOOLKITS if t == "gtk4" or not ONLY or t == ONLY)
 SHOWS = ("window", "menu", "popover", "tooltip", "dialog")
 SCALE = 2
 SCREEN_W, SCREEN_H = 2800, 2100  # GTK3 adds a big CSD shadow around the 2x window
@@ -49,7 +54,7 @@ def prepare_home(home, name, mode):
     (home / ".local/share").mkdir(parents=True, exist_ok=True)
     (home / ".themes").mkdir(exist_ok=True)
     for link, target in ((home / ".local/share/fonts", REAL_HOME / ".local/share/fonts"),
-                         (home / ".themes" / name, REPO / "dist" / name)):
+                         (home / ".themes" / name, DIST / name)):
         if not link.is_symlink():
             link.symlink_to(target)
     for v in ("3.0", "4.0"):
@@ -138,12 +143,16 @@ def rects_for(tk, mode, show):
         ox, oy, k = (int(m[3]), int(m[4]), SCALE) if m else (0, 0, SCALE)
     out = {}
     for key, (x, y, w, h) in b.items():
-        out[key] = [ox + x * k, oy + y * k, w * k, h * k] if key != "window" else [ox, oy, w * k, h * k]
+        if not key.startswith("surface:"):
+            out[key] = [ox + x * k, oy + y * k, w * k, h * k] if key != "window" else [ox, oy, w * k, h * k]
     if show == "tooltip" and tk == "gtk3" and "tooltip" in out:
         out["tooltip-tip"] = out.pop("tooltip")  # GTK3 writes the tip window over the button id
-    if show != "window":
+    if show != "window" and len(wins) > 1:
         pid = "tooltip-tip" if show == "tooltip" else show
-        if pid not in out and len(wins) > 1:  # a surface the gallery cannot place itself: the biggest other X window
+        sx, sy, sw, sh = b.get("surface:" + pid, (None,) * 4)
+        if sx is not None:  # visible popup inside its own X surface (the surface also holds the shadow margin)
+            out[pid] = [wins[1][0] + sx * SCALE, wins[1][1] + sy * SCALE, sw * SCALE, sh * SCALE]
+        elif pid not in out:  # no offset exported: the biggest other X window
             out[pid] = wins[1]
     return out
 
@@ -151,7 +160,7 @@ def rects_for(tk, mode, show):
 def collect(mode):
     """{toolkit: {id: (png path, rect)}}, window run first, popup runs add menu/popover/tooltip-tip/dialog."""
     res = {tk: {} for tk in TOOLKITS}
-    for tk in TOOLKITS:
+    for tk in ACTIVE:
         for show in SHOWS:
             png = DATA / "work" / mode / f"{tk}-{show}.png"
             if not png.exists():
@@ -203,23 +212,26 @@ def do_widget(mode, wid, data, out):
     ref = sizes["gtk4"]
     if ref is None:
         return None
-    w = max(s[0] for s in sizes.values() if s)
-    h = max(s[1] for s in sizes.values() if s)
+    w = max(s[0] for tk, s in sizes.items() if s and tk in ACTIVE)
+    h = max(s[1] for tk, s in sizes.items() if s and tk in ACTIVE)
     tmp = out / ".tmp"
     tmp.mkdir(exist_ok=True)
     pads = {}
-    for tk in TOOLKITS:
+    for tk in ACTIVE:
         pads[tk] = tmp / f"{wid}-{tk}.png"
         pad_crop(got[tk][0] if got[tk] else None, got[tk][1] if got[tk] else None, w, h, pads[tk])
-    pct3 = diff_pct(pads["gtk4"], pads["gtk3"], w, h) if got["gtk3"] else 100.0
+    pct = {tk: (diff_pct(pads["gtk4"], pads[tk], w, h, dif if tk == "qt" else None) if got[tk] else 100.0) if tk in ACTIVE and tk != "gtk4" else None
+           for tk, dif in ((tk, tmp / f"{wid}-diff.png") for tk in TOOLKITS)}
     dif = tmp / f"{wid}-diff.png"
-    pctq = diff_pct(pads["gtk4"], pads["qt"], w, h, dif) if got["qt"] else 100.0
-    if not got["qt"]:
-        magick("-size", f"{w}x{h}", "xc:red", dif)
-    magick(pads["gtk4"], pads["gtk3"], pads["qt"], dif, "-bordercolor", "#888888", "-border", "2", "+append", out / f"{wid}.png")
+    if not dif.exists():  # the diff panel is GTK4-Qt, or GTK4-GTK3 when Qt is skipped
+        if "qt" in ACTIVE:
+            magick("-size", f"{w}x{h}", "xc:red", dif)
+        else:
+            diff_pct(pads["gtk4"], pads["gtk3"], w, h, dif)
+    magick(*[pads[tk] for tk in ACTIVE if tk in pads], dif, "-bordercolor", "#888888", "-border", "2", "+append", out / f"{wid}.png")
     for p in (*pads.values(), dif):
         p.unlink(missing_ok=True)
-    return wid, sizes, pct3, pctq
+    return wid, sizes, pct["gtk3"], pct["qt"]
 
 
 def main_compare(mode, only):
@@ -235,12 +247,13 @@ def main_compare(mode, only):
         (out / ".tmp").rmdir()
     except OSError:
         pass
-    rows.sort(key=lambda r: (-r[3], -r[2], r[0]))
-    fmt = lambda s: f"{s[0]}x{s[1]}" if s else "missing"
+    rows.sort(key=lambda r: (-(r[3] if r[3] is not None else r[2]), r[0]))
+    fmt = lambda s: f"{s[0]}x{s[1]}" if s else "-"
+    pf = lambda p: "-" if p is None else f"{p:.1f}"
     lines = [f"{'id':<20} {'GTK4':>10} {'GTK3':>10} {'Qt':>10} {'Qt-GTK4 (w,h)':>14} {'GTK3 diff%':>10} {'Qt diff%':>9}"]
     for wid, sizes, p3, pq in rows:
         d = f"({sizes['qt'][0] - sizes['gtk4'][0]:+d},{sizes['qt'][1] - sizes['gtk4'][1]:+d})" if sizes["qt"] else "n/a"
-        lines.append(f"{wid:<20} {fmt(sizes['gtk4']):>10} {fmt(sizes['gtk3']):>10} {fmt(sizes['qt']):>10} {d:>14} {p3:>10.1f} {pq:>9.1f}")
+        lines.append(f"{wid:<20} {fmt(sizes['gtk4']):>10} {fmt(sizes['gtk3']):>10} {fmt(sizes['qt']):>10} {d:>14} {pf(p3):>10} {pf(pq):>9}")
     (out / "report.txt").write_text("\n".join(lines) + "\n")
     return out / "report.txt"
 
@@ -254,12 +267,12 @@ def main():
         modes = ["light", "dark"] if args[0] == "both" else [args[0]]
         args = args[1:]
     only = set(args)
-    jobs = [(tk, m, s) for m in modes for s in SHOWS for tk in TOOLKITS]
+    jobs = [(tk, m, s) for m in modes for s in SHOWS for tk in ACTIVE]
 
     def launch(j):
         i = jobs.index(j)
         tk, m, s = j
-        r = run(["xvfb-run", "-n", str(120 + i), "-s", f"-screen 0 {SCREEN} -nolisten tcp", sys.executable, str(Path(__file__)), "shot", tk, m, s])
+        r = run(["xvfb-run", "-n", str(1000 + zlib.crc32(TAG.encode()) % 500 * 40 + i), "-s", f"-screen 0 {SCREEN} -nolisten tcp", sys.executable, str(Path(__file__)), "shot", tk, m, s])
         if r.returncode:
             print(f"job {j} failed: {r.stderr.strip()[-300:]}", file=sys.stderr)
 

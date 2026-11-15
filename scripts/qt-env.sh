@@ -24,10 +24,11 @@ if [ ! -x "$_qe_root/build-gallery/slate-qt-gallery" ]; then
     cmake -S "$_qe_repo/scripts/demo-qt" -B "$_qe_root/build-gallery" -G Ninja -DCMAKE_BUILD_TYPE=Release >&2 &&
         ninja -C "$_qe_root/build-gallery" >&2
 fi
-[ -d "$_qe_repo/dist/$_qe_theme" ] || (cd "$_qe_repo" && python3 build.py >&2)
+_qe_dist="${SLATE_DIST:-$_qe_repo/dist}"
+[ -d "$_qe_dist/$_qe_theme" ] || (cd "$_qe_repo" && python3 build.py >&2)
 
 mkdir -p "$_qe_home/.config/Kvantum/$_qe_theme"
-cp -r "$_qe_repo/dist/$_qe_theme/kde/kvantum/$_qe_theme/." "$_qe_home/.config/Kvantum/$_qe_theme/"
+cp -r "$_qe_dist/$_qe_theme/kde/kvantum/$_qe_theme/." "$_qe_home/.config/Kvantum/$_qe_theme/"
 printf '[General]\ntheme=%s\n' "$_qe_theme" >"$_qe_home/.config/Kvantum/kvantum.kvconfig"
 
 # Same text as GTK (13px / 11px at 96 dpi): Inter 9.75pt and 8.25pt, one fontconfig for both toolkits.
@@ -39,4 +40,4 @@ export HOME="$_qe_home" XDG_CONFIG_HOME="$_qe_home/.config"
 export QT_PLUGIN_PATH="$_qe_prefix/plugins" QT_STYLE_OVERRIDE=kvantum
 unset QT_QPA_PLATFORMTHEME
 export SLATE_QT_GALLERY="$_qe_root/build-gallery/slate-qt-gallery"
-unset _qe_src _qe_repo _qe_theme _qe_home _qe_root _qe_prefix
+unset _qe_dist _qe_src _qe_repo _qe_theme _qe_home _qe_root _qe_prefix
