@@ -55,7 +55,8 @@ if [[ ${1:-} == --inner ]]; then
     }
 
     GDK_BACKEND=wayland GTK_THEME=Adwaita python3 $ROOT/scripts/shoot/bg.py $work/wallpaper.png >> $work/bg.log 2>&1 &
-    pids+=($!)
+    bgpid=$!
+    pids+=($bgpid)
     load_place window
     sleep 3
 
@@ -121,7 +122,25 @@ if [[ ${1:-} == --inner ]]; then
     # only the user folders in Dolphin's Places; never the host's disks or network
     mkdir -p $home/.local/share
     sed "s#__HOME__#$home#g" $ROOT/scripts/shoot/user-places.xbel > $home/.local/share/user-places.xbel
-    # Dolphin first (behind, top right), then the GTK4 window in front with focus (bottom left)
+    # the cover is the 1440 x 900 middle of the screen: the photo fills that crop, not the whole screen
+    kill $bgpid 2>/dev/null
+    GDK_BACKEND=wayland GTK_THEME=Adwaita python3 $ROOT/scripts/shoot/bg.py $work/wallpaper-hero.png >> $work/bg.log 2>&1 &
+    pids+=($!)
+    # macOS-style icons (WhiteSur) for both apps; the outer script installs them into $SHOTS/icons
+    if [[ -d $SHOTS/icons/WhiteSur ]]; then
+        mkdir -p $home/.local/share/icons
+        ln -sfn $SHOTS/icons/WhiteSur $home/.local/share/icons/WhiteSur
+        ln -sfn $SHOTS/icons/WhiteSur-dark $home/.local/share/icons/WhiteSur-dark
+        icons=WhiteSur; [[ $mode == dark ]] && icons=WhiteSur-dark
+        sed -i "s/^gtk-icon-theme-name=.*/gtk-icon-theme-name=$icons/" $home/.config/gtk-4.0/settings.ini
+        export SLATE_ICON_THEME=$icons   # qt-env.sh rewrites kdeglobals and adds it there
+    fi
+    # Dolphin like Finder: 64 px icons, no status bar, Finder's toolbar buttons only
+    printf '[General]\nShowStatusBar=Disabled\n\n[PlacesPanel]\nIconSize=16\n\n[IconsMode]\nIconSize=64\nPreviewSize=64\n' > $home/.config/dolphinrc
+    mkdir -p $home/.local/share/kxmlgui5/dolphin
+    cp $ROOT/scripts/shoot/dolphinui.rc $home/.local/share/kxmlgui5/dolphin/dolphinui.rc
+    sleep 2
+    # Dolphin first (behind, top left), then the GTK4 window in front with focus (bottom right)
     if (( have_qt )); then
         bash $ROOT/scripts/shoot/qt-app.sh $name $home dolphin --new-window $home/Documents >> $work/app.log 2>&1 &
     else
@@ -130,7 +149,7 @@ if [[ ${1:-} == --inner ]]; then
     hero_a=$!; sleep 8
     GDK_BACKEND=wayland GTK_THEME=$name python3 $ROOT/scripts/shoot/showcase-gtk4.py >> $work/app.log 2>&1 &
     hero_b=$!; sleep 5
-    capture $work/hero.png && magick $work/hero.png -filter Lanczos -resize 2400x1500 -quality 92 $ROOT/preview/hero-$mode.jpg
+    capture $work/hero.png && magick $work/hero.png -crop 2880x1800+960+600 +repage -quality 90 $ROOT/preview/hero-$mode.jpg
     kill $hero_a $hero_b 2>/dev/null
     pkill -f "dolphin --new-window $home" 2>/dev/null
     exit 0
@@ -165,11 +184,18 @@ for name in $modes; do
             $name $([[ $mode == dark ]] && echo 1 || echo 0) > $home/.config/gtk-$v/settings.ini
     done
 
-    # wallpaper: assets/wallpaper.jpg (apple blossom), cropped to the screen; a touch brighter in
-    # light mode and dimmed in dark mode so the windows read clearly on top of it
-    if [[ $mode == light ]]; then tone=(-modulate 128,92 -level 0%,100%,1.08); else tone=(-modulate 58,88); fi
+    # wallpaper: assets/wallpaper.jpg (apple blossom) in its own tone, dimmed in dark mode; the hero copy
+    # puts the whole photo in the 1440 x 900 cover crop (2880 x 1800 device px at the screen centre)
+    tone=(); [[ $mode == dark ]] && tone=(-modulate 70)
     magick $ROOT/assets/wallpaper.jpg -resize $((W * 2))x$((H * 2))^ -gravity center -extent $((W * 2))x$((H * 2)) \
         $tone $work/wallpaper.png
+    magick $ROOT/assets/wallpaper.jpg -resize 2880x1800^ -gravity center -extent 2880x1800 $tone \
+        -background black -extent $((W * 2))x$((H * 2)) $work/wallpaper-hero.png
+    # WhiteSur icons (GPL-3, github.com/vinceliuice/WhiteSur-icon-theme) for the cover, installed once
+    if [[ ! -d $SHOTS/icons/WhiteSur ]]; then
+        git clone -q --depth 1 https://github.com/vinceliuice/WhiteSur-icon-theme.git $SHOTS/whitesur-src &&
+            bash $SHOTS/whitesur-src/install.sh -d $SHOTS/icons > $SHOTS/icons.log 2>&1
+    fi
 
     [[ -n ${HERO_ONLY:-} ]] || rm -f $ROOT/preview/widgets/*-$mode.png
     rm -f $ROOT/preview/hero-$mode.png $ROOT/preview/hero-$mode.jpg

@@ -293,4 +293,5 @@ GPL-2.0-only. See [COPYING](COPYING).
 
 The wallpaper in the screenshots (`assets/wallpaper.jpg`) is an apple blossom photo
 from [Unsplash](https://images.unsplash.com/photo-1653265797984-1e2d12ea1048), used under
-the Unsplash License.
+the Unsplash License. The cover uses the [WhiteSur](https://github.com/vinceliuice/WhiteSur-icon-theme)
+icon theme (GPL-3.0); Slate does not ship icons.

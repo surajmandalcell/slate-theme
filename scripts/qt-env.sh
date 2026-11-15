@@ -38,6 +38,7 @@ printf '[General]\nfont=Inter,9.75,-1,5,50,0,0,0,0,0\nsmallestReadableFont=Inter
 mkdir -p "$_qe_home/.local/share/color-schemes" "$_qe_home/.cache"
 cp "$_qe_dist/$_qe_theme/kde/color-schemes/$_qe_theme.colors" "$_qe_home/.local/share/color-schemes/"
 printf '\n[UiSettings]\nColorScheme=%s\n' "$_qe_theme" >>"$_qe_home/.config/kdeglobals"
+[ -n "${SLATE_ICON_THEME:-}" ] && printf '\n[Icons]\nTheme=%s\n' "$SLATE_ICON_THEME" >>"$_qe_home/.config/kdeglobals"
 ln -sfn "$HOME/.local/share/fonts" "$_qe_home/.local/share/fonts"
 export FONTCONFIG_FILE="${FONTCONFIG_FILE:-$_qe_repo/scripts/pixdiff-fonts.conf}" SLATE_QT_FONT=1 QT_FONT_DPI=96
 export HOME="$_qe_home" XDG_CONFIG_HOME="$_qe_home/.config"

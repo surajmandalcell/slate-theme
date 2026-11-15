@@ -5,9 +5,9 @@
 // shoot.sh replaces __LAYOUT__ with window (center each window) or hero (overlap two).
 const SCREEN = { w: 2400, h: 1500 };
 const layout = "__LAYOUT__";
-// first window (Dolphin, behind) top-right, second (GTK4, in front and focused) bottom-left
-// Dolphin gets a fixed size so all 18 files fit without a scrollbar
-const HERO_SLOTS = [{ right: 300, y: 330, w: 1000, h: 460 }, { x: 330, bottom: 340 }];
+// Inside the 1440 x 900 cover crop at (480, 300): Dolphin behind at the top left,
+// the GTK4 window in front (focused) at the bottom right, both the same Finder size.
+const HERO_SLOTS = [{ x: 550, y: 380, w: 860, h: 500 }, { x: 990, y: 620, w: 860, h: 500 }];
 let slot = 0;
 
 function geo(w) {
