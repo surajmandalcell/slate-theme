@@ -68,7 +68,7 @@
 * {
   outline: 0 solid transparent;
   outline-offset: 0;
-  -gtk-icon-style: symbolic;
+  -gtk-icon-style: requested;
 }
 
 window, popover, tooltip {
@@ -551,8 +551,9 @@ row, listview > row, list > row, columnview > listview > row, gridview > child {
   transition: none; /* macOS: list and sidebar highlight is instant */
 }
 listview, list { padding: {{spacing_xs}}; }
+flowboxchild { padding: {{spacing_xs}}; border-radius: {{radius_control}}; }
 listview > row:hover, list > row:hover, columnview > listview > row:hover { background-color: {{flat_hover}}; }
-listview > row:selected, list > row:selected, columnview > listview > row:selected, row:selected, gridview > child:selected, iconview:selected, treeview.view:selected, .view:selected {
+listview > row:selected, list > row:selected, columnview > listview > row:selected, row:selected, gridview > child:selected, flowboxchild:selected, iconview:selected, treeview.view:selected, .view:selected {
   background-color: {{selection_bg}};
   color: {{selection_fg}};
 }

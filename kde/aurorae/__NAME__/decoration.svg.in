@@ -46,8 +46,8 @@
   <g id="decoration-topleft">
     <rect x="0" y="0" width="48" height="48" fill="url(#aTL)"/>
     <rect x="0" y="48" width="36" height="16" fill="url(#aL)"/>
-    <path d="M36 62V36A12 12 0 0 1 48 24V64Z" fill="{{headerbar_bg}}"/>
-    <path d="M35 62V36A13 13 0 0 1 48 23V24A12 12 0 0 0 36 36V64Z" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+    <path d="M36 64V36A12 12 0 0 1 48 24V64Z" fill="{{headerbar_bg}}"/>
+    <path d="M35 64V36A13 13 0 0 1 48 23V24A12 12 0 0 0 36 36V64Z" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
   </g>
   <g id="decoration-top">
     <rect x="48" y="0" width="16" height="24" fill="url(#aT)"/>
@@ -90,18 +90,18 @@
     <g id="decoration-inactive-topleft">
       <rect x="0" y="0" width="48" height="42" fill="url(#iTL)"/>
       <rect x="0" y="42" width="36" height="22" fill="url(#iL)"/>
-      <path d="M36 62V36A12 12 0 0 1 48 24V64Z" fill="{{headerbar_bg_backdrop}}"/>
-      <path d="M35 62V36A13 13 0 0 1 48 23V24A12 12 0 0 0 36 36V64Z" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
+      <path d="M36 64V36A12 12 0 0 1 48 24V64Z" fill="{{headerbar_bg}}"/>
+      <path d="M35 64V36A13 13 0 0 1 48 23V24A12 12 0 0 0 36 36V64Z" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
     </g>
     <g id="decoration-inactive-top">
       <rect x="48" y="0" width="16" height="24" fill="url(#iT)"/>
-      <rect x="48" y="24" width="16" height="{{headerbar_height|px}}" fill="{{headerbar_bg_backdrop}}"/>
+      <rect x="48" y="24" width="16" height="{{headerbar_height|px}}" fill="{{headerbar_bg}}"/>
       <rect x="48" y="23" width="16" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
     </g>
     <g id="decoration-inactive-topright">
       <rect x="64" y="0" width="48" height="42" fill="url(#iTR)"/>
       <rect x="76" y="42" width="36" height="22" fill="url(#iR)"/>
-      <path d="M64 24A12 12 0 0 1 76 36V64H64Z" fill="{{headerbar_bg_backdrop}}"/>
+      <path d="M64 24A12 12 0 0 1 76 36V64H64Z" fill="{{headerbar_bg}}"/>
       <path d="M64 23V24A12 12 0 0 1 76 36V64H77V36A13 13 0 0 0 64 23Z" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
     </g>
     <g id="decoration-inactive-left">
@@ -129,6 +129,6 @@
       <rect x="64" y="80" width="48" height="48" fill="url(#iBR)"/>
       <rect x="64" y="80" width="13" height="1" fill="rgb({{border|rgb}})" fill-opacity="{{border|alpha}}"/>
     </g>
-    <rect id="decoration-maximized-inactive-center" x="0" y="140" width="16" height="{{headerbar_height|px}}" fill="{{headerbar_bg_backdrop}}"/>
+    <rect id="decoration-maximized-inactive-center" x="0" y="140" width="16" height="{{headerbar_height|px}}" fill="{{headerbar_bg}}"/>
   </g>
 </svg>
