@@ -123,6 +123,9 @@ separator {
 }
 
 :focus-visible { outline: {{focus_ring_width}} solid {{focus_ring}}; outline-offset: 0; }
+/* motion (specs/motion.md): the focus ring fades in and grows out from the control edge */
+:focus-visible, checkbutton:focus-visible > check, checkbutton:focus-visible > radio { animation: slate-focus-in {{duration_focus}} {{ease_standard}}; }
+@keyframes slate-focus-in { from { outline-color: transparent; outline-width: 0; } }
 
 /* ---- header bar ---- */
 headerbar, .titlebar {
@@ -172,7 +175,7 @@ windowcontrols > button, windowcontrols > button.image-button, windowcontrols > 
   background-image: none;
   box-shadow: none;
   color: {{traffic_glyph}};
-  transition: background-color {{duration_fast}} {{ease_standard}}, border-color {{duration_fast}} {{ease_standard}};
+  transition: background-color {{duration_fast}} {{ease_standard}}, border-color {{duration_fast}} {{ease_standard}}, filter {{duration_release}} {{ease_standard}};
 }
 windowcontrols > button > image {
   opacity: 0;
@@ -189,7 +192,7 @@ windowcontrols > button.maximize { background-color: {{traffic_max}}; border-col
 windowcontrols > button.close > image { -gtk-icon-source: url("assets/close.svg"); }
 windowcontrols > button.minimize > image { -gtk-icon-source: url("assets/minimize.svg"); }
 windowcontrols > button.maximize > image { -gtk-icon-source: url("assets/maximize.svg"); }
-windowcontrols > button:active { filter: brightness(0.85); }
+windowcontrols > button:active { filter: brightness(0.85); transition-duration: 0; }
 windowcontrols:backdrop > button, windowcontrols > button:disabled {
   background-color: {{button_bg_active}};
   border-color: {{border_hex}};
@@ -211,10 +214,12 @@ button {
   background-image: none;
   color: {{fg}};
   box-shadow: {{button_shadow}}, 0 0 0 0.5px {{border}};
-  transition: background-color {{duration_fast}} {{ease_standard}}, color {{duration_fast}} {{ease_standard}}, box-shadow {{duration_normal}} {{ease_standard}};
+  transition: background-color {{duration_release}} {{ease_standard}}, color {{duration_release}} {{ease_standard}}, box-shadow {{duration_release}} {{ease_standard}};
 }
 button:hover { background-color: {{button_bg_hover}}; }
 button:active, button:checked { background-color: {{button_bg_active}}; }
+/* macOS press: darken at once, fade back on release (the base rule's {{duration_release}}) */
+button:active { transition-duration: 0; }
 button:disabled { color: {{fg_disabled}}; box-shadow: 0 0 0 0.5px {{separator}}; }
 button:backdrop { color: {{fg_backdrop}}; }
 button:focus-visible { outline: {{focus_ring_width}} solid {{focus_ring}}; outline-offset: 0; }
@@ -274,7 +279,7 @@ entry, spinbutton, searchbar > revealer > box {
   color: {{fg}};
   box-shadow: inset 0 0 0 1px {{border}};
   caret-color: {{accent}};
-  transition: box-shadow {{duration_fast}} {{ease_standard}}, background-color {{duration_fast}} {{ease_standard}};
+  transition: box-shadow {{duration_focus}} {{ease_standard}}, background-color {{duration_fast}} {{ease_standard}};
 }
 entry > text, spinbutton > text { min-height: {{control_height}}; background: none; box-shadow: none; padding: 0; }
 entry:focus-within, spinbutton:focus-within {
@@ -335,8 +340,11 @@ check, radio {
   box-shadow: inset 0 0 0 1px {{border_hex}}, {{button_shadow}};
   color: {{accent_fg}};
   -gtk-icon-source: none;
-  transition: background-color {{duration_fast}} {{ease_standard}}, box-shadow {{duration_fast}} {{ease_standard}};
+  /* macOS: the box fills at once; only the mark pops in (slate-check-in) */
+  transition: none;
 }
+check:checked, check:indeterminate, radio:checked, radio:indeterminate { animation: slate-check-in {{duration_fast}} {{ease_spring}}; }
+@keyframes slate-check-in { from { -gtk-icon-transform: scale({{check_scale_from}}); } }
 check { border-radius: {{radius_check}}; }
 radio { border-radius: 50%; }
 check:hover, radio:hover { background-color: {{button_bg_hover}}; }
@@ -369,7 +377,8 @@ switch {
   background-image: none;
   box-shadow: inset 0 0 0 0.5px {{border}};
   color: transparent;
-  transition: background-color {{duration_normal}} {{ease_emphasized}}, box-shadow {{duration_normal}} {{ease_emphasized}};
+  /* GTK slides the knob in code (~100 ms ease-out) and sets :checked when it lands, so the track crossfade stays short */
+  transition: background-color {{duration_fast}} {{ease_standard}}, box-shadow {{duration_fast}} {{ease_standard}};
 }
 switch:checked { background-color: {{accent}}; box-shadow: none; }
 switch:disabled { opacity: 0.5; }
@@ -539,7 +548,7 @@ row, listview > row, list > row, columnview > listview > row, gridview > child {
   border-radius: {{radius_control}};
   background-color: transparent;
   color: inherit;
-  transition: background-color {{duration_fast}} {{ease_standard}}, color {{duration_fast}} {{ease_standard}};
+  transition: none; /* macOS: list and sidebar highlight is instant */
 }
 listview, list { padding: {{spacing_xs}}; }
 listview > row:hover, list > row:hover, columnview > listview > row:hover { background-color: {{flat_hover}}; }
@@ -610,10 +619,11 @@ popover > contents, popover.background > contents {
   border: none;
   border-radius: {{radius_popover}};
   box-shadow: {{popover_shadow}};
-  animation: slate-popover-in {{duration_fast}} {{ease_emphasized}} both;
+  animation: slate-popover-in {{duration_popover}} {{ease_emphasized}} both;
+  transform-origin: top center; /* most popovers drop down from their anchor */
 }
 popover > arrow { background-color: {{popover_bg}}; border: none; box-shadow: none; min-width: {{spacing_l}}; min-height: {{spacing_l}}; }
-popover.menu > contents { padding: {{spacing_xs}}; }
+popover.menu > contents { padding: {{spacing_xs}}; animation: none; } /* macOS menus appear at once */
 popover.menu box.inline-buttons button.image-button.model { min-width: {{control_height}}; min-height: {{control_height}}; padding: 0; }
 popover modelbutton, popover.menu modelbutton, popover button.model {
   min-height: {{menu_item_height}};
@@ -624,7 +634,7 @@ popover modelbutton, popover.menu modelbutton, popover button.model {
   background-color: transparent;
   box-shadow: none;
   color: {{fg}};
-  transition: background-color {{duration_fast}} {{ease_standard}};
+  transition: none; /* macOS: menu item highlight is instant */
 }
 popover modelbutton:hover, popover modelbutton:focus-visible, popover button.model:hover {
   background-color: {{accent}};
@@ -643,9 +653,10 @@ popover.emoji-picker > contents { padding: 0; }
 popover.touch-selection, popover.magnifier { background: none; }
 
 @keyframes slate-popover-in {
-  from { opacity: 0; transform: scale(0.96); }
+  from { opacity: 0; transform: scale({{popover_scale_from}}); }
   to { opacity: 1; transform: scale(1); }
 }
+@keyframes slate-fade-in { from { opacity: 0; } }
 
 menubar { background-color: @headerbar_bg_color; }
 menubar > item { padding: 0 {{spacing_m}}; border-radius: {{radius_control}}; min-height: {{control_height}}; }
@@ -657,6 +668,7 @@ tooltip, tooltip.background {
   border-radius: {{radius_control}};
   box-shadow: {{popover_shadow}};
   border: none;
+  animation: slate-fade-in {{duration_fast}} {{ease_standard}}; /* GTK owns the 500 ms show delay */
 }
 tooltip > box { padding: {{spacing_xs}} {{spacing_m}}; min-height: {{icon_size}}; }
 tooltip label { font-size: {{font_size_small}}; color: {{tooltip_fg}}; }

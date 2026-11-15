@@ -4,6 +4,9 @@ InactiveTextColor={{fg_backdrop|rgb}}
 Animation=150
 UseTextShadow=false
 Shadow=true
+# Aurorae reads these two from [General] and accepts only left, center or right.
+TitleAlignment=Center
+TitleVerticalAlignment=Center
 
 [Layout]
 # Title bar {{headerbar_height}}; every border is 0 so the client touches the frame.
@@ -36,8 +39,6 @@ TitleEdgeRightMaximized=0
 # No token holds the sum and templates cannot add, so Right stays typed; keep it in step with the tokens.
 TitleBorderLeft={{spacing_m|px}}
 TitleBorderRight=72
-TitleAlignment=AlignHCenter
-TitleVerticalAlignment=AlignVCenter
 
 ButtonWidth={{traffic_size|px}}
 ButtonHeight={{traffic_size|px}}
