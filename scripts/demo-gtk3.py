@@ -54,6 +54,7 @@ def add_class(widget, name):
 def caption(text):
     lab = Gtk.Label(label=text, xalign=0)
     add_class(lab, "dim-label")
+    add_class(lab, "caption")  # same as demo-gtk4
     return lab
 
 
@@ -271,7 +272,7 @@ def write_bounds(win, path):
 
 
 def on_activate(app):
-    win = Gtk.ApplicationWindow(application=app, default_width=1100, default_height=760)
+    win = Gtk.ApplicationWindow(application=app, default_width=1100, default_height=720)  # GTK3 excludes the 40px titlebar from the default size; GTK4 includes it
     header, menubtn = build_header()
     win.set_titlebar(header)
     grid, dlg_btn, tip_btn = build_grid()

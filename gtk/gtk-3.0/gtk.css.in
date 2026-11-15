@@ -48,6 +48,9 @@
   caret-color: {{accent}};
   -gtk-secondary-caret-color: {{accent}};
 }
+/* motion (specs/motion.md): the focus ring fades in and grows out from the control edge */
+button:focus, checkbutton:focus check, radiobutton:focus radio, switch:focus, scale slider:focus { animation: slate-focus-in {{duration_focus}} {{ease_standard}}; }
+@keyframes slate-focus-in { from { outline-color: transparent; outline-width: 0; } }
 
 *:disabled { -gtk-icon-effect: none; }
 
@@ -77,6 +80,7 @@ label:backdrop selection, text:backdrop selection { background-color: {{selectio
 .heading { font-weight: 600; }
 .caption, .caption-heading { font-size: {{font_size_small}}; }
 .caption-heading { font-weight: 600; }
+popover label.heading, popover.background label.heading, popover .heading { color: {{fg_secondary}}; font-size: {{font_size_small}}; padding: 0 {{spacing_m}}; }
 .monospace { font-family: monospace; }
 .numeric { font-feature-settings: "tnum"; }
 
@@ -115,7 +119,8 @@ separator {
 decoration {
   border-radius: {{radius_window}};
   box-shadow: {{window_shadow}};
-  margin: {{shadow_pad_top}} {{shadow_pad_side}} {{shadow_pad_bottom}} {{shadow_pad_side}};
+  /* GTK3 clips the shadow to this margin: it must hold window_shadow (22px down, 70px blur) */
+  margin: 48px 72px 96px 72px;
   border: none;
 }
 decoration:backdrop { box-shadow: {{window_shadow_backdrop}}; }
@@ -156,7 +161,7 @@ headerbar, .titlebar {
   border-width: 0;
   box-shadow: inset 0 1px {{window_highlight}}, inset 0 -1px {{separator}};
   border-radius: {{radius_window}} {{radius_window}} 0 0;
-  transition: all {{duration_normal}} {{ease_emphasized}};
+  transition: background-color {{duration_normal}} {{ease_standard}}, color {{duration_normal}} {{ease_standard}};
 }
 headerbar:backdrop, .titlebar:backdrop {
   background-color: {{headerbar_bg_backdrop}};
@@ -191,13 +196,15 @@ button {
   box-shadow: {{button_shadow}}, 0 0 0 0.5px {{border}};
   text-shadow: none;
   -gtk-icon-shadow: none;
-  transition: all {{duration_fast}} {{ease_standard}};
+  transition: background-color {{duration_release}} {{ease_standard}}, color {{duration_release}} {{ease_standard}}, box-shadow {{duration_release}} {{ease_standard}};
 }
 button:hover { background-color: {{button_bg_hover}}; }
 button:active, button:checked {
   background-color: {{button_bg_active}};
   box-shadow: 0 0 0 0.5px {{border}};
 }
+/* macOS press: darken at once, fade back on release (the base rule's {{duration_release}}) */
+button:active { transition-duration: 0; }
 button:checked:hover { background-color: {{button_bg_active}}; }
 button:focus, button:focus:hover { outline-style: solid; outline-offset: 0; outline-width: {{focus_ring_width}}; -gtk-outline-radius: {{radius_control}}; }
 button:disabled {
@@ -209,7 +216,7 @@ button:checked:disabled { background-color: {{button_bg_active}}; }
 button:backdrop { color: {{fg_backdrop}}; }
 button:backdrop:disabled { color: {{fg_disabled}}; }
 
-button label { padding: 0; }
+button label { padding: 2px 0 0; } /* GTK3 centers the glyph box 1px higher than GTK4 */
 button image { padding: 0; }
 button.image-button { min-width: {{control_height}}; padding: 0 {{spacing_xs}}; }
 button.text-button { padding: 0 {{spacing_l}}; }
@@ -329,6 +336,7 @@ combobox arrow, button.combo arrow {
   -gtk-icon-source: url("assets/combo-arrow.svg");
   min-width: 12px;
   min-height: 12px;
+  margin-left: 15px; /* matches the GTK4 dropdown width: 12 gap + 3 */
 }
 combobox arrow:disabled { -gtk-icon-source: url("assets/combo-arrow-disabled.svg"); }
 combobox > .linked > button.combo:not(:only-child) { border-radius: 0 {{radius_control}} {{radius_control}} 0; }
@@ -354,7 +362,7 @@ headerbar button.titlebutton, .titlebar button.titlebutton, .default-decoration 
   background-size: {{traffic_size}} {{traffic_size}};
   box-shadow: none;
   color: {{traffic_glyph}};
-  transition: all {{duration_fast}} {{ease_standard}};
+  transition: background-color {{duration_fast}} {{ease_standard}}, background-image {{duration_fast}} {{ease_standard}};
 }
 headerbar button.titlebutton image, .titlebar button.titlebutton image, .default-decoration button.titlebutton image {
   -gtk-icon-source: none;
@@ -410,7 +418,7 @@ entry, spinbutton:not(.vertical) {
   color: {{fg}};
   box-shadow: inset 0 0 0 0.5px {{border}}, 0 0.5px 1px {{separator}};
   caret-color: {{fg}};
-  transition: all {{duration_fast}} {{ease_standard}};
+  transition: box-shadow {{duration_focus}} {{ease_standard}}, background-color {{duration_fast}} {{ease_standard}}, color {{duration_fast}} {{ease_standard}};
 }
 entry > text, spinbutton > text { min-height: 0; background: none; border: none; box-shadow: none; padding: 0; color: inherit; }
 entry:focus, spinbutton:focus-within:not(.vertical), spinbutton:not(.vertical):focus {
@@ -470,8 +478,11 @@ check, radio {
   box-shadow: inset 0 0 0 0.5px {{border}}, inset 0 0 0 0.5px {{border}}, 0 0.5px 1px {{separator}};
   color: {{accent_fg}};
   -gtk-icon-source: none;
-  transition: all {{duration_fast}} {{ease_standard}};
+  /* macOS: the box fills at once; only the mark pops in (slate-check-in) */
+  transition: none;
 }
+check:checked, check:indeterminate, radio:checked, radio:indeterminate { animation: slate-check-in {{duration_fast}} {{ease_spring}}; }
+@keyframes slate-check-in { from { -gtk-icon-transform: scale({{check_scale_from}}); } }
 check { border-radius: {{radius_check}}; }
 radio { border-radius: 50%; }
 check:hover, radio:hover { background-color: {{button_bg_hover}}; }
@@ -530,7 +541,8 @@ switch {
   color: transparent;
   font-size: 0;
   text-shadow: none;
-  transition: all {{duration_normal}} {{ease_emphasized}};
+  /* GTK slides the knob in code (~100 ms ease-out) and sets :checked when it lands, so the track crossfade stays short */
+  transition: background-color {{duration_fast}} {{ease_standard}}, box-shadow {{duration_fast}} {{ease_standard}};
 }
 switch:checked { background-color: {{accent}}; box-shadow: none; }
 switch:hover { background-color: {{button_bg_active}}; }
@@ -548,7 +560,7 @@ switch slider {
   background-color: {{switch_knob_color}};
   background-image: none;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
-  transition: all {{duration_normal}} {{ease_emphasized}};
+  transition: background-color {{duration_normal}} {{ease_emphasized}}, box-shadow {{duration_normal}} {{ease_emphasized}};
 }
 switch:active slider { background-color: {{switch_knob_color}}; }
 switch:disabled slider { box-shadow: 0 0.5px 1px {{separator}}; }
@@ -565,7 +577,7 @@ scale trough {
   background-color: {{switch_off}};
   background-image: none;
   box-shadow: inset 0 0 0 0.5px {{border}};
-  transition: all {{duration_fast}} {{ease_standard}};
+  transition: background-color {{duration_fast}} {{ease_standard}};
 }
 scale highlight { min-height: {{slider_track}}; min-width: {{slider_track}}; border: none; border-radius: {{radius_pill}}; background-color: {{accent}}; box-shadow: none; }
 scale.fill-level trough fill { background-color: {{button_bg_active}}; border-radius: {{radius_pill}}; }
@@ -578,7 +590,7 @@ scale slider {
   background-color: {{switch_knob_color}};
   background-image: none;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(0, 0, 0, 0.1);
-  transition: all {{duration_fast}} {{ease_standard}};
+  transition: background-color {{duration_release}} {{ease_standard}}, box-shadow {{duration_fast}} {{ease_standard}};
 }
 scale.vertical slider, scale.horizontal slider { margin: -6px; }
 scale slider:hover { box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35), 0 0 0 0.5px rgba(0, 0, 0, 0.12); }
@@ -638,8 +650,8 @@ scrollbar trough { background-color: transparent; border: none; border-radius: 0
 scrollbar button, scrollbar.horizontal button, scrollbar.vertical button { min-width: 0; min-height: 0; padding: 0; margin: 0; background: none; box-shadow: none; border: none; opacity: 0; }
 /* thumb 4 idle / 8 hover, plus scrollbar_margin 2 on each side = 8 / 12 total */
 scrollbar slider {
-  min-width: {{scrollbar_thumb}};
-  min-height: {{scrollbar_thumb}};
+  min-width: {{scrollbar_thumb_hover}};
+  min-height: {{scrollbar_thumb_hover}};
   margin: 0;
   border: {{scrollbar_margin}} solid transparent;
   border-radius: {{radius_pill}};
@@ -657,6 +669,9 @@ scrollbar.vertical:hover slider, scrollbar.vertical.hovering slider, scrollbar.v
 scrollbar.horizontal:hover slider, scrollbar.horizontal.hovering slider, scrollbar.horizontal.dragging slider { min-width: {{scrollbar_min_length}}; }
 scrollbar slider:hover, scrollbar slider:active, scrollbar.hovering slider { background-color: {{fg_secondary}}; }
 scrollbar.overlay-indicator { background: none; }
+scrollbar.overlay-indicator:not(.dragging):not(.hovering) slider { min-width: {{scrollbar_thumb}}; min-height: {{scrollbar_thumb}}; }
+scrollbar.overlay-indicator.vertical:not(.dragging):not(.hovering) slider { min-height: {{scrollbar_min_length}}; }
+scrollbar.overlay-indicator.horizontal:not(.dragging):not(.hovering) slider { min-width: {{scrollbar_min_length}}; }
 scrollbar.overlay-indicator.dragging, scrollbar.overlay-indicator.hovering { background-color: {{flat_hover}}; border-radius: {{radius_pill}}; }
 scrollbar:disabled slider { background-color: transparent; }
 scrolledwindow { border: none; }
@@ -676,7 +691,7 @@ notebook > header {
 }
 notebook > header.top, notebook > header.bottom { padding: {{spacing_m}}; }
 notebook > header > tabs { margin: 0; }
-notebook > header > tabs > tab { min-width: {{control_height}}; outline-style: none; transition: all {{duration_fast}} {{ease_standard}}; }
+notebook > header > tabs > tab { min-width: {{control_height}}; outline-style: none; transition: background-color {{duration_fast}} {{ease_standard}}, color {{duration_fast}} {{ease_standard}}, box-shadow {{duration_fast}} {{ease_standard}}; }
 notebook > header > tabs > tab:checked:backdrop { color: {{fg_backdrop}}; }
 notebook > header > tabs > tab:disabled { color: {{fg_disabled}}; }
 notebook > header > tabs > tab button.flat { min-width: {{icon_size}}; min-height: {{icon_size}}; padding: 0; margin-left: {{spacing_xs}}; border-radius: 50%; }
@@ -688,6 +703,7 @@ notebook > header > tabs > arrow:hover { color: {{fg}}; }
 
 /* ---- treeview, listbox, rows ---- */
 treeview.view {
+  font-size: 12px; /* GTK3 cell renderers round the size to whole points: 9pt (12px) is the closest to 13px */
   background-color: {{view_bg}};
   color: {{fg}};
   border-color: {{separator}};
@@ -723,11 +739,11 @@ treeview.view header button {
   color: {{fg_secondary}};
   font-weight: 600;
   font-size: {{font_size_small}};
-  box-shadow: inset 0 -1px {{separator}};
+  box-shadow: inset 0 -1px {{separator}}, inset -1px 0 {{separator}};
 }
+treeview.view header button label { font-size: {{font_size_small}}; font-weight: 600; } /* the universal * rule would reset the size on the label */
 treeview.view header button:hover { background-color: {{view_bg}}; color: {{fg}}; }
 treeview.view header button:active { background-color: {{flat_hover}}; }
-treeview.view header button:not(:first-child) { box-shadow: inset 0 -1px {{separator}}, inset 1px 0 {{separator}}; }
 treeview.view header button:disabled { color: {{fg_disabled}}; }
 treeview.view header button sort-indicator { color: {{fg_secondary}}; }
 treeview.view header button sort-indicator.ascending { -gtk-icon-source: -gtk-icontheme('pan-up-symbolic'); }
@@ -747,7 +763,7 @@ row {
   border-radius: {{radius_control}};
   background-color: transparent;
   color: inherit;
-  transition: all {{duration_fast}} {{ease_standard}};
+  transition: none; /* macOS: list and sidebar highlight is instant */
 }
 row:hover:not(:selected) { background-color: {{flat_hover}}; }
 row:selected, row:selected:focus {
@@ -801,6 +817,9 @@ placessidebar row.sidebar-row.sidebar-section-label, placessidebar row.sidebar-r
   font-weight: 600;
 }
 stacksidebar.sidebar row { margin: 0 {{spacing_m}}; }
+stacksidebar, stacksidebar scrolledwindow, stacksidebar list, stacksidebar viewport { background-color: {{sidebar_bg}}; }
+stacksidebar separator, stacksidebar list separator { background: none; min-height: 0; min-width: 0; }
+stacksidebar row { box-shadow: none; }
 stacksidebar row label.sidebar-label { padding: 0; }
 .nautilus-window .sidebar, .nemo-window .sidebar, .thunar .sidebar { background-color: {{sidebar_bg}}; }
 
@@ -820,14 +839,19 @@ paned.vertical > separator { min-height: 1px; margin: 0; padding: 0; border: non
 popover.background, popover {
   margin: 10px;
 }
+popover.background.menu { padding: {{spacing_xs}}; }
+/* GTK3 insets the menu stack by 2px and each page box by 10px in code; cancel it so items sit 4px from the edge like GTK4 */
+popover.background.menu > stack { margin: -2px; }
+popover.background.menu > stack > box { margin: -10px; }
 popover.background {
-  padding: {{spacing_xs}};
+  padding: {{spacing_2xs}};
   border-radius: {{radius_popover}};
   border: none;
   background-color: {{popover_bg}};
   color: {{fg}};
   box-shadow: {{popover_shadow}};
-  transition: all {{duration_normal}} {{ease_emphasized}};
+  /* GTK3 animates the popover itself (fade + slide, in code); CSS has no transform here */
+  transition: background-color {{duration_normal}} {{ease_standard}};
 }
 popover.background > box, popover.background > stack { padding: 0; }
 popover.background > arrow, popover > arrow {
@@ -856,7 +880,7 @@ modelbutton, button.model {
   background-image: none;
   box-shadow: none;
   color: {{fg}};
-  transition: all {{duration_fast}} {{ease_standard}};
+  transition: none; /* macOS: menu item highlight is instant */
 }
 modelbutton:hover, modelbutton:focus, button.model:hover {
   background-color: {{accent}};
@@ -892,7 +916,7 @@ menuitem, .menuitem {
   border-radius: {{radius_menu_item}};
   background-color: transparent;
   color: {{fg}};
-  transition: all {{duration_fast}} {{ease_standard}};
+  transition: none; /* macOS: menu item highlight is instant */
 }
 menuitem:hover, menuitem:selected, menuitem:active, menuitem:focus {
   background-color: {{accent}};
@@ -945,14 +969,19 @@ tooltip, tooltip.background {
   border-radius: {{radius_control}};
   box-shadow: {{popover_shadow}};
   text-shadow: none;
+  animation: slate-fade-in {{duration_fast}} {{ease_standard}}; /* GTK owns the show delay */
 }
+@keyframes slate-fade-in { from { opacity: 0; } }
 tooltip decoration { box-shadow: none; margin: 0; }
 tooltip > box { padding: {{spacing_xs}} {{spacing_m}}; min-height: {{icon_size}}; }
 tooltip label, tooltip * { color: inherit; font-size: {{font_size_small}}; }
 
 /* ---- infobar, dialogs ---- */
 infobar { border: none; }
-infobar > revealer > box { padding: {{spacing_m}} {{spacing_l}}; }
+infobar > revealer > box { padding: 0 {{spacing_l}}; min-height: 40px; } /* 24 button + 2 x 8 */
+infobar .content, infobar > revealer > box > box { padding: 0; margin: 0; }
+infobar .action-area { margin: 0; padding: 0; }
+infobar button { margin: 0 0 0 {{spacing_m}}; }
 infobar.info, infobar.other { background-color: {{accent_soft}}; color: {{fg}}; }
 infobar.question { background-color: {{accent_soft}}; color: {{fg}}; }
 infobar.warning { background-color: alpha(@warning_color, 0.25); color: {{fg}}; }
@@ -962,15 +991,18 @@ infobar button { background-color: {{button_bg}}; }
 infobar label { color: {{fg}}; }
 
 dialog.csd decoration, messagedialog.csd decoration { border-radius: {{radius_window}}; }
-messagedialog.background { background-color: {{window_bg}}; }
-messagedialog .titlebar { background-color: {{window_bg}}; min-height: 0; box-shadow: none; }
-messagedialog.csd .dialog-action-area, dialog.csd .dialog-action-area { padding: {{spacing_xl}}; }
+messagedialog.background { background-color: {{popover_bg}}; }
+messagedialog .titlebar { background-color: {{popover_bg}}; min-height: 0; box-shadow: none; }
+dialog.csd .dialog-action-area { padding: {{spacing_xl}}; }
 .dialog-action-area button { margin: 0 {{spacing_2xs}}; } /* GTK3 button box adds 4px spacing: 4 + 2 + 2 = 8 gap */
+/* message dialog = GTK4 alert: the code gives the boxes a 5px border-width, cancelled with -5px margins; side padding 12 + button margin 4 = 16 */
+messagedialog .dialog-action-area { margin: -5px; padding: 0 12px {{spacing_xl}}; }
+messagedialog .dialog-action-area button { margin: 0 {{spacing_xs}}; padding: 0 1px; }
+messagedialog .dialog-vbox > box:first-child { margin: -5px -5px -13px; }
 messagedialog.csd .dialog-action-area button { min-height: {{control_height}}; border-radius: {{radius_control}}; box-shadow: {{button_shadow}}, 0 0 0 0.5px {{border}}; }
 messagedialog.csd .dialog-action-area button.suggested-action { box-shadow: {{button_shadow}}; }
-messagedialog .message-area, messagedialog > box > box { padding: {{spacing_xl}}; }
-messagedialog label.title, messagedialog .title { font-size: {{font_size_title3}}; font-weight: 700; }
-messagedialog image.dialog-icon { min-width: 48px; min-height: 48px; }
+messagedialog label.title, messagedialog .title { font-size: {{font_size}}; font-weight: 400; }
+messagedialog image.dialog-icon { min-width: 0; min-height: 0; margin: 0; padding: 0; }
 dialog .dialog-action-area, dialog .action-area { padding: {{spacing_xl}}; }
 dialog > box > .dialog-action-box { padding: 0 {{spacing_xl}} {{spacing_xl}}; }
 dialog headerbar { border-radius: {{radius_window}} {{radius_window}} 0 0; }
@@ -986,22 +1018,23 @@ calendar {
   min-width: 176px; /* 7 cells x control_height 24 + 2 x 4 padding */
   padding: {{spacing_xs}};
   border: none;
-  border-radius: {{radius_control}};
-  background-color: {{view_bg}};
+  border-radius: 0;
+  background: none;
   color: {{fg}};
-  box-shadow: inset 0 0 0 0.5px {{border}};
+  box-shadow: none;
 }
+calendar.view, calendar:not(:selected) { background-color: transparent; background-image: none; }
 calendar:selected {
   background-color: {{accent}};
   color: {{accent_fg}};
   border-radius: {{radius_control}};
 }
 calendar:disabled { color: {{fg_disabled}}; }
-calendar:indeterminate { color: {{fg_disabled}}; }
-calendar.header { color: {{fg}}; font-weight: 600; border: none; background: none; box-shadow: none; }
-calendar.button, calendar button { min-width: {{icon_size}}; min-height: {{icon_size}}; padding: 0; background: transparent; box-shadow: none; color: {{fg_secondary}}; }
-calendar.button:hover { color: {{fg}}; background-color: {{flat_hover}}; }
-calendar.highlight { color: {{fg_secondary}}; font-weight: 600; font-size: {{font_size_small}}; }
+calendar:indeterminate { color: {{fg}}; }
+calendar.header { color: {{fg}}; font-weight: 400; border: none; background: none; box-shadow: none; padding: 0; }
+calendar.button, calendar button { min-width: {{control_height}}; min-height: {{control_height}}; padding: 0; border-radius: {{radius_control}}; background-color: {{button_bg}}; box-shadow: {{button_shadow}}, 0 0 0 0.5px {{border}}; color: {{fg}}; }
+calendar.button:hover { background-color: {{button_bg_hover}}; }
+calendar.highlight { color: {{fg}}; font-weight: 400; font-size: {{font_size}}; border: none; background: none; box-shadow: none; padding: 0; }
 
 /* ---- toolbar, actionbar, statusbar ---- */
 toolbar, .toolbar, .inline-toolbar, .primary-toolbar {
@@ -1025,12 +1058,12 @@ expander title > arrow, expander arrow {
   min-height: {{icon_size}};
   -gtk-icon-source: url("assets/expander-closed.svg");
   color: {{fg_secondary}};
-  transition: all {{duration_fast}} {{ease_standard}};
+  transition: color {{duration_fast}} {{ease_standard}};
 }
 expander title > arrow:checked, expander arrow:checked { -gtk-icon-source: url("assets/expander-open.svg"); }
 expander title > arrow:hover, expander arrow:hover { color: {{fg}}; }
 expander title > arrow:dir(rtl) { -gtk-icon-source: url("assets/expander-closed.svg"); }
-expander title { padding: {{spacing_xs}} 0; }
+expander title { padding: 0; }
 expander separator { min-height: 1px; }
 
 frame > border, .frame {

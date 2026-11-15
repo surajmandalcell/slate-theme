@@ -27,7 +27,7 @@ ONLY = os.environ.get("PIXDIFF_ONLY", "")  # gtk3 | qt: skip the other toolkit (
 ACTIVE = tuple(t for t in TOOLKITS if t == "gtk4" or not ONLY or t == ONLY)
 SHOWS = ("window", "menu", "popover", "tooltip", "dialog")
 SCALE = 2
-SCREEN_W, SCREEN_H = 2800, 2100  # GTK3 adds a big CSD shadow around the 2x window
+SCREEN_W, SCREEN_H = 3400, 2400  # GTK3 adds a big CSD shadow around the 2x window
 SCREEN = f"{SCREEN_W}x{SCREEN_H}x24"
 FUZZ = "6%"
 REAL_HOME = Path.home()
