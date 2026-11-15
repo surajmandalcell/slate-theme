@@ -5,7 +5,9 @@
 // shoot.sh replaces __LAYOUT__ with window (center each window) or hero (overlap two).
 const SCREEN = { w: 2400, h: 1500 };
 const layout = "__LAYOUT__";
-const HERO_SLOTS = [{ x: 110, y: 120 }, { right: 110, bottom: 120 }];
+// first window (Dolphin, behind) top-right, second (GTK4, in front and focused) bottom-left
+// Dolphin gets a fixed size so all 18 files fit without a scrollbar
+const HERO_SLOTS = [{ right: 300, y: 330, w: 1000, h: 460 }, { x: 330, bottom: 340 }];
 let slot = 0;
 
 function geo(w) {
@@ -45,9 +47,12 @@ function manage(w) {
     function fit() {
         const g = w.frameGeometry;
         if (g.width < 100) return;
-        const t = target(w, s);
-        if (Math.round(g.x) !== Math.round(t.x) || Math.round(g.y) !== Math.round(t.y)) {
-            w.frameGeometry = { x: Math.round(t.x), y: Math.round(t.y), width: g.width, height: g.height };
+        const width = s && s.w ? s.w : g.width;
+        const height = s && s.h ? s.h : g.height;
+        const t = target({ frameGeometry: { width: width, height: height } }, s);
+        if (Math.round(g.x) !== Math.round(t.x) || Math.round(g.y) !== Math.round(t.y) ||
+            Math.round(g.width) !== width || Math.round(g.height) !== height) {
+            w.frameGeometry = { x: Math.round(t.x), y: Math.round(t.y), width: width, height: height };
         }
         const now = geo(w);
         if (now !== last) { last = now; report(w); }

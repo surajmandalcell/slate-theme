@@ -102,6 +102,7 @@ if [[ ${1:-} == --inner ]]; then
     }
 
     for tk in $toolkits; do
+        [[ -n ${HERO_ONLY:-} ]] && break
         for show in window menu popover tooltip dialog; do
             # Qt popups (menu, tooltip) need an input-device grab, which the nested compositor has none of
             # (they never map); the Qt gallery has no popover. Those three ids exist for GTK only.
@@ -110,14 +111,28 @@ if [[ ${1:-} == --inner ]]; then
         done
     done
 
-    # hero: first and second toolkit overlap, Qt when available
+    # hero: a Finder-like GTK4 window behind a real Dolphin window (Kvantum), both in this mode
     load_place hero
-    n0=$(wc -l < $klog)
-    launch gtk4; hero_a=$apid; sleep 5
-    if (( have_qt )); then launch qt; else launch gtk3; fi
-    hero_b=$apid; sleep 6
-    capture $work/hero.png && magick $work/hero.png -filter Lanczos -resize 1600x1000 $ROOT/preview/hero-$mode.png
+    for d in Desktop Documents Downloads Music Pictures; do mkdir -p $home/$d; done
+    for d in Design Photos Music Projects Videos Archive; do mkdir -p $home/Documents/$d; done
+    for f in Slate.pdf tokens.json Notes.txt Cover.png Budget.ods Talk.mp3 Roadmap.odt Logo.svg Release.zip Demo.mp4 Install.sh Palette.png; do
+        : > $home/Documents/$f
+    done
+    # only the user folders in Dolphin's Places; never the host's disks or network
+    mkdir -p $home/.local/share
+    sed "s#__HOME__#$home#g" $ROOT/scripts/shoot/user-places.xbel > $home/.local/share/user-places.xbel
+    # Dolphin first (behind, top right), then the GTK4 window in front with focus (bottom left)
+    if (( have_qt )); then
+        bash $ROOT/scripts/shoot/qt-app.sh $name $home dolphin --new-window $home/Documents >> $work/app.log 2>&1 &
+    else
+        launch gtk3
+    fi
+    hero_a=$!; sleep 8
+    GDK_BACKEND=wayland GTK_THEME=$name python3 $ROOT/scripts/shoot/showcase-gtk4.py >> $work/app.log 2>&1 &
+    hero_b=$!; sleep 5
+    capture $work/hero.png && magick $work/hero.png -filter Lanczos -resize 2400x1500 -quality 92 $ROOT/preview/hero-$mode.jpg
     kill $hero_a $hero_b 2>/dev/null
+    pkill -f "dolphin --new-window $home" 2>/dev/null
     exit 0
 fi
 
@@ -139,32 +154,28 @@ for name in $modes; do
     sh $ROOT/install.sh --prefix $home > $work/install.log 2>&1 || { echo "install failed, see $work/install.log" >&2; exit 1; }
 
     printf '[General]\nColorScheme=%s\n\n[KDE]\nwidgetStyle=kvantum\n' $name > $home/.config/kdeglobals
-    printf '[org.kde.kdecoration2]\nlibrary=org.kde.kwin.aurorae.v2\ntheme=__aurorae__svg__%s\nButtonsOnLeft=XIA\nButtonsOnRight=\nBorderSize=None\nBorderSizeAuto=false\n\n[Plugins]\nkwin4_effect_shapecornersEnabled=false\n' $name > $home/.config/kwinrc
+    printf '[org.kde.kdecoration2]\nlibrary=org.kde.kwin.aurorae.v2\ntheme=__aurorae__svg__%s\nButtonsOnLeft=XIA\nButtonsOnRight=\nBorderSize=None\nBorderSizeAuto=false\n\n[Plugins]\nkwin4_effect_shapecornersEnabled=true\n\n[Round-Corners]\nSize=12\nInactiveCornerRadius=12\nOutlineThickness=0\nInactiveOutlineThickness=0\nSecondOutlineThickness=0\nInactiveSecondOutlineThickness=0\nOuterOutlineThickness=0\nInactiveOuterOutlineThickness=0\nUseNativeDecorationShadows=true\n' $name > $home/.config/kwinrc
+    # Aurorae has no bottom border (BorderSize=None) and KWin 6.8 cannot round a client by itself, so the
+    # bottom corners come from the shapecorners effect, as scripts/apply-kde.sh sets it (outlines off).
     # GTK3 on Wayland takes the button layout from GSettings, not settings.ini
     mkdir -p $home/.config/glib-2.0/settings
     printf "[org/gnome/desktop/wm/preferences]\nbutton-layout='close,minimize,maximize:'\n\n[org/gnome/desktop/interface]\ngtk-theme='%s'\n" $name > $home/.config/glib-2.0/settings/keyfile
     for v in 3.0 4.0; do
-        printf '[Settings]\ngtk-theme-name=%s\ngtk-decoration-layout=close,minimize,maximize:\ngtk-application-prefer-dark-theme=%s\n' \
+        printf '[Settings]\ngtk-theme-name=%s\ngtk-icon-theme-name=breeze\ngtk-decoration-layout=close,minimize,maximize:\ngtk-application-prefer-dark-theme=%s\n' \
             $name $([[ $mode == dark ]] && echo 1 || echo 0) > $home/.config/gtk-$v/settings.ini
     done
 
-    # soft macOS-style wallpaper: a few blurred colour blobs, upscaled to 2x screen size
-    if [[ $mode == light ]]; then
-        base='#dfe6f5'; blobs=('#9fb4ff 80,60 260' '#ffc7e0 430,90 220' '#bfe8ff 300,300 260' '#ffe3b8 60,290 200')
-    else
-        base='#12162a'; blobs=('#3b3f9a 80,60 260' '#6a2f7d 430,90 220' '#1c5a7a 300,300 260' '#2a2f55 60,290 200')
-    fi
-    args=(-size 500x312 xc:$base)
-    for b in $blobs; do
-        parts=(${=b}); c=(${(s:,:)parts[2]})
-        args+=(-fill $parts[1] -draw "circle $c[1],$c[2] $((c[1] + parts[3])),$c[2]")
-    done
-    magick $args -blur 0x70 -resize $((W * 2))x$((H * 2))! -attenuate 0.08 +noise Gaussian $work/wallpaper.png
+    # wallpaper: assets/wallpaper.jpg (apple blossom), cropped to the screen; a touch brighter in
+    # light mode and dimmed in dark mode so the windows read clearly on top of it
+    if [[ $mode == light ]]; then tone=(-modulate 128,92 -level 0%,100%,1.08); else tone=(-modulate 58,88); fi
+    magick $ROOT/assets/wallpaper.jpg -resize $((W * 2))x$((H * 2))^ -gravity center -extent $((W * 2))x$((H * 2)) \
+        $tone $work/wallpaper.png
 
-    rm -f $ROOT/preview/widgets/*-$mode.png $ROOT/preview/hero-$mode.png
+    [[ -n ${HERO_ONLY:-} ]] || rm -f $ROOT/preview/widgets/*-$mode.png
+    rm -f $ROOT/preview/hero-$mode.png $ROOT/preview/hero-$mode.jpg
     ORIG_BUS=${DBUS_SESSION_BUS_ADDRESS:-} timeout 600 dbus-run-session -- zsh $SELF --inner $name > $work/session.log 2>&1
     sleep 2   # let the nested kwin exit before the next mode
-    zsh $ROOT/scripts/shoot/compare.sh $mode
+    [[ -n ${HERO_ONLY:-} ]] || zsh $ROOT/scripts/shoot/compare.sh $mode
     echo "$name: exit $?, $(ls $ROOT/preview/widgets/*-$mode.png 2>/dev/null | wc -l) crops, log $work/session.log"
 done
 pgrep -fa 'slate-shot' | grep -v pgrep && echo "leftover processes" >&2

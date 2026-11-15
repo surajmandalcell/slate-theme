@@ -54,6 +54,8 @@ command -v kwriteconfig6 >/dev/null 2>&1 || { echo "kwriteconfig6 not found (ins
 
 # Colors, widget style, Plasma theme.
 kw kdeglobals General ColorScheme "$name"
+# KF6 apps that use KColorSchemeManager (Dolphin) fall back to Breeze Light outside Plasma unless this is set
+kw kdeglobals UiSettings ColorScheme "$name"
 act plasma-apply-colorscheme "$name"
 kw kdeglobals KDE widgetStyle kvantum
 if command -v kvantummanager >/dev/null 2>&1; then
@@ -128,6 +130,12 @@ if [ -e /usr/lib/qt6/plugins/kwin/effects/plugins/kwin4_effect_shapecorners.so ]
   kw kwinrc Plugins kwin4_effect_shapecornersEnabled true
   kw kwinrc Round-Corners Size "$radius"
   kw kwinrc Round-Corners InactiveCornerRadius "$radius"
+  # Its default dark outlines fight the theme's hairline; keep the Aurorae shadow.
+  for key in OutlineThickness InactiveOutlineThickness SecondOutlineThickness InactiveSecondOutlineThickness \
+             OuterOutlineThickness InactiveOuterOutlineThickness; do
+    kw kwinrc Round-Corners "$key" 0
+  done
+  kw kwinrc Round-Corners UseNativeDecorationShadows true
 else
   echo "note: no window corner radius effect installed; window corners come from the Aurorae theme."
 fi

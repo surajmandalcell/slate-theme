@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xbel>
+<xbel xmlns:bookmark="http://www.freedesktop.org/standards/desktop-bookmarks" xmlns:kdepriv="http://www.kde.org/kdepriv" xmlns:mime="http://www.freedesktop.org/standards/shared-mime-info">
+ <info>
+  <metadata owner="http://www.kde.org">
+   <kde_places_version>4</kde_places_version>
+   <GroupState-Places-IsHidden>false</GroupState-Places-IsHidden>
+   <GroupState-Remote-IsHidden>true</GroupState-Remote-IsHidden>
+   <GroupState-Devices-IsHidden>true</GroupState-Devices-IsHidden>
+   <GroupState-RemovableDevices-IsHidden>true</GroupState-RemovableDevices-IsHidden>
+   <GroupState-SearchFor-IsHidden>true</GroupState-SearchFor-IsHidden>
+   <GroupState-RecentlySaved-IsHidden>true</GroupState-RecentlySaved-IsHidden>
+   <GroupState-Tags-IsHidden>true</GroupState-Tags-IsHidden>
+   <withRecentlyUsed>false</withRecentlyUsed>
+   <withBaloo>false</withBaloo>
+  </metadata>
+ </info>
+ <bookmark href="file://__HOME__"><title>Home</title><info><metadata owner="http://freedesktop.org"><bookmark:icon name="user-home"/></metadata><metadata owner="http://www.kde.org"><ID>slate-1</ID></metadata></info></bookmark>
+ <bookmark href="file://__HOME__/Desktop"><title>Desktop</title><info><metadata owner="http://freedesktop.org"><bookmark:icon name="user-desktop"/></metadata><metadata owner="http://www.kde.org"><ID>slate-2</ID></metadata></info></bookmark>
+ <bookmark href="file://__HOME__/Documents"><title>Documents</title><info><metadata owner="http://freedesktop.org"><bookmark:icon name="folder-documents"/></metadata><metadata owner="http://www.kde.org"><ID>slate-3</ID></metadata></info></bookmark>
+ <bookmark href="file://__HOME__/Downloads"><title>Downloads</title><info><metadata owner="http://freedesktop.org"><bookmark:icon name="folder-download"/></metadata><metadata owner="http://www.kde.org"><ID>slate-4</ID></metadata></info></bookmark>
+ <bookmark href="file://__HOME__/Music"><title>Music</title><info><metadata owner="http://freedesktop.org"><bookmark:icon name="folder-music"/></metadata><metadata owner="http://www.kde.org"><ID>slate-5</ID></metadata></info></bookmark>
+ <bookmark href="file://__HOME__/Pictures"><title>Pictures</title><info><metadata owner="http://freedesktop.org"><bookmark:icon name="folder-pictures"/></metadata><metadata owner="http://www.kde.org"><ID>slate-6</ID></metadata></info></bookmark>
+ <bookmark href="trash:/"><title>Trash</title><info><metadata owner="http://freedesktop.org"><bookmark:icon name="user-trash"/></metadata><metadata owner="http://www.kde.org"><ID>slate-7</ID></metadata></info></bookmark>
+</xbel>

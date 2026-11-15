@@ -1,8 +1,8 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="preview/hero-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="preview/hero-light.png">
-    <img alt="Slate theme on GNOME and KDE Plasma" src="preview/hero-light.png" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="preview/hero-dark.jpg">
+    <source media="(prefers-color-scheme: light)" srcset="preview/hero-light.jpg">
+    <img alt="Slate theme: a GTK4 window in front of KDE's Dolphin" src="preview/hero-light.jpg" width="100%">
   </picture>
 </p>
 
@@ -290,3 +290,7 @@ Update the screenshots with `scripts/shoot.sh`.
 ## License
 
 GPL-2.0-only. See [COPYING](COPYING).
+
+The wallpaper in the screenshots (`assets/wallpaper.jpg`) is an apple blossom photo
+from [Unsplash](https://images.unsplash.com/photo-1653265797984-1e2d12ea1048), used under
+the Unsplash License.
