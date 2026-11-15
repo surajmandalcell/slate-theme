@@ -30,6 +30,11 @@ mkdir -p "$_qe_home/.config/Kvantum/$_qe_theme"
 cp -r "$_qe_repo/dist/$_qe_theme/kde/kvantum/$_qe_theme/." "$_qe_home/.config/Kvantum/$_qe_theme/"
 printf '[General]\ntheme=%s\n' "$_qe_theme" >"$_qe_home/.config/Kvantum/kvantum.kvconfig"
 
+# Same text as GTK (13px / 11px at 96 dpi): Inter 9.75pt and 8.25pt, one fontconfig for both toolkits.
+printf '[General]\nfont=Inter,9.75,-1,5,50,0,0,0,0,0\nsmallestReadableFont=Inter,8.25,-1,5,50,0,0,0,0,0\n' >"$_qe_home/.config/kdeglobals"
+mkdir -p "$_qe_home/.local/share" "$_qe_home/.cache"
+ln -sfn "$HOME/.local/share/fonts" "$_qe_home/.local/share/fonts"
+export FONTCONFIG_FILE="${FONTCONFIG_FILE:-$_qe_repo/scripts/pixdiff-fonts.conf}" SLATE_QT_FONT=1 QT_FONT_DPI=96
 export HOME="$_qe_home" XDG_CONFIG_HOME="$_qe_home/.config"
 export QT_PLUGIN_PATH="$_qe_prefix/plugins" QT_STYLE_OVERRIDE=kvantum
 unset QT_QPA_PLATFORMTHEME
