@@ -285,11 +285,14 @@ for st, ring, fillc in (("normal", "border_hex", "entry_bg"), ("focused", "accen
     fcol = "accent" if st == "normal" else "accent_hover"
     raw(CHECK, CHECK, f'<g id="radio-checked-{st}"><rect width="{CHECK}" height="{CHECK}" opacity="0"/><circle cx="{c2}" cy="{c2}" r="{c2}" fill="{t(fcol)}"/><circle cx="{c2}" cy="{c2}" r="3" fill="{t("accent_fg")}"/></g>')
 
-# slider knob: total size = slider_knob (r = half - 0.25, plus a 0.5 stroke)
+# slider knob: total size = slider_knob (r = half - 0.25, plus a 0.5 stroke), centered in a knob x control_height
+# tile, because Kvantum sizes the slider from the handle (kvconfig slider_handle_width = control_height, like GTK4 scale)
 k2 = num(KNOB / 2)
+KH = px("control_height")
+ky = KH / 2
 for st, o in (("normal", None), ("focused", None), ("pressed", None), ("toggled", None), ("disabled", 0.55)):
     oa = f' opacity="{o}"' if o else ""
-    raw(KNOB, KNOB, f'<g id="slidercursor-{st}"{oa}><rect width="{KNOB}" height="{KNOB}" opacity="0"/><circle cx="{k2}" cy="{num(KNOB/2+0.7)}" r="{num(KNOB/2-0.7)}" fill="#000" fill-opacity="0.18"/><circle cx="{k2}" cy="{k2}" r="{num(KNOB/2-0.25)}" fill="{t("switch_knob_color")}" stroke="{t("border_hex")}" stroke-width="0.5"/></g>')
+    raw(KNOB, KH, f'<g id="slidercursor-{st}"{oa}><rect width="{KNOB}" height="{KH}" opacity="0"/><circle cx="{k2}" cy="{num(ky+0.7)}" r="{num(KNOB/2-0.7)}" fill="#000" fill-opacity="0.18"/><circle cx="{k2}" cy="{num(ky)}" r="{num(KNOB/2-0.25)}" fill="{t("switch_knob_color")}" stroke="{t("border_hex")}" stroke-width="0.5"/></g>')
 
 height = cur["y"] + cur["rowh"] + 8
 head = (f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="{W}" height="{height}">\n'

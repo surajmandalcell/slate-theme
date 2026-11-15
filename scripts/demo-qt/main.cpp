@@ -181,6 +181,7 @@ int main(int argc, char **argv) {
 
     auto *info = new QFrame; info->setFrameShape(QFrame::StyledPanel);
     auto *il = new QHBoxLayout(info);
+    il->setContentsMargins(6, 2, 6, 2); // GTK4 infobar padding 8 x 12, minus the 6 px GenericFrame width
     il->addWidget(new QLabel("A new Slate build is ready."), 1);
     il->addWidget(new QPushButton("Update"));
     auto *close = new QToolButton; close->setIcon(themed("window-close-symbolic")); il->addWidget(close);
