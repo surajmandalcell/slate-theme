@@ -224,6 +224,7 @@ int main(int argc, char **argv) {
     win.setCentralWidget(central);
     win.resize(w, h);
     win.show();
+    win.activateWindow(); // Xvfb has no window manager: without this Qt paints the inactive (backdrop) palette, GTK4 does not
 
     QMenu *menu = nullptr; QMessageBox *dlg = nullptr; QFrame *pop = nullptr;
     auto showDialog = [&] {
